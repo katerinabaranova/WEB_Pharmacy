@@ -5,7 +5,7 @@ import java.sql.*;
 public class ProxyConnection implements Connection,Wrapper {
     private Connection connection;
 
-    ProxyConnection(Connection connection) { // только в пакете
+    ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 

@@ -8,14 +8,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Created by Ekaterina on 7/10/16.
- */
+
 public class ConnectionPool<T> {
     private static final Logger LOG= LogManager.getLogger();
+    private static ConnectionPool instance=null;
+    private volatile static boolean instanceCreated=false;
+    private static Lock lock=new ReentrantLock();
     private ArrayBlockingQueue <T> connectionQueue;
-    public ConnectionPool (final int POOL_SIZE){
+
+    private ConnectionPool (final int POOL_SIZE){
         connectionQueue=new ArrayBlockingQueue<T>(POOL_SIZE);
         ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
         String url = resource.getString("db.url");
@@ -31,8 +35,20 @@ public class ConnectionPool<T> {
             }
         }
     }
+    public static ConnectionPool getInstance(final int POOL_SIZE){
+        if (!instanceCreated) {
+            lock.lock();
+            try {
+                instance = new ConnectionPool(POOL_SIZE);
+                instanceCreated = true;
+            }finally {
+                lock.unlock();
+            }
+        }
+        return instance;
+    }
 
-    public T getConnection() {
+    public T  getConnection() {
         T connection=null;
         try {
             connection = connectionQueue.take();
