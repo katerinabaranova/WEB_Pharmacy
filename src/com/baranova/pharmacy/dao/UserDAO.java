@@ -1,51 +1,46 @@
 package com.baranova.pharmacy.dao;
 
 
-import com.baranova.pharmacy.connection.ConnectionPool;
-import com.baranova.pharmacy.connection.ProxyConnection;
-import com.baranova.pharmacy.constant.FileConstant;
+import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.pool.ConnectionPool;
+import com.baranova.pharmacy.pool.ProxyConnection;
 import com.baranova.pharmacy.entity.User;
 
-import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class UserDAO extends AbstractDAO<Integer,User>{
     private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM user";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
-    private static final String SQL_SELECT_USER_BY_ROLE=
-            "SELECT iduser,name,surname FROM user WHERE role=?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM user WHERE user.iduser= ?";
+    private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,name,surname FROM user WHERE user.fkrole=?";
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws ExceptionDAO{
         List<User> users = new ArrayList<>();
         ProxyConnection cn = null;
         Statement st = null;
-        ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
-        int size = Integer.parseInt(resource.getString("db.poolsize"));
-        ConnectionPool<ProxyConnection> connectionPool=ConnectionPool.getInstance(size);
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
         try {
-
-            cn = connectionPool.getConnection();
+            cn = connectionPool.takeConnection();
             st = cn.createStatement();
             ResultSet resultSet = st.executeQuery(SQL_SELECT_ALL_USERS);
             while (resultSet.next()) {
                 User user = new User();
-                user.setUserID(resultSet.getInt("userid"));
+                user.setUserID(resultSet.getInt("iduser"));
                 user.setName(resultSet.getString("name"));
                 user.setSurname(resultSet.getString("surname"));
                 user.setLogin(resultSet.getString("login"));
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("");
         } finally {
             close(st);
-            connectionPool.closeConnection(cn);
         }
         return users;
     }
@@ -55,16 +50,15 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     public User findEntityById(Integer id) {
         User user = new User();
         ProxyConnection cn = null;
-        Statement st = null;
-        ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
-        int size = Integer.parseInt(resource.getString("db.poolsize"));
-        ConnectionPool<ProxyConnection> connectionPool=ConnectionPool.getInstance(size);
+        PreparedStatement st = null;
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
         try {
-            cn = connectionPool.getConnection();
-            st = cn.createStatement();
-            ResultSet resultSet = st.executeQuery(SQL_SELECT_USER_BY_ID);
+            cn = connectionPool.takeConnection();
+            st = cn.prepareStatement(SQL_SELECT_USER_BY_ID);
+            st.setInt(1,id);
+            ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
-                user.setUserID(resultSet.getInt("userid"));
+                user.setUserID(resultSet.getInt("iduser"));
                 user.setName(resultSet.getString("name"));
                 user.setSurname(resultSet.getString("surname"));
                 user.setLogin(resultSet.getString("login"));
@@ -73,13 +67,14 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
             close(st);
-            connectionPool.closeConnection(cn);
+            connectionPool.releaseConnection(cn);
         }
         return user;
     }
 
     @Override
     public boolean delete(Integer id) {
+
         return false;
     }
 

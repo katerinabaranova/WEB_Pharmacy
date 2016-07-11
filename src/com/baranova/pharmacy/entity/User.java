@@ -13,8 +13,29 @@ public class User extends Entity {
     private String adress;
     private String houseNumber;
     private String email;
+
+
+
     private String phoneNumber;
     private int role;
+
+    public User(){
+    }
+    public User(long id, String login, String password, String name, String surname,
+                String city, String adress, String houseNumber, String email, String phoneNumber, int role) {
+        super(id);
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
+        this.adress = adress;
+        this.houseNumber = houseNumber;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
 
     public long getUserID(){return super.getId();}
     public String getLogin() {return login;}
@@ -40,20 +61,11 @@ public class User extends Entity {
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
     public void setRole(int role) {this.role = role;}
 
-    public User(){
-    }
-    public User(long id, String login, String password, String name, String surname,
-                String city, String adress, String houseNumber, String email, String phoneNumber, int role) {
-        super(id);
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.city = city;
-        this.adress = adress;
-        this.houseNumber = houseNumber;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
     }
 }

@@ -1,11 +1,15 @@
-package com.baranova.pharmacy.connection;
+package com.baranova.pharmacy.pool;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class ProxyConnection implements Connection,Wrapper {
+public class ProxyConnection implements Connection,Wrapper,AutoCloseable {
+    private static final Logger LOG= LogManager.getLogger();
     private Connection connection;
 
     ProxyConnection(Connection connection) {
@@ -16,16 +20,25 @@ public class ProxyConnection implements Connection,Wrapper {
     public Statement createStatement() throws SQLException {
         return connection.createStatement();
     }
+
     @Override
     public void close() throws SQLException {
-        connection.close();
+        ConnectionPool.getInstance().releaseConnection(this);
+    }
+
+    protected void realClose() {
+        try {
+            connection.close();
+        } catch (SQLException e){
+            LOG.error("Impossible to close connection");
+        }
     }
     @Override
     public void commit() throws SQLException {
-
         connection.commit();
     }
-        @Override
+
+    @Override
     public boolean isClosed() throws SQLException {
         return connection.isClosed();
     }
