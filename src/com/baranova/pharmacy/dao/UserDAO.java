@@ -20,6 +20,8 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber FROM user WHERE user.fkrole=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,fkrole=? WHERE iduser=?;";
+
     @Override
     public List<User> findAll() throws ExceptionDAO{
         List<User> users = new ArrayList<>();
@@ -31,6 +33,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             st = cn.prepareStatement(SQL_SELECT_ALL_USERS);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
+
                 User user = new User();
                 user.setUserID(resultSet.getInt("iduser"));
                 user.setLogin(resultSet.getString("login"));
@@ -79,7 +82,6 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             System.err.println("SQL exception (request or table failed): " + e);
         } finally {
             close(st);
-            connectionPool.releaseConnection(cn);
         }
         return user;
     }
@@ -118,8 +120,21 @@ public class UserDAO extends AbstractDAO<Integer,User>{
 
     @Override
     public boolean delete(Integer id) {
-
-        return false;
+        ProxyConnection cn = null;
+        PreparedStatement st = null;
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        boolean isDeleted=false;
+        try {
+            cn = connectionPool.takeConnection();
+            st = cn.prepareStatement(SQL_DELETE_USER_BY_ID);
+            st.setInt(1,id);
+            isDeleted=st.execute();
+        } catch (SQLException e) {
+            System.err.println("SQL exception (request or table failed): " + e);
+        } finally {
+            close(st);
+        }
+        return isDeleted;
     }
 
     @Override
@@ -157,7 +172,31 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     }
 
     @Override
-    public User update(User entity) {
-        return null;
+    public boolean update(User entity) {
+        ProxyConnection cn = null;
+        PreparedStatement st = null;
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        boolean isCreated=false;
+        try {
+            cn = connectionPool.takeConnection();
+            st = cn.prepareStatement(SQL_UPDATE_USER_BY_ENTITY);
+            st.setString(1,entity.getLogin());
+            st.setString(2,entity.getPassword());
+            st.setString(3,entity.getName());
+            st.setString(4,entity.getSurname());
+            st.setString(5,entity.getEmail());
+            st.setString(6,entity.getPhoneNumber());
+            st.setString(7,entity.getCity());
+            st.setString(8,entity.getStreet());
+            st.setInt(9,entity.getHouseNumber());
+            st.setInt(10,entity.getRole());
+            st.setLong(11,entity.getUserID());
+            isCreated=0<st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL exception (request or table failed): " + e);
+        } finally {
+            close(st);
+        }
+        return isCreated;
     }
 }

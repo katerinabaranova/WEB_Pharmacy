@@ -1,8 +1,6 @@
 package com.baranova.pharmacy.entity;
 
-/**
- * Created by Ekaterina on 7/9/16.
- */
+
 public class User extends Entity {
 
     private String login;
@@ -13,9 +11,6 @@ public class User extends Entity {
     private String street;
     private int houseNumber;
     private String email;
-
-
-
     private String phoneNumber;
     private int role;
 
