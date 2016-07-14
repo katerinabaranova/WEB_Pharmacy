@@ -17,9 +17,8 @@ public class Main {
 
         try {
             MedicineDAO med = new MedicineDAO();
-            /*List<Medicine> users = med.findAll();
-            System.out.println(users);
-            Medicine user1=med.findEntityById(1);
+            //List<Medicine> users = med.findAll();
+            /*Medicine user1=med.findEntityById(1);
             System.out.println(user1);*/
             //Medicine user3=new Medicine("Aygmentin",457,"battle/suspension",5,13,2,true);
             Medicine user3=med.findEntityById(4);
