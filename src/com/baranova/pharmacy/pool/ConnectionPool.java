@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,13 +26,17 @@ public class ConnectionPool {
     private ConnectionPool (){
         try {
             ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
+            Properties prop = new java.util.Properties();
+            prop.put("user", resource.getString("db.user"));
+            prop.put("password", resource.getString("db.password"));
+            prop.put("autoReconnect", resource.getString("db.autoreconnect"));
+            prop.put("characterEncoding",resource.getString("db.encoding") );
+            prop.put("useUnicode",resource.getString("db.useUnicode"));
             String url = resource.getString("db.url");
-            String user = resource.getString("db.user");
-            String pass = resource.getString("db.password");
             int size = Integer.parseInt(resource.getString("db.poolsize"));
             connectionQueue = new ArrayBlockingQueue<ProxyConnection>(size);
             for (int i = 0; i < size; i++) {
-                Connection connection = DriverManager.getConnection(url, user, pass);
+                Connection connection = DriverManager.getConnection(url, prop);
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 connectionQueue.offer(proxyConnection);
             }

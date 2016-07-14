@@ -15,11 +15,11 @@ public abstract class AbstractDAO <K,T extends Entity> {
     private static final Logger LOG= LogManager.getLogger();
 
     public abstract List<T> findAll () throws ExceptionDAO;
-    public abstract T findEntityById(K id);
-    public abstract boolean delete(K id);
-    public abstract boolean delete(T entity);
-    public abstract boolean create(T entity);
-    public abstract boolean update(T entity);
+    public abstract T findEntityById(K id) throws ExceptionDAO;
+    public abstract boolean delete(K id) throws ExceptionDAO;
+    public abstract boolean delete(T entity) throws ExceptionDAO;
+    public abstract boolean create(T entity) throws ExceptionDAO;
+    public abstract boolean update(T entity)throws ExceptionDAO;
     //TODO Зачем эти методы в дао
     public void close(Statement st) {
         try {

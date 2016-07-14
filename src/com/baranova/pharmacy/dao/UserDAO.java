@@ -10,7 +10,6 @@ import com.baranova.pharmacy.entity.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
                 users.add(user);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("");
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
@@ -56,7 +55,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     }
 
     @Override
-    public User findEntityById(Integer id) {
+    public User findEntityById(Integer id) throws ExceptionDAO{
         User user = new User();
         ProxyConnection cn = null;
         PreparedStatement st = null;
@@ -79,14 +78,14 @@ public class UserDAO extends AbstractDAO<Integer,User>{
                 user.setHouseNumber(resultSet.getInt("housenumber"));
             }
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
         return user;
     }
 
-    public List<User> findEntityByRole(Integer roleId) {
+    public List<User> findEntityByRole(Integer roleId) throws ExceptionDAO{
         List<User> users = new ArrayList<>();
         ProxyConnection cn = null;
         PreparedStatement st = null;
@@ -111,7 +110,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
@@ -119,7 +118,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id) throws ExceptionDAO{
         ProxyConnection cn = null;
         PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
@@ -130,7 +129,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             st.setInt(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
@@ -138,12 +137,12 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     }
 
     @Override
-    public boolean delete(User entity) {
+    public boolean delete(User entity) throws ExceptionDAO {
         return false;
     }
 
     @Override
-    public boolean create(User entity) {
+    public boolean create(User entity) throws ExceptionDAO {
         ProxyConnection cn = null;
         PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
@@ -164,7 +163,7 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             st.setInt(11,entity.getRole());
             isCreated=st.execute();
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
@@ -172,11 +171,11 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     }
 
     @Override
-    public boolean update(User entity) {
+    public boolean update(User entity) throws ExceptionDAO {
         ProxyConnection cn = null;
         PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isCreated=false;
+        boolean isUpdate=false;
         try {
             cn = connectionPool.takeConnection();
             st = cn.prepareStatement(SQL_UPDATE_USER_BY_ENTITY);
@@ -191,12 +190,12 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             st.setInt(9,entity.getHouseNumber());
             st.setInt(10,entity.getRole());
             st.setLong(11,entity.getUserID());
-            isCreated=0<st.executeUpdate();
+            isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("SQL exception (request or table failed): " + e);
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         } finally {
             close(st);
         }
-        return isCreated;
+        return isUpdate;
     }
 }
