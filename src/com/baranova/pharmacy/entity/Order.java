@@ -22,6 +22,7 @@ public class Order extends Entity {
         this.delivery = delivery;
     }
 
+    public long getOrderId(){return super.getId();}
     public long getFkUserID() {return fkUserID;}
     public long getFkMedicineID() {return fkMedicineID;}
     public int getQuantity() {return quantity;}
@@ -29,10 +30,23 @@ public class Order extends Entity {
     public boolean isPaid() {return paid;}
     public boolean isDelivery() {return delivery;}
 
+    public void setOrderId(long id){super.setId(id);}
     public void setFkUserID(long fkUserID) {this.fkUserID = fkUserID;}
     public void setFkMedicineID(long fkMedicineID) {this.fkMedicineID = fkMedicineID;}
     public void setQuantity(int quantity) {this.quantity = quantity;}
     public void setTotalAmount(int totalAmount) {this.totalAmount = totalAmount;}
     public void setPaid(boolean paid) {this.paid = paid;}
     public void setDelivery(boolean delivery) {this.delivery = delivery;}
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "fkUserID=" + fkUserID +
+                ", fkMedicineID=" + fkMedicineID +
+                ", quantity=" + quantity +
+                ", totalAmount=" + totalAmount +
+                ", paid=" + paid +
+                ", delivery=" + delivery +
+                '}';
+    }
 }

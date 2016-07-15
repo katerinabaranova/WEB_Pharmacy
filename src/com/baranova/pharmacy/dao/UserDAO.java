@@ -13,7 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractDAO<Integer,User>{
+public class UserDAO extends AbstractDAO<User>{
+
     private static final String SQL_SELECT_ALL_USERS = "SELECT iduser,login,name,surname,email,phonenumber,city,street,housenumber FROM user";
     private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber FROM user WHERE user.iduser=?";
     private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber FROM user WHERE user.fkrole=?";
@@ -24,15 +25,10 @@ public class UserDAO extends AbstractDAO<Integer,User>{
     @Override
     public List<User> findAll() throws ExceptionDAO{
         List<User> users = new ArrayList<>();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_ALL_USERS);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_ALL_USERS)){
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
-
                 User user = new User();
                 user.setUserID(resultSet.getInt("iduser"));
                 user.setLogin(resultSet.getString("login"));
@@ -48,25 +44,19 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return users;
     }
 
     @Override
-    public User findEntityById(Integer id) throws ExceptionDAO{
+    public User findEntityById(long id) throws ExceptionDAO{
         User user = new User();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_USER_BY_ID);
-            st.setInt(1,id);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_USER_BY_ID)){
+            st.setLong(1,id);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
-                user.setUserID(resultSet.getInt("iduser"));
+                user.setUserID(resultSet.getLong("iduser"));
                 user.setLogin(resultSet.getString("login"));
                 user.setName(resultSet.getString("name"));
                 user.setSurname(resultSet.getString("surname"));
@@ -79,25 +69,19 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return user;
     }
 
-    public List<User> findEntityByRole(Integer roleId) throws ExceptionDAO{
+    public List<User> findEntityByRole(long roleId) throws ExceptionDAO{
         List<User> users = new ArrayList<>();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_USER_BY_ROLE);
-            st.setInt(1,roleId);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_USER_BY_ROLE)){
+            st.setLong(1,roleId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
-                user.setUserID(resultSet.getInt("iduser"));
+                user.setUserID(resultSet.getLong("iduser"));
                 user.setLogin(resultSet.getString("login"));
                 user.setName(resultSet.getString("name"));
                 user.setSurname(resultSet.getString("surname"));
@@ -111,27 +95,19 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return users;
     }
 
     @Override
-    public boolean delete(Integer id) throws ExceptionDAO{
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
+    public boolean delete(long id) throws ExceptionDAO{
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isDeleted=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_DELETE_USER_BY_ID);
-            st.setInt(1,id);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_USER_BY_ID)){
+            st.setLong(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isDeleted;
     }
@@ -143,13 +119,9 @@ public class UserDAO extends AbstractDAO<Integer,User>{
 
     @Override
     public boolean create(User entity) throws ExceptionDAO {
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_CREATE_USER);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_USER)){
             st.setLong(1,entity.getUserID());
             st.setString(2,entity.getLogin());
             st.setString(3,entity.getPassword());
@@ -164,21 +136,15 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             isCreated=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isCreated;
     }
 
     @Override
     public boolean update(User entity) throws ExceptionDAO {
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isUpdate=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_UPDATE_USER_BY_ENTITY);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_USER_BY_ENTITY)){
             st.setString(1,entity.getLogin());
             st.setString(2,entity.getPassword());
             st.setString(3,entity.getName());
@@ -193,8 +159,6 @@ public class UserDAO extends AbstractDAO<Integer,User>{
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isUpdate;
     }

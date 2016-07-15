@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
+public class MedicineDAO extends AbstractDAO <Medicine> {
 
     private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt FROM medicine";
     private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt FROM medicine WHERE medicine.idmedicine=?";
@@ -23,12 +23,8 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
     @Override
     public List<Medicine> findAll() throws ExceptionDAO{
         List<Medicine> medicines = new ArrayList<>();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_ALL_MEDICINE);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_ALL_MEDICINE)){
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Medicine medicine = new Medicine();
@@ -43,22 +39,16 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return medicines;
     }
 
     @Override
-    public Medicine findEntityById (Integer id)  throws ExceptionDAO{
+    public Medicine findEntityById (long id)  throws ExceptionDAO{
         Medicine medicine = new Medicine();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_MEDICINE_BY_ID);
-            st.setInt(1,id);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_BY_ID)){
+            st.setLong(1,id);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 medicine.setId(resultSet.getInt("idmedicine"));
@@ -71,20 +61,14 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return medicine;
     }
 
     public Medicine findEntityByName(String name) throws ExceptionDAO {
         Medicine medicine = new Medicine();
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_SELECT_MEDICINE_BY_NAME);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_BY_NAME)){
             st.setString(1,name);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
@@ -98,27 +82,19 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return medicine;
     }
 
     @Override
-    public boolean delete(Integer id) throws ExceptionDAO {
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
+    public boolean delete(long id) throws ExceptionDAO {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isDeleted=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_DELETE_MEDICINE_BY_ID);
-            st.setInt(1,id);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_MEDICINE_BY_ID)){
+            st.setLong(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isDeleted;
     }
@@ -130,13 +106,9 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
 
     @Override
     public boolean create(Medicine entity) throws ExceptionDAO{
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_CREATE_MEDICINE);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_MEDICINE)){
             st.setString(1,entity.getMedicineName());
             st.setInt(2,entity.getDosage());
             st.setString(3,entity.getPackageType());
@@ -147,21 +119,15 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
             isCreated=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isCreated;
     }
 
     @Override
     public boolean update(Medicine entity) throws ExceptionDAO {
-        ProxyConnection cn = null;
-        PreparedStatement st = null;
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isUpdate=false;
-        try {
-            cn = connectionPool.takeConnection();
-            st = cn.prepareStatement(SQL_UPDATE_MEDICINE_BY_ENTITY);
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_MEDICINE_BY_ENTITY)){
             st.setLong(1,entity.getId());
             st.setString(2,entity.getMedicineName());
             st.setInt(3,entity.getDosage());
@@ -174,8 +140,6 @@ public class MedicineDAO extends AbstractDAO <Integer,Medicine> {
             isUpdate=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
-        } finally {
-            close(st);
         }
         return isUpdate;
     }

@@ -26,7 +26,7 @@ public class ConnectionPool {
     private ConnectionPool (){
         try {
             ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
-            Properties prop = new java.util.Properties();
+            Properties prop = new Properties();
             prop.put("user", resource.getString("db.user"));
             prop.put("password", resource.getString("db.password"));
             prop.put("autoReconnect", resource.getString("db.autoreconnect"));

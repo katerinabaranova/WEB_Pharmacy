@@ -26,7 +26,7 @@ public class ProxyConnection implements Connection,Wrapper,AutoCloseable {
         ConnectionPool.getInstance().releaseConnection(this);
     }
 
-    protected void realClose() {
+    void realClose() {
         try {
             connection.close();
         } catch (SQLException e){
