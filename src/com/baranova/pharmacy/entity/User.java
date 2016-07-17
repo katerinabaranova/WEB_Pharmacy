@@ -10,6 +10,7 @@ public class User extends Entity {
     private String city;
     private String street;
     private int houseNumber;
+    private int apartment;
     private String email;
     private String phoneNumber;
     private int role;
@@ -17,7 +18,7 @@ public class User extends Entity {
     public User(){
     }
     public User(long id, String login, String password, String name, String surname,
-                String city, String adress, int houseNumber, String email, String phoneNumber, int role) {
+                String city, String adress, int houseNumber, int apartment, String email, String phoneNumber, int role) {
         super(id);
         this.login = login;
         this.password = password;
@@ -26,6 +27,7 @@ public class User extends Entity {
         this.city = city;
         this.street = adress;
         this.houseNumber = houseNumber;
+        this.apartment=apartment;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
@@ -40,6 +42,7 @@ public class User extends Entity {
     public String getCity() {return city;}
     public String getStreet() {return street;}
     public int getHouseNumber() {return houseNumber;}
+    public int getApartment() {return apartment;}
     public String getEmail() {return email;}
     public String getPhoneNumber() {return phoneNumber;}
     public int getRole() {return role;}
@@ -52,6 +55,7 @@ public class User extends Entity {
     public void setCity(String city) {this.city = city;}
     public void setStreet(String street) {this.street = street;}
     public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
+    public void setApartment(int apartment) {this.apartment = apartment;}
     public void setEmail(String email) {this.email = email;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
     public void setRole(int role) {this.role = role;}

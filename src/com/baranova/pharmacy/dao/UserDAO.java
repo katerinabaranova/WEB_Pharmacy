@@ -15,12 +15,12 @@ import java.util.List;
 
 public class UserDAO extends AbstractDAO<User>{
 
-    private static final String SQL_SELECT_ALL_USERS = "SELECT iduser,login,name,surname,email,phonenumber,city,street,housenumber FROM user";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber FROM user WHERE user.iduser=?";
-    private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber FROM user WHERE user.fkrole=?";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT iduser,login,name,surname,email,phonenumber,city,street,housenumber,apartment FROM user";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.iduser=?";
+    private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.fkrole=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
-    private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,fkrole=? WHERE iduser=?;";
+    private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
 
     @Override
     public List<User> findAll() throws ExceptionDAO{
@@ -40,6 +40,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setCity(resultSet.getString("city"));
                 user.setStreet(resultSet.getString("street"));
                 user.setHouseNumber(resultSet.getInt("housenumber"));
+                user.setApartment(resultSet.getInt("apartment"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -66,6 +67,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setCity(resultSet.getString("city"));
                 user.setStreet(resultSet.getString("street"));
                 user.setHouseNumber(resultSet.getInt("housenumber"));
+                user.setApartment(resultSet.getInt("apartment"));
             }
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
@@ -91,6 +93,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setCity(resultSet.getString("city"));
                 user.setStreet(resultSet.getString("street"));
                 user.setHouseNumber(resultSet.getInt("housenumber"));
+                user.setApartment(resultSet.getInt("apartment"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -132,7 +135,8 @@ public class UserDAO extends AbstractDAO<User>{
             st.setString(8,entity.getCity());
             st.setString(9,entity.getStreet());
             st.setInt(10,entity.getHouseNumber());
-            st.setInt(11,entity.getRole());
+            st.setInt(11,entity.getApartment());
+            st.setInt(12,entity.getRole());
             isCreated=st.execute();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
@@ -154,8 +158,9 @@ public class UserDAO extends AbstractDAO<User>{
             st.setString(7,entity.getCity());
             st.setString(8,entity.getStreet());
             st.setInt(9,entity.getHouseNumber());
-            st.setInt(10,entity.getRole());
-            st.setLong(11,entity.getUserID());
+            st.setInt(10,entity.getApartment());
+            st.setInt(11,entity.getRole());
+            st.setLong(12,entity.getUserID());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
