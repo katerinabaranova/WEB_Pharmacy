@@ -24,7 +24,7 @@
                 <button id="singlebutton" name="singlebutton" class="btn btn-success"><fmt:message key="login.label.buttom"/> </button>
             </div>
         </div>
-
+        <input type="hidden" name="command" value="authorization" />
     </fieldset>
 </form>
 

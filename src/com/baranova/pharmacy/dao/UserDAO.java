@@ -21,6 +21,7 @@ public class UserDAO extends AbstractDAO<User>{
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
+    private static final String SQL_SELECT_PASSWORD_BY_LOGIN="SELECT login,password,fkrole FROM user WHERE login=?";
 
     @Override
     public List<User> findAll() throws ExceptionDAO{
@@ -100,6 +101,23 @@ public class UserDAO extends AbstractDAO<User>{
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         }
         return users;
+    }
+
+    public User findEntityByLogin(String login) throws ExceptionDAO{
+        User user=new User();
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_PASSWORD_BY_LOGIN)){
+            st.setString(1,login);
+            ResultSet resultSet = st.executeQuery();
+            while (resultSet.next()) {
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getInt("fkrole"));
+            }
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+        }
+        return user;
     }
 
     @Override

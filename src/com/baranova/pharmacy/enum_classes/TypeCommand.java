@@ -1,7 +1,8 @@
-package com.baranova.pharmacy.command;
+package com.baranova.pharmacy.enum_classes;
 
 /**
  * Created by Ekaterina on 7/13/16.
  */
 public enum TypeCommand {
+    AUTORIZATION
 }
