@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
 <%@ include file="top-menu-main.jsp" %>
 
-<form class="form-horizontal">
+<form class="form-horizontal" action="../registration" method="post">
     <fieldset>
 
         <!-- Form Name -->
@@ -18,88 +18,88 @@
 
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="passwordinput">Password</label>
+            <label class="col-md-4 control-label" for="Password">Password</label>
             <div class="col-md-4">
-                <input id="passwordinput" name="passwordinput" placeholder="" class="form-control input-md" required="" type="password">
+                <input id="Password" name="Password" placeholder="" class="form-control input-md" required="" type="password">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="name">Name</label>
+            <label class="col-md-4 control-label" for="Name">Name</label>
             <div class="col-md-4">
-                <input id="name" name="name" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Name" name="Name" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="surname">Surname</label>
+            <label class="col-md-4 control-label" for="Surname">Surname</label>
             <div class="col-md-4">
-                <input id="surname" name="surname" placeholder="" class="form-control input-md" type="text">
+                <input id="Surname" name="Surname" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="city">City</label>
+            <label class="col-md-4 control-label" for="City">City</label>
             <div class="col-md-4">
-                <input id="city" name="city" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="City" name="City" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="street">Street</label>
+            <label class="col-md-4 control-label" for="Street">Street</label>
             <div class="col-md-4">
-                <input id="street" name="street" placeholder="" class="form-control input-md" type="text">
+                <input id="Street" name="Street" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="housenumber">House number</label>
+            <label class="col-md-4 control-label" for="Housenumber">House number</label>
             <div class="col-md-4">
-                <input id="housenumber" name="housenumber" placeholder="" class="form-control input-md" type="text">
+                <input id="Housenumber" name="Housenumber" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="apartment">Apartment</label>
+            <label class="col-md-4 control-label" for="Apartment">Apartment</label>
             <div class="col-md-4">
-                <input id="apartment" name="apartment" placeholder="" class="form-control input-md" type="text">
+                <input id="Apartment" name="Apartment" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="email">E-mail</label>
+            <label class="col-md-4 control-label" for="Email">E-mail</label>
             <div class="col-md-4">
-                <input id="email" name="email" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Email" name="Email" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="phonenumber">Phonenumber</label>
+            <label class="col-md-4 control-label" for="Phonenumber">Phonenumber</label>
             <div class="col-md-4">
-                <input id="phonenumber" name="phonenumber" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Phonenumber" name="Phonenumber" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
 
         <!-- Multiple Radios (inline) -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="roleName">Register as</label>
+            <label class="col-md-4 control-label" for="role-0">Register as</label>
             <div class="col-md-4">
                 <label class="radio-inline" for="role-0">
                     <input name="role" id="role-0" value="Buyer" checked="checked" type="radio">
@@ -111,6 +111,7 @@
                 </label>
             </div>
         </div>
+        <input type="hidden" name="command" value="registration" />
 
         <!-- Button -->
         <div class="form-group">

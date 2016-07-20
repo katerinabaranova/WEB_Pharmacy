@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.ParameterName;
+import com.baranova.pharmacy.constant.ParameterNameUser;
 import com.baranova.pharmacy.enum_classes.PageName;
 import com.baranova.pharmacy.service.Service;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +17,8 @@ public class AutorizationCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response){
-        String login=request.getParameter("Login");
-        String password=request.getParameter("Password");
-        System.out.println(login);
+        String login=request.getParameter(ParameterNameUser.LOGIN);
+        String password=request.getParameter(ParameterNameUser.PASSWORD);
         if (Service.checkLogingInfo(login,password)){
             HttpSession session = request.getSession();
             session.setAttribute("loggedUser",login);
