@@ -12,7 +12,7 @@ public class CommandHelper {
     private static HashMap<TypeCommand,ICommand> commands;
     static {
         commands = new HashMap<TypeCommand, ICommand>();
-        commands.put(TypeCommand.AUTORIZATION, new AutorizationCommand());
+        commands.put(TypeCommand.AUTHORIZATION, new AutorizationCommand());
     }
 
     public static ICommand getCommand(String commandName) {

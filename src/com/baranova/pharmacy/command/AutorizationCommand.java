@@ -1,17 +1,14 @@
 package com.baranova.pharmacy.command;
 
-import com.baranova.pharmacy.dao.UserDAO;
-import com.baranova.pharmacy.entity.User;
+import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.enum_classes.PageName;
-import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.service.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 
 public class AutorizationCommand implements ICommand {
@@ -19,25 +16,17 @@ public class AutorizationCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response){
-        try {
-            System.out.println("vxcvxcv");
-            response.setContentType("text/html");
-            request.getRequestDispatcher("loginform.jsp").include(request,response);
-            String login=request.getParameter("Login");
-            String password=request.getParameter("Password");
-            UserDAO userDAO=new UserDAO();
-            User user=userDAO.findEntityByLogin(login);
-            if (user!=null && user.getPassword().equals(password)){
-                HttpSession session = request.getSession();
-                session.setAttribute("loggedUser",login);
-                request.getRequestDispatcher("/login_success.jsp").forward(request, response);
-            } else {
-                LOG.error("Wrong login/password");
-                request.getRequestDispatcher("/error_login_page.jsp").forward(request,response);
-            }
-        } catch (ServletException|IOException|ExceptionDAO e){
-            LOG.error(e.getMessage());
+        String login=request.getParameter("Login");
+        String password=request.getParameter("Password");
+        System.out.println(login);
+        if (Service.checkLogingInfo(login,password)){
+            HttpSession session = request.getSession();
+            session.setAttribute("loggedUser",login);
+            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.USER_PAGE);
+            return PageName.USER_PAGE;
+        } else {
+            LOG.error("Wrong login/password");
+            return PageName.ERROR_LOGING;
         }
-        return null;
     }
 }

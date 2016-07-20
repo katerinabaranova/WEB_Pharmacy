@@ -16,17 +16,17 @@ public class Main {
     public static void main(String[] args){
 
         try {
-            MedicineDAO med = new MedicineDAO();
-            //List<Medicine> users = med.findAll();
-            /*Medicine user1=med.findEntityById(1);
-            System.out.println(user1);*/
+            UserDAO userDAO = new UserDAO();
+            //List<Medicine> users = userDAO.findEntityByLogin("ivnachik");
+            User user=userDAO.findEntityByLogin("ivnachik");
+            System.out.println(user.getPassword());
             //Medicine user3=new Medicine("Aygmentin",457,"battle/suspension",5,13,2,true);
-            Medicine user3=med.findEntityById(4);
-            user3.setStoreQuantity(7);
-            med.update(user3);
+            //Medicine user3=med.findEntityById(4);
+            //user3.setStoreQuantity(7);
+            //med.update(user3);
             //User user4=new User(3,"klepkin","11ght2","Andrew","Kovalev","Zhlobin","serdicha",35,"klepkin@me.com","+375334567456",2);
             //userDao.update(user3);
-            med.delete(3);
+            //med.delete(3);
         } catch (ExceptionDAO e){
             LOG.error("smth");
         }

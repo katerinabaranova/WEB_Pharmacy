@@ -107,7 +107,7 @@ public class UserDAO extends AbstractDAO<User>{
         User user=new User();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_PASSWORD_BY_LOGIN)){
-            st.setString(1,login);
+            st.setString(1,login.toLowerCase());
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 user.setLogin(resultSet.getString("login"));

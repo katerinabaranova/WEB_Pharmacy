@@ -24,9 +24,11 @@ public class ConnectionPool {
     private ArrayBlockingQueue <ProxyConnection> connectionQueue;
 
     private ConnectionPool (){
+        String path=FileConstant.DATABASE_INFO;
         try {
-            ResourceBundle resource = ResourceBundle.getBundle(FileConstant.DATABASE_INFO);
+            ResourceBundle resource = ResourceBundle.getBundle(path);
             Properties prop = new Properties();
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             prop.put("user", resource.getString("db.user"));
             prop.put("password", resource.getString("db.password"));
             prop.put("autoReconnect", resource.getString("db.autoreconnect"));
@@ -40,7 +42,7 @@ public class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 connectionQueue.offer(proxyConnection);
             }
-        } catch (MissingResourceException|SQLException e ) {
+        } catch (SQLException |MissingResourceException e) {
             LOG.fatal("Impossible to connect to database");
             throw new RuntimeException();
         }

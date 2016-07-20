@@ -3,15 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
-<fmt:setBundle basename="com.baranova.pharmacy.resource" />
+<fmt:setBundle basename="resource.text" />
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Cache-Control" content="no-cache">
     <title><fmt:message key="error.page.header"/></title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <body>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
-<%@ include file="top-menu-main.jsp" %>
+<%@ include file="jsp/top-menu-main.jsp" %>
 
 <form class="form-horizontal" action="search" method="post">
     <fieldset>
@@ -24,4 +24,4 @@
 </form>
 
 
-<%@include file="bottom.jsp" %>
+<%@include file="jsp/bottom.jsp" %>
