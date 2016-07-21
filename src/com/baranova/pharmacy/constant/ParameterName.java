@@ -6,4 +6,5 @@ package com.baranova.pharmacy.constant;
 public class ParameterName {
     public static final String COMMAND="command";
     public static final String LAST_PAGE="last_page";
+    public static final String LOCAL="local";
 }

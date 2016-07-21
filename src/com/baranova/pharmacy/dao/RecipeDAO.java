@@ -1,6 +1,5 @@
 package com.baranova.pharmacy.dao;
 
-import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.exception.ExceptionDAO;
 import com.baranova.pharmacy.pool.ConnectionPool;
@@ -12,9 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Ekaterina on 7/15/16.
- */
+
 public class RecipeDAO extends AbstractDAO<Recipe> {
     private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe";
     private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe WHERE idrecipe=?";
@@ -137,7 +134,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setLong(3,entity.getMedicineID());
             st.setInt(4,entity.getMedicineQuantity());
             st.setBoolean(5,entity.isExpired());
-            isCreated=st.execute();
+            isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         }
@@ -156,7 +153,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setInt(5,entity.getMedicineQuantity());
             st.setBoolean(6,entity.isExpired());
             st.setLong(7,entity.getId());
-            isUpdate=st.execute();
+            isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         }
