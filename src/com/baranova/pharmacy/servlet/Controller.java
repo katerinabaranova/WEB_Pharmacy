@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Ekaterina on 7/18/16.
- */
 
 @WebServlet("/Servlet")
 public class Controller extends HttpServlet {
@@ -35,9 +32,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         String commandName = request.getParameter(ParameterName.COMMAND);
         ICommand command = CommandHelper.getCommand(commandName);
-        System.out.println(command);
         PageName pageName = command.execute(request, response);
-        System.out.println(pageName);
         request.getRequestDispatcher(pageName.getPageName()).forward(request, response);
     }
 }

@@ -47,7 +47,6 @@ public class RegistrationCommand implements ICommand{
         if (userCreated){
             HttpSession session=request.getSession();
             session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_SUCCESS);
-            System.out.println("OK");
             return PageName.REGISTRATION_SUCCESS;
         } else {
             return PageName.REGISTRATION_ERROR;

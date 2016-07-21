@@ -141,7 +141,6 @@ public class UserDAO extends AbstractDAO<User>{
     @Override
     public boolean create(User entity) throws ExceptionDAO {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_USER)){
             st.setLong(1,entity.getUserID());
@@ -156,8 +155,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setInt(10,entity.getHouseNumber());
             st.setInt(11,entity.getApartment());
             st.setInt(12,entity.getRole());
-            isCreated=st.execute();
-            System.out.println(isCreated);
+            isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
         }
