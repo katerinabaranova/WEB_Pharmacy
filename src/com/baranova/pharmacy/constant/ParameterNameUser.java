@@ -14,5 +14,5 @@ public class ParameterNameUser {
     public static final String APARTMENT="Apartment";
     public static final String PHONENUMBER="Phonenumber";
     public static final String EMAIL="Email";
-    public static final String ROLE="Apartment";
+    public static final String ROLE="Role";
 }

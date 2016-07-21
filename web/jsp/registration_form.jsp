@@ -102,11 +102,11 @@
             <label class="col-md-4 control-label" for="role-0">Register as</label>
             <div class="col-md-4">
                 <label class="radio-inline" for="role-0">
-                    <input name="role" id="role-0" value="Buyer" checked="checked" type="radio">
+                    <input name="Role" id="role-0" value="buyer" checked="checked" type="radio">
                     Buyer
                 </label>
                 <label class="radio-inline" for="role-1">
-                    <input name="role" id="role-1" value="Doctor" type="radio">
+                    <input name="Role" id="role-1" value="doctor" type="radio">
                     Doctor
                 </label>
             </div>
