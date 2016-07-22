@@ -44,6 +44,7 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+              <li><a href="jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
               <li><a href="jsp/registration_form.jsp"><fmt:message key="menu.signup" /></a></li>
               <li><a href="jsp/loginform.jsp"><fmt:message key="menu.signin"/> </a></li>
             </ul>

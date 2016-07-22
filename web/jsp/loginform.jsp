@@ -1,8 +1,13 @@
 <%@ page import="com.baranova.pharmacy.constant.ParameterName" %>
+<%@ page import="com.baranova.pharmacy.enum_classes.PageName" %>
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resource.text" />
 <%@ include file="top-menu-main.jsp" %>
-<% request.getSession().setAttribute(ParameterName.LAST_PAGE,"jsp/loginform.jsp");
-    System.out.println(request.getParameter(ParameterName.LAST_PAGE));%>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.LOGINFORM);%>
 <form class="form-horizontal" action="../login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>

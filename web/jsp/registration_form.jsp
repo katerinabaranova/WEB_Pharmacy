@@ -1,31 +1,32 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
+<%@ page import="com.baranova.pharmacy.constant.ParameterName" %>
+<%@ page import="com.baranova.pharmacy.enum_classes.PageName" %>
+<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resource.text" />
 <%@ include file="top-menu-main.jsp" %>
-
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATIONFORM);%>
 <form class="form-horizontal" action="../registration" method="post">
     <fieldset>
 
-        <!-- Form Name -->
-        <legend>Registration</legend>
+        <legend><fmt:message key="registration.legend"/></legend>
 
-        <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Login">Login</label>
+            <label class="col-md-4 control-label" for="Login"><fmt:message key="registration.login"/> </label>
             <div class="col-md-4">
                 <input id="Login" name="Login" placeholder="" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
 
-        <!-- Password input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="Password">Password</label>
             <div class="col-md-4">
                 <input id="Password" name="Password" placeholder="" class="form-control input-md" required="" type="password">
-
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="Name">Name</label>
             <div class="col-md-4">

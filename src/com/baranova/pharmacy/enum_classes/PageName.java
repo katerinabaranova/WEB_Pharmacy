@@ -7,6 +7,8 @@ public enum PageName {
 
     USER_PAGE ("jsp/loginsuccess.jsp"),
     ERROR_LOGING("jsp/error_login_page.jsp"),
+    LOGINFORM("jsp/loginform.jsp"),
+    REGISTRATIONFORM("jsp/registration_form.jsp"),
     REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
     REGISTRATION_ERROR("jsp/error_registration_page.jsp"),
     INDEX("jsp/index.jsp");

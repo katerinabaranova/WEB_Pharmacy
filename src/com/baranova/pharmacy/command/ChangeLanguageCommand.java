@@ -15,10 +15,7 @@ public class ChangeLanguageCommand implements ICommand {
         HttpSession session = request.getSession();
         String local = request.getParameter(ParameterName.LANGUAGE);
         session.setAttribute(ParameterName.LANGUAGE, local);
-        System.out.println(local);
-
         PageName lastPage = (PageName) session.getAttribute(ParameterName.LAST_PAGE);
-        System.out.println(lastPage);
         if (lastPage == null) {
             return PageName.INDEX;
         } else {
