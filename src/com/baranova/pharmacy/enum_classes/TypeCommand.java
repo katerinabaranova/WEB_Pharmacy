@@ -6,7 +6,8 @@ package com.baranova.pharmacy.enum_classes;
 public enum TypeCommand {
     AUTHORIZATION,
     REGISTRATION,
-    NEW_RECIPE;
+    NEW_RECIPE,
+    CHANGE_LANGUAGE;
 
 
 }

@@ -14,6 +14,7 @@ public class CommandHelper {
         commands = new HashMap<TypeCommand, ICommand>();
         commands.put(TypeCommand.AUTHORIZATION, new AutorizationCommand());
         commands.put(TypeCommand.REGISTRATION,new RegistrationCommand());
+        commands.put(TypeCommand.CHANGE_LANGUAGE,new ChangeLanguageCommand());
     }
 
     public static ICommand getCommand(String commandName) {

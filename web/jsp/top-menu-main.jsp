@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
-<fmt:setBundle basename="resource.text" />
 <fmt:setLocale value="${language}" />
+<fmt:setBundle basename="resource.text" />
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
@@ -16,12 +16,6 @@
 </head>
 
 <body>
-<form>
-    <select id="language" name="language" onchange="submit()">
-        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
-        <option value="ru" ${language == 'ru' ? 'selected' : ''}>Русский</option>
-    </select>
-</form>
 <div class="container">
       <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -32,7 +26,21 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/baranova">Main</a>
+              <ul class="nav navbar-nav navbar-left">
+                  <li>
+                      <form action="../controller" method="post">
+                      <input type="hidden" name="language" value="en" />
+                      <input type="hidden" name="command" value="change_language" />
+                          <button type="submit" class="btn-link">EN</button>
+                  </form>
+                  </li>
+                  <li><form action="../controller" method="post">
+                      <input type="hidden" name="language" value="ru" />
+                      <input type="hidden" name="command" value="change_language" />
+                      <button type="submit" class="btn-link">RU</button>
+                  </form>
+                  </li>
+              </ul>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

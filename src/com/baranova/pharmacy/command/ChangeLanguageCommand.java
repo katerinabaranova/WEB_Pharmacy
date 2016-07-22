@@ -13,9 +13,12 @@ public class ChangeLanguageCommand implements ICommand {
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        String local = request.getParameter(ParameterName.LOCAL);
-        session.setAttribute(ParameterName.LOCAL, local);
+        String local = request.getParameter(ParameterName.LANGUAGE);
+        session.setAttribute(ParameterName.LANGUAGE, local);
+        System.out.println(local);
+
         PageName lastPage = (PageName) session.getAttribute(ParameterName.LAST_PAGE);
+        System.out.println(lastPage);
         if (lastPage == null) {
             return PageName.INDEX;
         } else {

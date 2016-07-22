@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
+<%@ page import="com.baranova.pharmacy.constant.ParameterName" %>
+<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ include file="top-menu-main.jsp" %>
-
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE,"jsp/loginform.jsp");
+    System.out.println(request.getParameter(ParameterName.LAST_PAGE));%>
 <form class="form-horizontal" action="../login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>
