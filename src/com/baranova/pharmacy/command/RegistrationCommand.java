@@ -5,9 +5,10 @@ import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.ParameterNameUser;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.User;
-import com.baranova.pharmacy.enum_classes.PageName;
-import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.type.PageName;
+import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.service.Service;
+import com.baranova.pharmacy.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,15 +24,15 @@ public class RegistrationCommand implements ICommand{
         User user=new User();
         UserDAO userDAO=new UserDAO();
         user.setLogin(request.getParameter(ParameterNameUser.LOGIN));
-        user.setPassword(Service.getMD5(request.getParameter(ParameterNameUser.PASSWORD)));
+        user.setPassword(Security.getMD5(request.getParameter(ParameterNameUser.PASSWORD)));
         user.setName(request.getParameter(ParameterNameUser.NAME));
         user.setSurname(request.getParameter(ParameterNameUser.SURNAME));
         user.setCity(request.getParameter(ParameterNameUser.CITY));
         user.setStreet(request.getParameter(ParameterNameUser.STREET));
-        user.setHouseNumber(Integer.parseInt(request.getParameter(ParameterNameUser.HOUSENUMBER)));
+        user.setHouseNumber(Integer.parseInt(request.getParameter(ParameterNameUser.HOUSE_NUMBER)));
         user.setApartment(Integer.parseInt(request.getParameter(ParameterNameUser.APARTMENT)));
         user.setEmail(request.getParameter(ParameterNameUser.EMAIL));
-        user.setPhoneNumber(request.getParameter(ParameterNameUser.PHONENUMBER));
+        user.setPhoneNumber(request.getParameter(ParameterNameUser.PHONE_NUMBER));
         String role=request.getParameter(ParameterNameUser.ROLE);
         if ("buyer".equals(role)){
             user.setRole(1);
@@ -41,7 +42,7 @@ public class RegistrationCommand implements ICommand{
         boolean userCreated=false;
         try {
             userCreated = userDAO.create(user);
-        } catch (ExceptionDAO e){
+        } catch (DAOException e){
             LOG.error(e.getMessage());
         }
         if (userCreated){

@@ -1,14 +1,10 @@
 package com.baranova.pharmacy.runner;
 
-import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.dao.UserDAO;
-import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.User;
-import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 public class Main {
     private static final Logger LOG= LogManager.getLogger();
@@ -27,7 +23,7 @@ public class Main {
             //User user4=new User(3,"klepkin","11ght2","Andrew","Kovalev","Zhlobin","serdicha",35,"klepkin@me.com","+375334567456",2);
             //userDao.update(user3);
             //med.delete(3);
-        } catch (ExceptionDAO e){
+        } catch (DAOException e){
             LOG.error("smth");
         }
     }

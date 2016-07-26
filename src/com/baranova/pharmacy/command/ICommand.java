@@ -1,6 +1,6 @@
 package com.baranova.pharmacy.command;
 
-import com.baranova.pharmacy.enum_classes.PageName;
+import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

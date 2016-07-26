@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.dao;
 
 import com.baranova.pharmacy.entity.Recipe;
-import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
 
@@ -22,7 +22,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE recipe SET idrecipe=?,fkDoctor=?,fkPacient=?,fkMedicine=?,medicineQuantity=?,expired=? WHERE idrecipe=?;";
 
     @Override
-    public List<Recipe> findAll() throws ExceptionDAO {
+    public List<Recipe> findAll() throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_ALL_RECIPES)){
@@ -38,13 +38,13 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return recipes;
     }
 
     @Override
-    public Recipe findEntityById (long id)  throws ExceptionDAO{
+    public Recipe findEntityById (long id)  throws DAOException {
         Recipe recipe = new Recipe();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_ID)){
@@ -59,12 +59,12 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipe.setExpired(resultSet.getBoolean("expired"));
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return recipe;
     }
 
-    public List<Recipe> findRecipesByPacient(Long pacientId) throws ExceptionDAO {
+    public List<Recipe> findRecipesByPacient(Long pacientId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PACIENT)){
@@ -80,12 +80,12 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return recipes;
     }
 
-    public List<Recipe> findRecipesByDoctor(Long doctorId) throws ExceptionDAO {
+    public List<Recipe> findRecipesByDoctor(Long doctorId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_DOCTOR)){
@@ -101,31 +101,31 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return recipes;
     }
 
     @Override
-    public boolean delete(long idRecipe) throws ExceptionDAO {
+    public boolean delete(long idRecipe) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isDeleted=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_RECIPE_BY_ID)){
             st.setLong(1,idRecipe);
             isDeleted=st.execute();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isDeleted;
     }
 
     @Override
-    public boolean delete(Recipe entity) throws ExceptionDAO {
-        throw new ExceptionDAO("This operation is not available in this version");
+    public boolean delete(Recipe entity) throws DAOException {
+        throw new DAOException("This operation is not available in this version");
     }
 
     @Override
-    public boolean create(Recipe entity) throws ExceptionDAO{
+    public boolean create(Recipe entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_RECIPE)){
@@ -136,13 +136,13 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setBoolean(5,entity.isExpired());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isCreated;
     }
 
     @Override
-    public boolean update(Recipe entity) throws ExceptionDAO {
+    public boolean update(Recipe entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isUpdate=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_RECIPE_BY_ENTITY)){
@@ -155,7 +155,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setLong(7,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isUpdate;
     }

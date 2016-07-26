@@ -4,7 +4,7 @@
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
-<%@ include file="top-menu-main.jsp" %>
+<%@ include file="top_menu_main.jsp" %>
 
 <form class="form-horizontal" action="search" method="post">
     <fieldset>

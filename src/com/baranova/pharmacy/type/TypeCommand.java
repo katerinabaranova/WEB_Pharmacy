@@ -1,4 +1,4 @@
-package com.baranova.pharmacy.enum_classes;
+package com.baranova.pharmacy.type;
 
 /**
  * Created by Ekaterina on 7/13/16.

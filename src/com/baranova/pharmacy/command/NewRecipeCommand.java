@@ -1,14 +1,10 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.constant.ParameterNameUser;
 import com.baranova.pharmacy.dao.RecipeDAO;
-import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Recipe;
-import com.baranova.pharmacy.entity.User;
-import com.baranova.pharmacy.enum_classes.PageName;
-import com.baranova.pharmacy.exception.ExceptionDAO;
-import com.baranova.pharmacy.service.Service;
+import com.baranova.pharmacy.type.PageName;
+import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +23,7 @@ public class NewRecipeCommand implements ICommand {
         boolean userCreated=false;
         try {
             userCreated = recipeDAO.create(recipe);
-        } catch (ExceptionDAO e){
+        } catch (DAOException e){
             LOG.error(e.getMessage());
         }
         if (userCreated){

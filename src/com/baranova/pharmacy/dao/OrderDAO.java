@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.dao;
 
 import com.baranova.pharmacy.entity.Order;
-import com.baranova.pharmacy.exception.ExceptionDAO;
+import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
 
@@ -21,7 +21,7 @@ public class OrderDAO extends AbstractDAO<Order>{
     private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=?,paid=? WHERE idorder=?;";
 
     @Override
-    public List<Order> findAll() throws ExceptionDAO {
+    public List<Order> findAll() throws DAOException {
         List<Order> orders = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_ALL_ORDERS)){
@@ -38,13 +38,13 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return orders;
     }
 
     @Override
-    public Order findEntityById (long id)  throws ExceptionDAO{
+    public Order findEntityById (long id)  throws DAOException {
         Order order = new Order();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_ORDER_BY_ID)){
@@ -60,12 +60,12 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setPaid(resultSet.getBoolean("paid"));
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return order;
     }
 
-    public List<Order> findOrdersByUser(Long userId) throws ExceptionDAO {
+    public List<Order> findOrdersByUser(Long userId) throws DAOException {
         List<Order> orders = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_ORDER_BY_USER)){
@@ -82,31 +82,31 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return orders;
     }
 
     @Override
-    public boolean delete(long id) throws ExceptionDAO {
+    public boolean delete(long id) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isDeleted=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_ORDER_BY_ID)){
             st.setLong(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isDeleted;
     }
 
     @Override
-    public boolean delete(Order entity) throws ExceptionDAO {
-        throw new ExceptionDAO("This operation is not available in this version");
+    public boolean delete(Order entity) throws DAOException {
+        throw new DAOException("This operation is not available in this version");
     }
 
     @Override
-    public boolean create(Order entity) throws ExceptionDAO{
+    public boolean create(Order entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_ORDER)){
@@ -118,13 +118,13 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setBoolean(6,entity.isPaid());
             isCreated=st.execute();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isCreated;
     }
 
     @Override
-    public boolean update(Order entity) throws ExceptionDAO {
+    public boolean update(Order entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isUpdate=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_ORDER_BY_ENTITY)){
@@ -138,7 +138,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(8,entity.getId());
             isUpdate=st.execute();
         } catch (SQLException e) {
-            throw new ExceptionDAO("Impossible to execute request(request or table failed):" + e);
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return isUpdate;
     }

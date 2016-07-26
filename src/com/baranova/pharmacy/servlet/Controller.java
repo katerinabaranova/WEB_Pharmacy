@@ -3,7 +3,7 @@ package com.baranova.pharmacy.servlet;
 import com.baranova.pharmacy.command.CommandHelper;
 import com.baranova.pharmacy.command.ICommand;
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.enum_classes.PageName;
+import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

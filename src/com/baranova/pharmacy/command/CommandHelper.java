@@ -1,6 +1,6 @@
 package com.baranova.pharmacy.command;
 
-import com.baranova.pharmacy.enum_classes.TypeCommand;
+import com.baranova.pharmacy.type.TypeCommand;
 
 import java.util.HashMap;
 
