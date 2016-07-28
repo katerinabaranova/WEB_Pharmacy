@@ -7,7 +7,8 @@ public enum TypeCommand {
     AUTHORIZATION,
     REGISTRATION,
     NEW_RECIPE,
-    CHANGE_LANGUAGE;
+    CHANGE_LANGUAGE,
+    SEARCH;
 
 
 }

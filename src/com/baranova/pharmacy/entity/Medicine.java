@@ -9,19 +9,19 @@ public class Medicine extends Entity {
     private String packageType;
     private int packageQuantity;
     private int storeQuantity;
-    private boolean receipt;
+    private boolean recipe;
 
     public Medicine(){
     }
 
-    public Medicine(String medicineName, int dosage,  String packageType, int packageQuantity, int price, int storeQuantity,boolean receipt) {
+    public Medicine(String medicineName, int dosage,  String packageType, int packageQuantity, int price, int storeQuantity,boolean recipe) {
         this.medicineName = medicineName;
         this.dosage = dosage;
         this.price = price;
         this.packageType = packageType;
         this.packageQuantity = packageQuantity;
         this.storeQuantity = storeQuantity;
-        this.receipt=receipt;
+        this.recipe =recipe;
     }
     public long getId(){return super.getId();}
     public String getMedicineName() {return medicineName;}
@@ -30,7 +30,7 @@ public class Medicine extends Entity {
     public String getPackageType() {return packageType;}
     public int getPackageQuantity() {return packageQuantity;}
     public int getStoreQuantity() {return storeQuantity;}
-    public boolean isReceipt() {return receipt;}
+    public boolean isRecipe() {return recipe;}
 
     public void setId(long id){super.setId(id);}
     public void setMedicineName(String medicineName) {this.medicineName = medicineName;}
@@ -45,7 +45,7 @@ public class Medicine extends Entity {
     public void setStoreQuantity(int storeQuantity) {
         this.storeQuantity = storeQuantity;
     }
-    public void setReceipt(boolean receipt) {this.receipt = receipt;}
+    public void setRecipe(boolean recipe) {this.recipe = recipe;}
 
     @Override
     public String toString() {
@@ -56,7 +56,7 @@ public class Medicine extends Entity {
                 ", packageType='" + packageType + '\'' +
                 ", packageQuantity=" + packageQuantity +
                 ", storeQuantity=" + storeQuantity +
-                ", receipt=" + receipt +
+                ", recipe=" + recipe +
                 '}';
     }
 }

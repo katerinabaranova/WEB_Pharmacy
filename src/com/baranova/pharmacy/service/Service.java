@@ -1,12 +1,17 @@
 package com.baranova.pharmacy.service;
 
 
+import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.dao.UserDAO;
+import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Service {
     private static final Logger LOG= LogManager.getLogger();
@@ -30,6 +35,17 @@ public class Service {
             LOG.error(e.getMessage());
         }
         return -1;
+    }
+
+    public static List<Medicine> searchService(String medicineName){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        List<Medicine> medicines=new ArrayList<>();
+        try {
+            medicines = medicineDAO.findEntityByName(medicineName);
+        }catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicines;
     }
 
 

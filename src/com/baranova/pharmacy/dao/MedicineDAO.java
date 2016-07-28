@@ -13,12 +13,12 @@ import java.util.List;
 
 public class MedicineDAO extends AbstractDAO <Medicine> {
 
-    private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt FROM medicine";
-    private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt FROM medicine WHERE medicine.idmedicine=?";
-    private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt FROM medicine WHERE medicine.medicineName=?";
+    private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine";
+    private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine WHERE medicine.idmedicine=?";
+    private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine WHERE medicine.medicineName=?";
     private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM medicine WHERE medicine.idmedicine = ?;";
-    private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,receipt) values(?,?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,instoreQuantity=?,receipt=? WHERE idmedicine=?;";
+    private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe) values(?,?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,instoreQuantity=?,recipe=? WHERE idmedicine=?;";
 
     @Override
     public List<Medicine> findAll() throws DAOException {
@@ -34,7 +34,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getInt("price"));
-                medicine.setReceipt(resultSet.getBoolean("receipt"));
+                medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
             }
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getInt("price"));
-                medicine.setReceipt(resultSet.getBoolean("receipt"));
+                medicine.setRecipe(resultSet.getBoolean("recipe"));
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
@@ -65,25 +65,30 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
         return medicine;
     }
 
-    public Medicine findEntityByName(String name) throws DAOException {
-        Medicine medicine = new Medicine();
+    public List<Medicine> findEntityByName(String name) throws DAOException {
+        List<Medicine> medicines = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_BY_NAME)){
             st.setString(1,name);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
+                Medicine medicine = new Medicine();
                 medicine.setId(resultSet.getInt("idmedicine"));
                 medicine.setMedicineName(resultSet.getString("medicineName"));
                 medicine.setDosage(resultSet.getInt("dosage"));
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getInt("price"));
-                medicine.setReceipt(resultSet.getBoolean("receipt"));
+                medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
+                byte isRecipe=resultSet.getByte("recipe");
+                if (isRecipe==0) {medicine.setRecipe(false);}
+                    else {medicine.setRecipe(true);}
+                medicines.add(medicine);
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
-        return medicine;
+        return medicines;
     }
 
     @Override
@@ -115,7 +120,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(4,entity.getPackageQuantity());
             st.setInt(5,entity.getPrice());
             st.setInt(6,entity.getStoreQuantity());
-            st.setBoolean(7,entity.isReceipt());
+            st.setBoolean(7,entity.isRecipe());
             isCreated=st.execute();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
@@ -135,7 +140,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(5,entity.getPackageQuantity());
             st.setInt(6,entity.getPrice());
             st.setInt(7,entity.getStoreQuantity());
-            st.setBoolean(8,entity.isReceipt());
+            st.setBoolean(8,entity.isRecipe());
             st.setLong(9,entity.getId());
             isUpdate=st.execute();
         } catch (SQLException e) {

@@ -5,14 +5,17 @@ package com.baranova.pharmacy.type;
  */
 public enum PageName {
 
-    INDEX("index.jsp"),
-    LOGGING_FORM("loginform.jsp"),
-    LOGGING_ERROR("error_login_page.jsp"),
-    USER_PAGE ("loginsuccess.jsp"),
-    REGISTRATION_FORM("registration_form.jsp"),
-    REGISTRATION_SUCCESS("registration_success.jsp"),
-    REGISTRATION_ERROR("error_registration_page.jsp"),
-    MENU_BUYER("top_menu_buyer.jsp");
+    INDEX("jsp/index.jsp"),
+    LOGGING_FORM("jsp/loginform.jsp"),
+    LOGGING_ERROR("jsp/error_login_page.jsp"),
+    USER_PAGE ("jsp/loginsuccess.jsp"),
+    REGISTRATION_FORM("jsp/registration_form.jsp"),
+    REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
+    REGISTRATION_ERROR("jsp/error_registration_page.jsp"),
+    SEARCH_RESULTS("jsp/search_results.jsp"),
+    NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
+    MENU_BUYER("jsp/top_menu_buyer.jsp"),
+    MENU_COMMON("jsp/top_menu_main.jsp");
 
     private String pageName;
 

@@ -8,7 +8,7 @@
 <fmt:setBundle basename="resource.text" />
 <%@ include file="top_menu_main.jsp" %>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.LOGGING_FORM);%>
-<form class="form-horizontal" action="login" method="post">
+<form class="form-horizontal" action="../login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>
         <div class="form-group">

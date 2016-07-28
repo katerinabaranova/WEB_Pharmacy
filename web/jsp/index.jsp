@@ -4,9 +4,11 @@
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
+<ctg:navigation_menu role="${loggedRole}"/>
+<jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
 <%@ include file="top_menu_main.jsp" %>
 
-<form class="form-horizontal" action="search" method="post">
+<form class="form-horizontal" action="../search" method="post">
     <fieldset>
 
         <legend><fmt:message key="search.legend"/></legend>
@@ -24,7 +26,7 @@
                 <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="search.buttom"/> </button>
             </div>
         </div>
-
+        <input type="hidden" name="command" value="search">
     </fieldset>
 </form>
 

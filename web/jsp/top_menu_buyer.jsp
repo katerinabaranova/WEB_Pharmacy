@@ -42,8 +42,10 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/registration_form.jsp"><fmt:message key="menu.signup" /></a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/loginform.jsp"><fmt:message key="menu.signin"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_orders.jsp"><fmt:message key="menu.order" /></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.recipes"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

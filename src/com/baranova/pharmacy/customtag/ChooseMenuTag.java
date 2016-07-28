@@ -22,6 +22,10 @@ public class ChooseMenuTag extends TagSupport {
             if (role == 1) {
                 pageContext.setAttribute("include_page",PageName.MENU_BUYER.getPageName());
             }
+        else if (role==0){
+                pageContext.setAttribute("include_page",PageName.MENU_COMMON.getPageName());
+            }
+
         return SKIP_BODY;
     }
 }

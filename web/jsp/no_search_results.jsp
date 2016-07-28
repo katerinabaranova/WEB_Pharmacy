@@ -7,11 +7,13 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
-<h1><fmt:message key="login.success.header"/> </h1>
-    <br>
-    <br>
-    <br>
-    <br>
+<h2><fmt:message key="search.no.results"/> </h2>
+<h1><fmt:message key="search.try.again"/> </h1>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a>
 
