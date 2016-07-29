@@ -10,7 +10,7 @@ public enum TypeCommand {
     CHANGE_LANGUAGE,
     SEARCH,
     SHOW_ORDERS,
-    SHOW_USER_RECIPES;
+    SHOW_RECIPES;
 
 
 }

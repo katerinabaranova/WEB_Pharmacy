@@ -3,7 +3,7 @@
 
     <h1><fmt:message key="registration.success.header"/> </h1>
 
-    <h2><a href="loginform.jsp"><fmt:message key="please.login"/></a> </h2>
+    <h2><a href="jsp/loginform.jsp"><fmt:message key="please.login"/></a> </h2>
     <br>
     <br>
     <br>

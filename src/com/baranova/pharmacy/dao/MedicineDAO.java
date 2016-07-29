@@ -19,6 +19,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
     private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM medicine WHERE medicine.idmedicine = ?;";
     private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe) values(?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,instoreQuantity=?,recipe=? WHERE idmedicine=?;";
+    private static final String SQL_SELECT_MEDICINE_NAME_BY_ID="SELECT medicineName FROM pharmacy.medicine WHERE idmedicine=?;";
 
     @Override
     public List<Medicine> findAll() throws DAOException {
@@ -58,6 +59,22 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getInt("price"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Impossible to execute request(request or table failed):", e);
+        }
+        return medicine;
+    }
+
+
+    public Medicine findMedicineNameById (long id)  throws DAOException {
+        Medicine medicine = new Medicine();
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_NAME_BY_ID)){
+            st.setLong(1,id);
+            ResultSet resultSet = st.executeQuery();
+            while (resultSet.next()) {
+                medicine.setMedicineName(resultSet.getString("medicineName"));
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);

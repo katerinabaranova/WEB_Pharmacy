@@ -13,13 +13,13 @@ import java.util.List;
 
 
 public class RecipeDAO extends AbstractDAO<Recipe> {
-    private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe";
-    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe WHERE idrecipe=?";
-    private static final String SQL_SELECT_RECIPE_BY_PACIENT = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe WHERE fkPacient=?";
-    private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM recipe WHERE fkDoctor=?";
-    private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM recipe WHERE idrecipe = ?;";
-    private static final String SQL_CREATE_RECIPE = "INSERT INTO recipe(fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired) values(?,?,?,?,?);";
-    private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE recipe SET idrecipe=?,fkDoctor=?,fkPacient=?,fkMedicine=?,medicineQuantity=?,expired=? WHERE idrecipe=?;";
+    private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe";
+    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE idrecipe=?";
+    private static final String SQL_SELECT_RECIPE_BY_PACIENT = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkPacient=?";
+    private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkDoctor=?";
+    private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM pharmacy.recipe WHERE idrecipe = ?;";
+    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired) values(?,?,?,?,?);";
+    private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET idrecipe=?,fkDoctor=?,fkPacient=?,fkMedicine=?,medicineQuantity=?,expired=? WHERE idrecipe=?;";
 
     @Override
     public List<Recipe> findAll() throws DAOException {
@@ -68,6 +68,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PACIENT)){
+            st.setLong(1,pacientId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();

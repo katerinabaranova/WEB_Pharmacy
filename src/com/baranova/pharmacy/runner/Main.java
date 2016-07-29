@@ -1,8 +1,10 @@
 package com.baranova.pharmacy.runner;
 
 import com.baranova.pharmacy.dao.OrderDAO;
+import com.baranova.pharmacy.dao.RecipeDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
@@ -17,12 +19,8 @@ public class Main {
 
         try {
             OrderDAO orderDAO=new OrderDAO();
-            User user=new User();
-            user.setId(4);
-            Order order=orderDAO.findEntityById(1);
+            Order order=orderDAO.findEntityById((long)1);
             System.out.println(order);
-            List<Order> orders=orderDAO.findAll();
-            System.out.println(orders);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
