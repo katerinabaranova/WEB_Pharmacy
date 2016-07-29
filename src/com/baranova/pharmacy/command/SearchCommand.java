@@ -18,7 +18,9 @@ public class SearchCommand implements ICommand  {
             request.setAttribute("medicineList", medicines);
             request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SEARCH_RESULTS);
             return PageName.SEARCH_RESULTS;
+        } else {
+            request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NO_SEARCH_RESULTS);
+            return PageName.NO_SEARCH_RESULTS;
         }
-        return PageName.NO_SEARCH_RESULTS;
     }
 }

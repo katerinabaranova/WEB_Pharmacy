@@ -2,8 +2,10 @@ package com.baranova.pharmacy.service;
 
 
 import com.baranova.pharmacy.dao.MedicineDAO;
+import com.baranova.pharmacy.dao.OrderDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Medicine;
+import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.util.Security;
@@ -46,6 +48,21 @@ public class Service {
             LOG.error(e.getMessage());
         }
         return medicines;
+    }
+
+    public static List<Order>  showOrdersService(String login){
+        System.out.println(login);
+        UserDAO userDAO=new UserDAO();
+        List<Order> orders=new ArrayList<>();
+        User user;
+        try {
+            user = userDAO.findEntityByLogin(login);
+            OrderDAO orderDAO=new OrderDAO();
+            orders=orderDAO.findOrdersByUser(user.getId());
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return orders;
     }
 
 

@@ -20,7 +20,7 @@ public class UserDAO extends AbstractDAO<User>{
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
-    private static final String SQL_SELECT_PASSWORD_BY_LOGIN="SELECT login,password,fkrole FROM user WHERE login=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT iduser,login,password,fkrole FROM user WHERE login=?";
 
     @Override
     public List<User> findAll() throws DAOException {
@@ -105,11 +105,12 @@ public class UserDAO extends AbstractDAO<User>{
     public User findEntityByLogin(String login) throws DAOException {
         User user=new User();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_PASSWORD_BY_LOGIN)){
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_USER_BY_LOGIN)){
             st.setString(1,login.toLowerCase());
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 user.setLogin(resultSet.getString("login"));
+                user.setId(resultSet.getLong("iduser"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(resultSet.getInt("fkrole"));
             }

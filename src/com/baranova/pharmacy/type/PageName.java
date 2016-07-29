@@ -14,8 +14,10 @@ public enum PageName {
     REGISTRATION_ERROR("jsp/error_registration_page.jsp"),
     SEARCH_RESULTS("jsp/search_results.jsp"),
     NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
-    MENU_BUYER("jsp/top_menu_buyer.jsp"),
-    MENU_COMMON("jsp/top_menu_main.jsp");
+    MENU_BUYER("jsp/top_menu/top_menu_buyer.jsp"),
+    USER_ORDERS("jsp/user_orders.jsp"),
+    NO_ORDERS_RESULTS("jsp/no_user_orders.jsp"),
+    MENU_COMMON("jsp/top_menu/top_menu_main.jsp");
 
     private String pageName;
 

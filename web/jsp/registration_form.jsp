@@ -6,7 +6,7 @@
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
-<%@ include file="top_menu_main.jsp" %>
+<%@ include file="top_menu/top_menu_main.jsp" %>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_FORM);%>
 <form class="form-horizontal" action="../registration" method="post">
     <fieldset>

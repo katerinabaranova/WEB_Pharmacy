@@ -8,7 +8,8 @@ public enum TypeCommand {
     REGISTRATION,
     NEW_RECIPE,
     CHANGE_LANGUAGE,
-    SEARCH;
+    SEARCH,
+    SHOW_ORDERS;
 
 
 }

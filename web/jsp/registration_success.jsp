@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
-<%@ include file="top_menu_main.jsp" %>
+<%@ include file="top_menu/top_menu_main.jsp" %>
 
     <h1><fmt:message key="registration.success.header"/> </h1>
 

@@ -10,8 +10,8 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache">
   <title><fmt:message key="title.main"/> </title>
-  <link href="../css/bootstrap.min.css" rel="stylesheet" />
-  <script src="../js/bootstrap.min.js"></script>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <script src="../../js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 
@@ -43,7 +43,12 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_orders.jsp"><fmt:message key="menu.order" /></a></li>
+          <li>
+            <form action="/show_orders" method="post">
+              <input type="hidden" name="command" value="show_orders" />
+              <button type="submit" class="btn-link"><fmt:message key="menu.order"/> </button>
+            </form>
+           </li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.recipes"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>

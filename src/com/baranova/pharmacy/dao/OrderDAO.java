@@ -13,12 +13,12 @@ import java.util.List;
 
 public class OrderDAO extends AbstractDAO<Order>{
 
-    private static final String SQL_SELECT_ALL_ORDERS = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM order";
-    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM order WHERE idorder=?";
-    private static final String SQL_SELECT_ORDER_BY_USER = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM order WHERE fkBuyer=?";
-    private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM order WHERE idorder = ?;";
-    private static final String SQL_CREATE_ORDER = "INSERT INTO order(fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid) values(?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=?,paid=? WHERE idorder=?;";
+    private static final String SQL_SELECT_ALL_ORDERS = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order";
+    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order WHERE idorder=?";
+    private static final String SQL_SELECT_ORDER_BY_USER = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order WHERE fkBuyer=?";
+    private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM pharmacy.order WHERE idorder = ?;";
+    private static final String SQL_CREATE_ORDER = "INSERT INTO pharmacy.order(fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid) values(?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE pharmacy.order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=?,paid=? WHERE idorder=?;";
 
     @Override
     public List<Order> findAll() throws DAOException {
@@ -33,8 +33,8 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setFkMedicineID(resultSet.getLong("fkMedicine"));
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setDelivery(resultSet.getBoolean("delivery"));
                 order.setPaid(resultSet.getBoolean("paid"));
+                order.setDelivery(resultSet.getBoolean("delivery"));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -69,16 +69,19 @@ public class OrderDAO extends AbstractDAO<Order>{
         List<Order> orders = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_ORDER_BY_USER)){
+            st.setLong(1,userId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong("idorder"));
+                System.out.println(order);
                 order.setFkUserID(resultSet.getLong("fkBuyer"));
                 order.setFkMedicineID(resultSet.getLong("fkMedicine"));
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
                 order.setPaid(resultSet.getBoolean("paid"));
+
                 orders.add(order);
             }
         } catch (SQLException e) {
