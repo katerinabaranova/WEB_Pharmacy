@@ -9,7 +9,8 @@ public enum TypeCommand {
     NEW_RECIPE,
     CHANGE_LANGUAGE,
     SEARCH,
-    SHOW_ORDERS;
+    SHOW_ORDERS,
+    SHOW_USER_RECIPES;
 
 
 }

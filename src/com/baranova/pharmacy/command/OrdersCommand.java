@@ -13,13 +13,12 @@ import java.util.List;
 /**
  * Created by Ekaterina on 7/28/16.
  */
-public class ShowOrdersCommand implements ICommand{
+public class OrdersCommand implements ICommand{
 
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response) {
         String login=request.getSession().getAttribute("loggedUser").toString();
         List<Order> userOrders= Service.showOrdersService(login);
-        System.out.println(userOrders);
         if (!userOrders.isEmpty()) {
             request.setAttribute("orderList", userOrders);
             request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.USER_ORDERS);
@@ -27,5 +26,6 @@ public class ShowOrdersCommand implements ICommand{
         } else {
             request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NO_ORDERS_RESULTS);
             return PageName.NO_ORDERS_RESULTS;
-        }    }
+        }
+    }
 }

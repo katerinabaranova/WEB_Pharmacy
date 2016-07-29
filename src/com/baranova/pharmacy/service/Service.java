@@ -3,9 +3,11 @@ package com.baranova.pharmacy.service;
 
 import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.dao.OrderDAO;
+import com.baranova.pharmacy.dao.RecipeDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.util.Security;
@@ -51,7 +53,6 @@ public class Service {
     }
 
     public static List<Order>  showOrdersService(String login){
-        System.out.println(login);
         UserDAO userDAO=new UserDAO();
         List<Order> orders=new ArrayList<>();
         User user;
@@ -65,5 +66,19 @@ public class Service {
         return orders;
     }
 
+    public static List<Recipe> showRecipesService(String login){
+        UserDAO userDAO=new UserDAO();
+        List<Recipe> recipes=new ArrayList<>();
+        User user;
+        try {
+            user = userDAO.findEntityByLogin(login);
+            RecipeDAO recipeDAO=new RecipeDAO();
+            recipes=recipeDAO.findRecipesByPacient(user.getId());
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return recipes;
+
+    }
 
 }

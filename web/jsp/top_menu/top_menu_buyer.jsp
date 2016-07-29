@@ -49,7 +49,12 @@
               <button type="submit" class="btn-link"><fmt:message key="menu.order"/> </button>
             </form>
            </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.recipes"/> </a></li>
+          <li>
+            <form action="/show_recipes" method="post">
+              <input type="hidden" name="command" value="show_recipes" />
+              <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
+            </form>
+          </li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>

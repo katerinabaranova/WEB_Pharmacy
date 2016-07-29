@@ -16,9 +16,11 @@ public enum PageName {
     NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
     MENU_BUYER("jsp/top_menu/top_menu_buyer.jsp"),
     USER_ORDERS("jsp/user_orders.jsp"),
+    USER_RECIPES("jsp/user_recipes.jsp"),
+    SEARCH_PAGE("jsp/search_page.jsp"),
     NO_ORDERS_RESULTS("jsp/no_user_orders.jsp"),
-    MENU_COMMON("jsp/top_menu/top_menu_main.jsp");
-
+    MENU_COMMON("jsp/top_menu/top_menu_main.jsp"),
+    NO_RECIPES_RESULTS("jsp/no_user_recipes.jsp");
     private String pageName;
 
     PageName(String pageName) {

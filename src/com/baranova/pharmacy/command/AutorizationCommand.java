@@ -28,6 +28,8 @@ public class AutorizationCommand implements ICommand {
             return PageName.USER_PAGE;
         } else {
             LOG.error("Wrong login/password");
+            HttpSession session = request.getSession();
+            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.LOGGING_ERROR);
             return PageName.LOGGING_ERROR;
         }
     }

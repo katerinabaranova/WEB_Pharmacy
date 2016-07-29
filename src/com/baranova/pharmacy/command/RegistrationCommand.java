@@ -50,6 +50,8 @@ public class RegistrationCommand implements ICommand{
             session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_SUCCESS);
             return PageName.REGISTRATION_SUCCESS;
         } else {
+            HttpSession session=request.getSession();
+            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_ERROR);
             return PageName.REGISTRATION_ERROR;
         }
     }
