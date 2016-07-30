@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderDAO extends AbstractDAO<Order>{
 
     private static final String SQL_SELECT_ALL_ORDERS = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order";
-    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order WHERE idorder=?";
+    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT O.idorder,O.fkBuyer,M.medicineName,O.quantity,O.totalAmount,O.delivery,O.paid FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine WHERE idorder=?";
     private static final String SQL_SELECT_ORDER_BY_USER = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order WHERE fkBuyer=?";
     private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM pharmacy.order WHERE idorder = ?;";
     private static final String SQL_CREATE_ORDER = "INSERT INTO pharmacy.order(fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid) values(?,?,?,?,?,?);";
@@ -30,7 +30,7 @@ public class OrderDAO extends AbstractDAO<Order>{
                 Order order = new Order();
                 order.setId(resultSet.getLong("idorder"));
                 order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setFkMedicineID(resultSet.getLong("fkMedicine"));
+                order.setMedicineName(resultSet.getString("fkMedicine"));
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
                 order.setPaid(resultSet.getBoolean("paid"));
@@ -53,7 +53,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 order.setId(resultSet.getLong("idorder"));
                 order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setFkMedicineID(resultSet.getLong("fkMedicine"));
+                order.setMedicineName(resultSet.getString("medicineName"));
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
@@ -74,14 +74,12 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong("idorder"));
-                System.out.println(order);
                 order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setFkMedicineID(resultSet.getLong("fkMedicine"));
+                order.setMedicineName(resultSet.getString("fkMedicine"));
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
                 order.setPaid(resultSet.getBoolean("paid"));
-
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -114,7 +112,7 @@ public class OrderDAO extends AbstractDAO<Order>{
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_ORDER)){
             st.setLong(1,entity.getFkUserID());
-            st.setLong(2,entity.getFkMedicineID());
+            st.setString(2,entity.getMedicineName());
             st.setInt(3,entity.getQuantity());
             st.setInt(4,entity.getTotalAmount());
             st.setBoolean(5,entity.isDelivery());
@@ -133,7 +131,7 @@ public class OrderDAO extends AbstractDAO<Order>{
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_ORDER_BY_ENTITY)){
             st.setLong(1,entity.getId());
             st.setLong(2,entity.getFkUserID());
-            st.setLong(3,entity.getFkMedicineID());
+            st.setString(3,entity.getMedicineName());
             st.setInt(4,entity.getQuantity());
             st.setInt(5,entity.getTotalAmount());
             st.setBoolean(6,entity.isDelivery());

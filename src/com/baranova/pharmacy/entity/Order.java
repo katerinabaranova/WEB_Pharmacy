@@ -9,7 +9,7 @@ public class Order extends Entity {
     private static final Logger LOG= LogManager.getLogger();
 
     private long fkUserID;
-    private long fkMedicineID;
+    private String medicineName;
     private int quantity;
     private int totalAmount;
     private boolean paid;
@@ -17,11 +17,11 @@ public class Order extends Entity {
 
     public Order(){
     }
-    public Order(long id, long fkUserID, long fkMedicineID, int quantity, int totalAmount,
+    public Order(long id, long fkUserID, String medicineName, int quantity, int totalAmount,
                  boolean paid, boolean delivery) {
         super(id);
         this.fkUserID = fkUserID;
-        this.fkMedicineID = fkMedicineID;
+        this.medicineName = medicineName;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.paid = paid;
@@ -30,7 +30,7 @@ public class Order extends Entity {
 
     public long getOrderId(){return super.getId();}
     public long getFkUserID() {return fkUserID;}
-    public long getFkMedicineID() {return fkMedicineID;}
+    public String getMedicineName() {return medicineName;}
     public int getQuantity() {return quantity;}
     public int getTotalAmount() {return totalAmount;}
     public boolean isPaid() {return paid;}
@@ -38,7 +38,7 @@ public class Order extends Entity {
 
     public void setOrderId(long id){super.setId(id);}
     public void setFkUserID(long fkUserID) {this.fkUserID = fkUserID;}
-    public void setFkMedicineID(long fkMedicineID) {this.fkMedicineID = fkMedicineID;}
+    public void setMedicineName(String medicineName) {this.medicineName = medicineName;}
     public void setQuantity(int quantity) {this.quantity = quantity;}
     public void setTotalAmount(int totalAmount) {this.totalAmount = totalAmount;}
     public void setPaid(boolean paid) {this.paid = paid;}
@@ -46,12 +46,6 @@ public class Order extends Entity {
 
     @Override
     public String toString() {
-        String medicineName="";
-        try {
-            medicineName=new MedicineDAO().findMedicineNameById(this.getFkMedicineID()).getMedicineName();
-        } catch (DAOException e){
-
-        }
         return "Order{" +
                 "fkUserID=" + fkUserID +
                 ", medicine=" +  medicineName +

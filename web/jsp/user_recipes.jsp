@@ -7,11 +7,25 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
-<h1>Recipes </h1>
-<br>
-<br>
-<br>
-<br>
+<h1><fmt:message key="user.recipes.header"/> </h1>
+<div class="row">
+    <div class="col-md-1"><fmt:message key="user.recipes.id"/> </div>
+    <div class="col-md-1"><fmt:message key="user.recipes.doctor"/></div>
+    <div class="col-md-1"><fmt:message key="user.recipes.medicine"/></div>
+    <div class="col-md-2"><fmt:message key="user.recipes.quantity"/></div>
+    <div class="col-md-1"><fmt:message key="user.recipes.expired"/></div>
+</div>
+<c:forEach items="${recipeList}" var="order">
+    <div class="row">
+        <div class=col-md-1>${recipe.id}</div>
+        <div class=col-md-1>${recipe.doctorID}</div>
+        <div class=col-md-1>${order.medicineID}</div>
+        <div class=col-md-2>${order.medicineQuantity}</div>
+        <div class=col-md-1>${order.expired}</div>
+    </div>
+    <br>
+</c:forEach>
+
 
 <p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a>
 

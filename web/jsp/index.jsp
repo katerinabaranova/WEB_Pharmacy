@@ -6,7 +6,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
-<jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
+<jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 
 <form class="form-horizontal" action="../search" method="post">
     <fieldset>

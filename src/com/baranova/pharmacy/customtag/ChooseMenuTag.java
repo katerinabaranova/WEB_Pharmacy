@@ -1,5 +1,6 @@
 package com.baranova.pharmacy.customtag;
 
+import com.baranova.pharmacy.constant.AttributeConstant;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.jsp.JspException;
@@ -19,12 +20,14 @@ public class ChooseMenuTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        if (role == 1) {
-            pageContext.setAttribute("include_page",PageName.MENU_BUYER.getPageName());
+        if (role==0){
+            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_COMMON.getPageName());
+        }else if (role == 1) {
+            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_BUYER.getPageName());
+        } else if (role==2){
+            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.);
         }
-        else if (role==0){
-            pageContext.setAttribute("include_page",PageName.MENU_COMMON.getPageName());
-        }
+
 
         return SKIP_BODY;
     }

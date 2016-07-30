@@ -8,10 +8,17 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
+/**
+ * Class generator for MD5 hashcode
+ */
 public class Security {
     private static final Logger LOG= LogManager.getLogger();
 
+    /**
+     * Generation MD5 hashcode from user password for adding to database
+     * @param password user password that should be encoded
+     * @return hashcode of password
+     */
     public static String getMD5(String password) {
         String hashPassword="";
         try {

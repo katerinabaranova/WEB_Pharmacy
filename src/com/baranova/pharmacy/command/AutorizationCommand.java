@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 public class AutorizationCommand implements ICommand {
     private static final Logger LOG= LogManager.getLogger();
 
+
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response){
         String login=request.getParameter(ParameterNameUser.LOGIN);
