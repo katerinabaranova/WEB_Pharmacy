@@ -55,7 +55,7 @@
               <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
             </form>
           </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

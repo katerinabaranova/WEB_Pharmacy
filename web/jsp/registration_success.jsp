@@ -9,5 +9,5 @@
     <br>
     <br>
 
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a></p>
-<%@include file="bottom.jsp"%>
+<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a></p>
+<%@include file="bottom/bottom.jsp"%>

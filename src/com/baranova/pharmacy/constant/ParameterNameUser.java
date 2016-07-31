@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.constant;
 
 /**
- * Created by Ekaterina on 7/21/16.
+ * Parameters receiving from form of user registration
  */
 public class ParameterNameUser {
     public static final String LOGIN="Login";

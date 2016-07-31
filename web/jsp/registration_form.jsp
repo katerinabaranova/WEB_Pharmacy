@@ -115,4 +115,4 @@
 </form>
 
 
-<%@include file="bottom.jsp" %>
+<%@include file="bottom/bottom.jsp" %>

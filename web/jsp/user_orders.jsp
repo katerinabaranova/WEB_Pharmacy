@@ -6,7 +6,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
-<jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
+<jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <h1><fmt:message key="user.orders.header"/> </h1>
 <div class="row">
     <div class="col-md-1"><fmt:message key="user.orders.id"/> </div>
@@ -28,6 +28,6 @@
     <br>
 </c:forEach>
 
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a>
+<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="bottom/bottom.jsp"%>

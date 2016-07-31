@@ -23,7 +23,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="search.buttom"/> </button>
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="search.button"/> </button>
             </div>
         </div>
         <input type="hidden" name="command" value="search">
@@ -31,4 +31,4 @@
 </form>
 
 
-<%@include file="bottom.jsp" %>
+<%@include file="bottom/bottom.jsp" %>

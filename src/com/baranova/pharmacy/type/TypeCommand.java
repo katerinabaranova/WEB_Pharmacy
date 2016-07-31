@@ -10,7 +10,7 @@ public enum TypeCommand {
     CHANGE_LANGUAGE,
     SEARCH,
     SHOW_ORDERS,
-    SHOW_RECIPES;
-
-
+    SHOW_RECIPES,
+    SHOW_MEDICINES,
+    PREPARE_ORDER;
 }

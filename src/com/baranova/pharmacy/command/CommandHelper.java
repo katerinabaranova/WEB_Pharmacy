@@ -17,7 +17,8 @@ public class CommandHelper {
         commands.put(TypeCommand.CHANGE_LANGUAGE,new ChangeLanguageCommand());
         commands.put(TypeCommand.SEARCH,new SearchCommand());
         commands.put(TypeCommand.SHOW_ORDERS,new OrdersCommand());
-        commands.put(TypeCommand.SHOW_RECIPES,new UserRecipesCommand());
+        commands.put(TypeCommand.SHOW_RECIPES,new RecipesCommand());
+        commands.put(TypeCommand.PREPARE_ORDER,new PrepareOrderCommand());
     }
 
     public static ICommand getCommand(String commandName) {

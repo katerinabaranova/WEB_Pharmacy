@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class UserRecipesCommand implements ICommand{
+public class RecipesCommand implements ICommand{
 
     @Override
     public PageName execute(HttpServletRequest request, HttpServletResponse response) {

@@ -25,10 +25,10 @@ public class ChooseMenuTag extends TagSupport {
         }else if (role == 1) {
             pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_BUYER.getPageName());
         } else if (role==2){
-            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.);
+            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_DOCTOR.getPageName());
+        } else if (role==3){
+            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_PHARMACIST.getPageName());
         }
-
-
         return SKIP_BODY;
     }
 }

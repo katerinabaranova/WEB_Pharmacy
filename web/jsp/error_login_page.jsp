@@ -14,6 +14,6 @@
     <hr>
     <br>
     <h3><fmt:message key="error.login.header"/></h3>
-    <p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a>
-<%@include file="bottom.jsp"%>
+    <p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
+<%@include file="bottom/bottom.jsp"%>
 

@@ -37,25 +37,19 @@
   <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <ul class="nav navbar-nav navbar-left">
-        <li>Welcome, ${loggedUser}</li>
+        <li><fmt:message key="pharmacist.menu.welcome"/> ${loggedUser}</li>
       </ul>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
           <li>
-            <form action="/show_orders" method="post">
-              <input type="hidden" name="command" value="show_orders" />
+            <form action="/show_medicines" method="post">
+              <input type="hidden" name="command" value="show_medicines" />
               <button type="submit" class="btn-link"><fmt:message key="menu.order"/> </button>
             </form>
            </li>
-          <li>
-            <form action="/show_recipes" method="post">
-              <input type="hidden" name="command" value="show_recipes" />
-              <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
-            </form>
-          </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/new_medicine_form.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

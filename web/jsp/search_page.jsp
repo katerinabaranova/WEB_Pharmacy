@@ -8,7 +8,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
-<jsp:include page="${pageContext.request.contextPath}/${include_page}"/>
+<jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SEARCH_PAGE);%>
 
 
@@ -26,13 +26,13 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="singlebutton"></label>
                 <div class="col-md-4">
-                    <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="search.buttom"/> </button>
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="search.button"/> </button>
                 </div>
             </div>
             <input type="hidden" name="command" value="search">
         </fieldset>
     </form>
 
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="buttom.back" /></a>
+<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="bottom/bottom.jsp"%>

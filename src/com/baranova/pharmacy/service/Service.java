@@ -78,7 +78,28 @@ public class Service {
             LOG.error(e.getMessage());
         }
         return recipes;
+    }
 
+    public static Medicine getMedicineService(Long id){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        Medicine medicine=null;
+        try {
+            medicine = medicineDAO.findEntityById(id);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicine;
+    }
+
+    public static List<Medicine> getAllMedicineService(){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        List<Medicine> medicines=new ArrayList<>();
+        try{
+            medicines=medicineDAO.findAll();
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicines;
     }
 
 }
