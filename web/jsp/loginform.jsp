@@ -14,7 +14,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Login"><fmt:message key="login.label.username"/>:</label>
             <div class="col-md-4">
-                <input id="Login" name="Login" type="text" pattern="[A-Za-Z]{5,15}" value="tomcat" placeholder="" class="form-control input-md" required="">
+                <input id="Login" name="Login" type="text" pattern="[A-Za-Z]{5,15}" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
         <div class="form-group">

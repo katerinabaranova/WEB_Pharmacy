@@ -18,7 +18,9 @@ public class CommandHelper {
         commands.put(TypeCommand.SEARCH,new SearchCommand());
         commands.put(TypeCommand.SHOW_ORDERS,new OrdersCommand());
         commands.put(TypeCommand.SHOW_RECIPES,new RecipesCommand());
+        commands.put(TypeCommand.SHOW_MEDICINES,new MedicinesCommand());
         commands.put(TypeCommand.PREPARE_ORDER,new PrepareOrderCommand());
+        commands.put(TypeCommand.NEW_MEDICINE,new NewMedicineCommand());
     }
 
     public static ICommand getCommand(String commandName) {

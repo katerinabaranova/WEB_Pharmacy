@@ -5,12 +5,13 @@ package com.baranova.pharmacy.type;
  */
 public enum TypeCommand {
     AUTHORIZATION,
-    REGISTRATION,
-    NEW_RECIPE,
     CHANGE_LANGUAGE,
+    NEW_MEDICINE,
+    NEW_RECIPE,
+    PREPARE_ORDER,
+    REGISTRATION,
     SEARCH,
     SHOW_ORDERS,
     SHOW_RECIPES,
-    SHOW_MEDICINES,
-    PREPARE_ORDER;
+    SHOW_MEDICINES;
 }

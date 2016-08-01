@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 public class ChangeLanguageCommand implements ICommand {
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response) {
+    public PageName execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String local = request.getParameter(ParameterName.LANGUAGE);
         session.setAttribute(ParameterName.LANGUAGE, local);

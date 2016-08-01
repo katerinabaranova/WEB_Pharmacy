@@ -17,7 +17,7 @@ public class AutorizationCommand implements ICommand {
 
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response){
+    public PageName execute(HttpServletRequest request){
         String login=request.getParameter(ParameterNameUser.LOGIN);
         String password=request.getParameter(ParameterNameUser.PASSWORD);
         int role;
