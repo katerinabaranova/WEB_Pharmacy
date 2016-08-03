@@ -16,7 +16,7 @@ import java.util.List;
 public class OrdersCommand implements ICommand{
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response) {
+    public PageName execute(HttpServletRequest request) {
         String login=request.getSession().getAttribute("loggedUser").toString();
         List<Order> userOrders= Service.showOrdersService(login);
         if (!userOrders.isEmpty()) {

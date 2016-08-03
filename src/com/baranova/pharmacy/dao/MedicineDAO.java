@@ -40,7 +40,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicines.add(medicine);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }
         return medicines;
     }
@@ -63,7 +63,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }
         return medicine;
     }
@@ -99,9 +99,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getInt("price"));
                 medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
-                byte isRecipe=resultSet.getByte("recipe");
-                if (isRecipe==0) {medicine.setRecipe(false);}
-                    else {medicine.setRecipe(true);}
+                medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
             }
         } catch (SQLException e) {
@@ -116,7 +114,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
         boolean isDeleted=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_MEDICINE_BY_ID)){
             st.setLong(1,id);
-            isDeleted=st.execute();
+            isDeleted=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }
@@ -140,7 +138,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(5,entity.getPrice());
             st.setInt(6,entity.getStoreQuantity());
             st.setBoolean(7,entity.isRecipe());
-            isCreated=st.execute();
+            isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }
@@ -161,7 +159,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(7,entity.getStoreQuantity());
             st.setBoolean(8,entity.isRecipe());
             st.setLong(9,entity.getId());
-            isUpdate=st.execute();
+            isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }

@@ -44,7 +44,7 @@ public class UserDAO extends AbstractDAO<User>{
                 users.add(user);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);
         }
         return users;
     }
@@ -70,7 +70,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setApartment(resultSet.getInt("apartment"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):" , e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):" , e);
         }
         return user;
     }
@@ -97,7 +97,7 @@ public class UserDAO extends AbstractDAO<User>{
                 users.add(user);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):" , e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):" , e);
         }
         return users;
     }
@@ -115,7 +115,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setRole(resultSet.getInt("fkrole"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);
         }
         return user;
     }
@@ -128,7 +128,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setLong(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):",e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):",e);
         }
         return isDeleted;
     }
@@ -157,7 +157,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setInt(12,entity.getRole());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):",e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):",e);
         }
         return isCreated;
     }
@@ -181,7 +181,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setLong(12,entity.getUserID());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);
         }
         return isUpdate;
     }

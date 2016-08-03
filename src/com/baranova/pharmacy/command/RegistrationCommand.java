@@ -20,7 +20,7 @@ public class RegistrationCommand implements ICommand{
     private static final Logger LOG= LogManager.getLogger();
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response){
+    public PageName execute(HttpServletRequest request){
         User user=new User();
         UserDAO userDAO=new UserDAO();
         user.setLogin(request.getParameter(ParameterNameUser.LOGIN));

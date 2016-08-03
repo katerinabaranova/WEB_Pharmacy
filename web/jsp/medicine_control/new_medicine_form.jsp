@@ -10,7 +10,7 @@
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_MEDICINE_FORM);%>
-<form class="form-horizontal">
+<form class="form-horizontal" action="/new_medicine">
     <fieldset>
         <legend><fmt:message key="adding.new.medicine"/> </legend>
         <div class="form-group">
@@ -56,9 +56,9 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="pecipe"><fmt:message key="need.recipe"/> </label>
+            <label class="col-md-4 control-label" for="recipe"><fmt:message key="need.recipe"/> </label>
             <div class="col-md-2">
-                <select id="pecipe" name="pecipe" class="form-control">
+                <select id="recipe" name="recipe" class="form-control">
                     <option value="1"><fmt:message key="label.yes"/> </option>
                     <option value="2"><fmt:message key="label.no"/></option>
                 </select>
@@ -77,4 +77,4 @@
 
     <br>
 <p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-    <jsp:include page="${pageContext.request.contextPath}/bottom/bottom.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

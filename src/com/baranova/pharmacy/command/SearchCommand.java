@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SearchCommand implements ICommand  {
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response) {
+    public PageName execute(HttpServletRequest request) {
         String medicineName=request.getParameter("medicineName");
         List<Medicine> medicines= Service.searchService(medicineName);
         if (!medicines.isEmpty()) {

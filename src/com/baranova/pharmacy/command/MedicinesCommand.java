@@ -16,7 +16,7 @@ import java.util.List;
 public class MedicinesCommand implements ICommand{
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response){
+    public PageName execute(HttpServletRequest request){
         List<Medicine> medicines= Service.getAllMedicineService();
         if (!medicines.isEmpty()){
             request.setAttribute(AttributeConstant.ALL_MEDICINE_LIST, medicines);

@@ -16,7 +16,7 @@ public class NewRecipeCommand implements ICommand {
     private static final Logger LOG= LogManager.getLogger();
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response){
+    public PageName execute(HttpServletRequest request){
         Recipe recipe=new Recipe();
         RecipeDAO recipeDAO=new RecipeDAO();
 

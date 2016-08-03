@@ -16,7 +16,7 @@ import java.util.List;
 public class PrepareOrderCommand implements ICommand {
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response) {
+    public PageName execute(HttpServletRequest request) {
         Long medicineID=Long.parseLong(request.getParameter(ParameterName.MEDICINE));
         Medicine medicine=Service.getMedicineService(medicineID);
         request.setAttribute(AttributeConstant.MEDICINE_FOR_ORDER, medicine);

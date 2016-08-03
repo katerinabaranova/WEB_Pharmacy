@@ -32,7 +32,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         String commandName = request.getParameter(ParameterName.COMMAND);
         ICommand command = CommandHelper.getCommand(commandName);
-        PageName pageName = command.execute(request, response);
+        PageName pageName = command.execute(request);
         request.getRequestDispatcher(pageName.getPageName()).forward(request, response);
     }
 }

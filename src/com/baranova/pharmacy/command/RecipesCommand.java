@@ -14,7 +14,7 @@ import java.util.List;
 public class RecipesCommand implements ICommand{
 
     @Override
-    public PageName execute(HttpServletRequest request, HttpServletResponse response) {
+    public PageName execute(HttpServletRequest request) {
         String login=request.getSession().getAttribute("loggedUser").toString();
         List<Recipe> userRecipes= Service.showRecipesService(login);
         if (!userRecipes.isEmpty()) {

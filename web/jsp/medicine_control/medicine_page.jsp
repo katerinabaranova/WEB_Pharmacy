@@ -30,22 +30,22 @@
         <div class=col-md-1>${medicine.recipe}</div>
 
 
-        <form action="../update_medicine" method="post">
+        <form action="" method="post">
             <div class="form-group">
-                <div class="col-md-1">
-                    <input type="hidden" name="command" value="prepare_order" />
+                <div class="col-md-2">
+                    <input type="hidden" name="command" value="prepare_update_medicine" />
                     <input type="hidden" name="medicine" value="${medicine.id}">
-                    <button type="submit" class="btn btn-warning"><fmt:message key="search.results.button"/> </button>
+                    <button type="submit" class="btn btn-warning"><fmt:message key="edit.button"/> </button>
                 </div>
             </div>
         </form>
 
-        <form action="../delete_medicine" method="post">
+        <form action="" method="post">
             <div class="form-group">
-                <div class="col-md-1">
-                    <input type="hidden" name="command" value="prepare_order" />
+                <div class="col-md-2">
+                    <input type="hidden" name="command" value="delete_medicine" />
                     <input type="hidden" name="medicine" value="${medicine.id}">
-                    <button type="submit" class="btn btn-danger"><fmt:message key="search.results.button"/> </button>
+                    <button type="submit" class="btn btn-danger"><fmt:message key="delete.button"/> </button>
                 </div>
             </div>
         </form>
@@ -53,4 +53,4 @@
     <br>
 </c:forEach>
 <p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-    <%@ include file="../bottom/bottom.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>
