@@ -5,6 +5,8 @@ package com.baranova.pharmacy.type;
  */
 public enum PageName {
 
+    DELETE_MEDICINE_SUCCESS("jsp/medicine_control/delete_medicine_success.jsp"),
+    DELETE_MEDICINE_ERROR("jsp/medicine_control/delete_medicine_error.jsp"),
     INDEX("jsp/index.jsp"),
     LOGGING_FORM("jsp/loginform.jsp"),
     LOGGING_ERROR("jsp/error_login_page.jsp"),
@@ -26,7 +28,9 @@ public enum PageName {
     REGISTRATION_ERROR("jsp/error_registration_page.jsp"),
     SIGN_OUT("jsp/sign_out.jsp"),
     SEARCH_PAGE("jsp/search_page.jsp"),
-    SEARCH_RESULTS("jsp/search_results.jsp"),USER_ORDERS("jsp/user_orders.jsp"),
+    SEARCH_RESULTS("jsp/search_results.jsp"),
+    PROCCED_UPDATE("jsp/medicine_control/procced_update.jsp"),
+    USER_ORDERS("jsp/user_orders.jsp"),
     USER_PAGE ("jsp/loginsuccess.jsp"),
     USER_RECIPES("jsp/user_recipes.jsp");
 

@@ -30,17 +30,17 @@
         <div class=col-md-1>${medicine.recipe}</div>
 
 
-        <form action="" method="post">
+        <form action="/proceed_update_medicine" method="post">
             <div class="form-group">
                 <div class="col-md-2">
-                    <input type="hidden" name="command" value="prepare_update_medicine" />
+                    <input type="hidden" name="command" value="proceed_update_medicine" />
                     <input type="hidden" name="medicine" value="${medicine.id}">
                     <button type="submit" class="btn btn-warning"><fmt:message key="edit.button"/> </button>
                 </div>
             </div>
         </form>
 
-        <form action="" method="post">
+        <form action="/delete_medicine" method="post">
             <div class="form-group">
                 <div class="col-md-2">
                     <input type="hidden" name="command" value="delete_medicine" />

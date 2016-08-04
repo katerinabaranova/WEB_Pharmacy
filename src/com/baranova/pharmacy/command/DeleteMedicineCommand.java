@@ -19,12 +19,12 @@ public class DeleteMedicineCommand implements ICommand {
         boolean isDeleted= ServiceMedicine.deleteMedicine(id);
         if (isDeleted){
             HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_MEDICINE_SUCCESS);
-            return PageName.NEW_MEDICINE_SUCCESS;
+            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.DELETE_MEDICINE_SUCCESS);
+            return PageName.DELETE_MEDICINE_SUCCESS;
         } else {
             HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_MEDICINE_SUCCESS);
-            return PageName.NEW_MEDICINE_SUCCESS;
+            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.DELETE_MEDICINE_ERROR);
+            return PageName.DELETE_MEDICINE_ERROR;
         }
     }
 }

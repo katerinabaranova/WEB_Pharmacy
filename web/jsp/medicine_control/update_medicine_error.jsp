@@ -9,7 +9,7 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<h3><fmt:message key="delete.medicine.success"/> </h3>
+<h3><fmt:message key="add.medicine.error"/> </h3>
 <br>
 <br>
 <p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>

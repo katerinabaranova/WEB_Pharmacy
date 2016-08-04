@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by Ekaterina on 7/31/16.
+ * Class command
  */
 public class MedicinesCommand implements ICommand{
 
@@ -23,8 +23,8 @@ public class MedicinesCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.MEDICINE_PAGE);
             return PageName.MEDICINE_PAGE;
         } else {
-            request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.MEDICINE_PAGE);
-            return PageName.MEDICINE_PAGE;
+            request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NO_MEDICINE_PAGE);
+            return PageName.NO_MEDICINE_PAGE;
         }
 
     }
