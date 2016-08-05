@@ -23,6 +23,7 @@ public enum PageName {
     NO_RECIPES_RESULTS("jsp/no_user_recipes.jsp"),
     NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
     ORDER_FORM("jsp/order_form.jsp"),
+    RECIPE_DOCTOR_PAGE("jsp/recipe_control/recipes+doctor.jsp"),
     REGISTRATION_FORM("jsp/registration_form.jsp"),
     REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
     REGISTRATION_ERROR("jsp/error_registration_page.jsp"),

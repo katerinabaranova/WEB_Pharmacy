@@ -48,7 +48,7 @@
               <button type="submit" class="btn-link"><fmt:message key="pharmacist.menu.medicine"/> </button>
             </form>
            </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/new_medicine_form.jsp"><fmt:message key="pharmacist.menu.newmedicine"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/new_medicine_form.jsp"><fmt:message key="pharmacist.menu.new.medicine"/></a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>

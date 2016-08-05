@@ -16,7 +16,7 @@ public class ServiceMedicine {
     private static final Logger LOG= LogManager.getLogger();
 
     /**
-     *
+     * Method call DAO method to create new medicine
      * @param request HttpServletRequest
      * @return boolean value if operation of creating was executed
      */

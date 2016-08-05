@@ -16,6 +16,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
     private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine";
     private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine WHERE medicine.idmedicine=?";
     private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM medicine WHERE medicine.medicineName=?";
+    private static final String SQL_SELECT_MEDICINE_BY_NAME_DOSAGE = "SELECT idmedicine FROM medicine WHERE medicine.medicineName=? AND medicine.dosage=?";
     private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM medicine WHERE medicine.idmedicine = ?;";
     private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe) values(?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,instoreQuantity=?,recipe=? WHERE idmedicine=?;";
@@ -82,6 +83,22 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
         }
         return medicine;
+    }
+
+    public long findIDByNameDosage(String name, int dosage) throws DAOException {
+        long id=0;
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_BY_NAME_DOSAGE)){
+            st.setString(1,name);
+            st.setInt(2,dosage);
+            ResultSet resultSet=st.executeQuery();
+            while (resultSet.next()){
+                id=resultSet.getLong("idmedicine");
+            }
+        } catch (SQLException e){
+            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+        }
+        return id;
     }
 
     public List<Medicine> findEntityByName(String name) throws DAOException {

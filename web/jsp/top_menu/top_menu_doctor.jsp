@@ -42,20 +42,20 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
-          <li>
-            <form action="/show_orders" method="post">
-              <input type="hidden" name="command" value="show_orders" />
-              <button type="submit" class="btn-link"><fmt:message key="menu.order"/> </button>
-            </form>
-           </li>
+          <li><a href="${pageContext.request.contextPath}/jsp/recipe_control/recipe_form.jsp"><fmt:message key="doctor.menu.new.recipe"/> </a></li>
           <li>
             <form action="/show_recipes" method="post">
               <input type="hidden" name="command" value="show_recipes" />
-              <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
+              <button type="submit" class="btn-link"><fmt:message key="doctor.menu.recipes"/> </button>
+            </form>
+           </li>
+          <li>
+            <form action="/show_requests" method="post">
+              <input type="hidden" name="command" value="show_requests" />
+              <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
             </form>
           </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_recipes.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

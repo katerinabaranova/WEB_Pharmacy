@@ -24,6 +24,7 @@ public class CommandHelper {
         commands.put(TypeCommand.DELETE_MEDICINE,new DeleteMedicineCommand());
         commands.put(TypeCommand.PROCEED_UPDATE_MEDICINE,new ProceedUpdateMedicine());
         commands.put(TypeCommand.UPDATE_MEDICINE,new UpdateMedicineCommand());
+        commands.put(TypeCommand.NEW_RECIPE,new NewRecipeCommand());
     }
 
     public static ICommand getCommand(String commandName) {

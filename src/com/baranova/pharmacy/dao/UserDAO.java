@@ -17,6 +17,7 @@ public class UserDAO extends AbstractDAO<User>{
     private static final String SQL_SELECT_ALL_USERS = "SELECT iduser,login,name,surname,email,phonenumber,city,street,housenumber,apartment FROM user";
     private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.iduser=?";
     private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.fkrole=?";
+    private static final String SQL_SELECT_USER_BY_SURNAME_NAME="SELECT iduser FROM user WHERE user.surname=? AND user.name=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
@@ -120,6 +121,21 @@ public class UserDAO extends AbstractDAO<User>{
         return user;
     }
 
+    public long findID(String surname,String name) throws DAOException{
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        long id=0;
+        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_USER_BY_SURNAME_NAME)){
+            st.setString(1,surname.toLowerCase());
+            st.setString(2,name.toLowerCase());
+            ResultSet resultSet=st.executeQuery();
+            while (resultSet.next()){
+                id=resultSet.getLong("iduser");
+            }
+        } catch (SQLException e){
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);
+        }
+        return id;
+    }
     @Override
     public boolean delete(long id) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
