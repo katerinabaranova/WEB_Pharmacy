@@ -3,10 +3,12 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resource.text" />
-<%@ include file="top_menu/top_menu_main.jsp" %>
+<ctg:navigation_menu role="${loggedRole}"/>
+<jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_FORM);%>
 <form class="form-horizontal" action="../registration" method="post">
     <fieldset>
@@ -114,5 +116,5 @@
     </fieldset>
 </form>
 
-
+<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
 <%@include file="bottom/bottom.jsp" %>

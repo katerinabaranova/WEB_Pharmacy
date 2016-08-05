@@ -9,7 +9,7 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <h3><fmt:message key="update.medicine"/> id=${medicine.id}</h3>
 <hr>
-<form class="form-horizontal" action="/update_medicine">
+<form class="form-horizontal" action="update_medicine">
     <fieldset>
         <input type="hidden" id="medicineID" value="${medicine.id}" name="medicineID"/>
         <div class="form-group">

@@ -14,6 +14,7 @@ public enum TypeCommand {
     PROCEED_UPDATE_MEDICINE,
     REGISTRATION,
     SEARCH,
+    SIGN_OUT,
     SHOW_ORDERS,
     SHOW_RECIPES,
     SHOW_MEDICINES,

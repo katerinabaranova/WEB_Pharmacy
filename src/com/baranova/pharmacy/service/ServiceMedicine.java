@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 public class ServiceMedicine {
     private static final Logger LOG= LogManager.getLogger();
 
+    /**
+     *
+     * @param request HttpServletRequest
+     * @return boolean value if operation of creating was executed
+     */
     public static boolean newMedicineCreate(HttpServletRequest request){
         Medicine medicine=new Medicine();
         MedicineDAO medicineDAO=new MedicineDAO();

@@ -30,6 +30,8 @@ public enum PageName {
     SEARCH_PAGE("jsp/search_page.jsp"),
     SEARCH_RESULTS("jsp/search_results.jsp"),
     PROCCED_UPDATE("jsp/medicine_control/procced_update.jsp"),
+    UPDATE_MEDICINE_SUCCESS("jsp/medicine_control/update_medicine_success.jsp"),
+    UPDATE_MEDICINE_ERROR("jsp/medicine_control/update_medicine_error.jsp"),
     USER_ORDERS("jsp/user_orders.jsp"),
     USER_PAGE ("jsp/loginsuccess.jsp"),
     USER_RECIPES("jsp/user_recipes.jsp");
