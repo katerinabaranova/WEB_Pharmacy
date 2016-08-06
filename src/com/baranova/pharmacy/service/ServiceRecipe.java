@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class-service for command classes for making operations with Recipe entity.
@@ -47,5 +49,24 @@ public class ServiceRecipe {
         }
 
         return isCreated;
+    }
+
+    /**
+     * Method call DAO method to find all doctor recipes
+     * @param request HttpServletRequest
+     * @return List of doctor recipes
+     */
+    public static List<Recipe> findDoctorRecipe(HttpServletRequest request){
+        List<Recipe> recipes=new ArrayList<Recipe>();
+        String doctorLogin=request.getSession().getAttribute(AttributeConstant.LOGGED_USER).toString();
+        try {
+            UserDAO userDAO = new UserDAO();
+            long doctorID = userDAO.findEntityByLogin(doctorLogin).getId();
+            RecipeDAO recipeDAO = new RecipeDAO();
+            recipes = recipeDAO.findRecipesByDoctor(doctorID);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return recipes;
     }
 }

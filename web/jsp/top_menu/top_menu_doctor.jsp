@@ -44,8 +44,8 @@
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/recipe_control/recipe_form.jsp"><fmt:message key="doctor.menu.new.recipe"/> </a></li>
           <li>
-            <form action="/show_recipes" method="post">
-              <input type="hidden" name="command" value="show_recipes" />
+            <form action="/show_doctor_recipe" method="post">
+              <input type="hidden" name="command" value="show_doctor_recipe" />
               <button type="submit" class="btn-link"><fmt:message key="doctor.menu.recipes"/> </button>
             </form>
            </li>

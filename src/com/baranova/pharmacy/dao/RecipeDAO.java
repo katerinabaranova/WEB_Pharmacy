@@ -13,6 +13,7 @@ import java.util.List;
 
 
 public class RecipeDAO extends AbstractDAO<Recipe> {
+
     private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe";
     private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE idrecipe=?";
     private static final String SQL_SELECT_RECIPE_BY_PACIENT = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkPacient=?";

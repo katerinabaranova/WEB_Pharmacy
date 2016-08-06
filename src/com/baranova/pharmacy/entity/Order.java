@@ -1,13 +1,11 @@
 package com.baranova.pharmacy.entity;
 
-import com.baranova.pharmacy.dao.MedicineDAO;
-import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Order extends Entity {
-    private static final Logger LOG= LogManager.getLogger();
 
+    private static final Logger LOG= LogManager.getLogger();
     private long fkUserID;
     private String medicineName;
     private int quantity;
