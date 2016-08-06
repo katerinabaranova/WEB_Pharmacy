@@ -19,7 +19,7 @@ public class UserDAO extends AbstractDAO<User>{
     private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.fkrole=?";
     private static final String SQL_SELECT_USER_BY_SURNAME_NAME="SELECT iduser FROM user WHERE user.surname=? AND user.name=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
-    private static final String SQL_CREATE_USER = "INSERT INTO user(iduser,login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+    private static final String SQL_CREATE_USER = "INSERT INTO user(login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
     private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT iduser,login,password,fkrole FROM user WHERE login=?";
 
@@ -159,18 +159,17 @@ public class UserDAO extends AbstractDAO<User>{
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_USER)){
-            st.setLong(1,entity.getUserID());
-            st.setString(2,entity.getLogin());
-            st.setString(3,entity.getPassword());
-            st.setString(4,entity.getName());
-            st.setString(5,entity.getSurname());
-            st.setString(6,entity.getEmail());
-            st.setString(7,entity.getPhoneNumber());
-            st.setString(8,entity.getCity());
-            st.setString(9,entity.getStreet());
-            st.setInt(10,entity.getHouseNumber());
-            st.setInt(11,entity.getApartment());
-            st.setInt(12,entity.getRole());
+            st.setString(1,entity.getLogin());
+            st.setString(2,entity.getPassword());
+            st.setString(3,entity.getName());
+            st.setString(4,entity.getSurname());
+            st.setString(5,entity.getEmail());
+            st.setString(6,entity.getPhoneNumber());
+            st.setString(7,entity.getCity());
+            st.setString(8,entity.getStreet());
+            st.setInt(9,entity.getHouseNumber());
+            st.setInt(10,entity.getApartment());
+            st.setInt(11,entity.getRole());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'User' failed):",e);

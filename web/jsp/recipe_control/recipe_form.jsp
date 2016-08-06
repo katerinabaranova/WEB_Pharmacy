@@ -1,3 +1,5 @@
+<%@ page import="com.baranova.pharmacy.constant.ParameterName" %>
+<%@ page import="com.baranova.pharmacy.type.PageName" %>
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,8 +9,9 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_RECIPE_FORM);%>
 
-<form class="form-horizontal">
+<form class="form-horizontal" action="/new_recipe">
     <fieldset>
         <legend><fmt:message key="new.recipe.legend" /></legend>
         <div class="form-group">

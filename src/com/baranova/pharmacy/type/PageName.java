@@ -18,6 +18,7 @@ public enum PageName {
     NEW_MEDICINE_ERROR("jsp/medicine_control/new_medicine_error.jsp"),
     NEW_MEDICINE_FORM("jsp/medicine_control/new_medicine_form.jsp"),
     NEW_MEDICINE_SUCCESS("jsp/medicine_control/new_medicine_success.jsp"),
+    NEW_RECIPE_FORM("jsp/recipe_control/recipe_form.jsp"),
     NO_MEDICINE_PAGE("jsp/medicine_control/no_medicine_page.jsp"),
     NO_ORDERS_RESULTS("jsp/no_user_orders.jsp"),
     NO_RECIPES_RESULTS("jsp/no_user_recipes.jsp"),

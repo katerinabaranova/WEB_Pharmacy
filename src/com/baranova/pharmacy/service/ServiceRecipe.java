@@ -24,7 +24,6 @@ public class ServiceRecipe {
      * @return boolean value if operation of creating was executed
      */
     public static boolean createNewRecipe(HttpServletRequest request){
-        Recipe recipe=new Recipe();
         String surname=request.getParameter(ParameterRecipe.SURNAME);
         String name=request.getParameter(ParameterRecipe.NAME);
         String medicineName=request.getParameter(ParameterRecipe.MEDICINE_NAME);
@@ -32,7 +31,9 @@ public class ServiceRecipe {
         UserDAO userDAO=new UserDAO();
         MedicineDAO medicineDAO=new MedicineDAO();
         RecipeDAO recipeDAO=new RecipeDAO();
+        boolean isCreated=false;
         try {
+            Recipe recipe=new Recipe();
             long idUser = userDAO.findID(surname, name);
             recipe.setPatientID(idUser);
             long idMedicine =medicineDAO.findIDByNameDosage(medicineName,dosage);
@@ -40,16 +41,11 @@ public class ServiceRecipe {
             recipe.setMedicineQuantity(Integer.parseInt(request.getParameter(ParameterRecipe.MEDICINE_QUANTITY)));
             long idDoctor=userDAO.findEntityByLogin(request.getSession().getAttribute(AttributeConstant.LOGGED_USER).toString()).getUserID();
             recipe.setDoctorID(idDoctor);
+            isCreated=recipeDAO.create(recipe);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
-        System.out.println(recipe);
-        boolean isCreated=false;
-        try {
-            isCreated = recipeDAO.create(recipe);
-        } catch (DAOException e){
-            LOG.error(e.getMessage());
-        }
+
         return isCreated;
     }
 }

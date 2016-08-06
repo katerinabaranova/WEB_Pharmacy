@@ -18,7 +18,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     private static final String SQL_SELECT_RECIPE_BY_PACIENT = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkPacient=?";
     private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkDoctor=?";
     private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM pharmacy.recipe WHERE idrecipe = ?;";
-    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired) values(?,?,?,?,?);";
+    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired) values(?,?,?,?,?,?);";
     private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET idrecipe=?,fkDoctor=?,fkPacient=?,fkMedicine=?,medicineQuantity=?,expired=? WHERE idrecipe=?;";
 
     @Override
@@ -38,7 +38,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
     }
@@ -59,7 +59,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipe.setExpired(resultSet.getBoolean("expired"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipe;
     }
@@ -81,7 +81,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
     }
@@ -102,7 +102,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
     }
@@ -113,9 +113,9 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         boolean isDeleted=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_RECIPE_BY_ID)){
             st.setLong(1,idRecipe);
-            isDeleted=st.execute();
+            isDeleted=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isDeleted;
     }
@@ -127,17 +127,21 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
     @Override
     public boolean create(Recipe entity) throws DAOException {
+        System.out.println(entity);
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated=false;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_RECIPE)){
-            st.setLong(1,entity.getDoctorID());
-            st.setLong(2,entity.getPatientID());
-            st.setLong(3,entity.getMedicineID());
-            st.setInt(4,entity.getMedicineQuantity());
-            st.setBoolean(5,entity.isExpired());
+
+            st.setLong(1,entity.getId());
+            st.setLong(2,entity.getDoctorID());
+            st.setLong(3,entity.getPatientID());
+            st.setLong(4,entity.getMedicineID());
+            st.setInt(5,entity.getMedicineQuantity());
+            st.setBoolean(6,entity.isExpired());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            e.printStackTrace();
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isCreated;
     }
@@ -156,7 +160,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setLong(7,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isUpdate;
     }

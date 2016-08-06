@@ -18,9 +18,12 @@ public class Main {
     public static void main(String[] args){
 
         try {
-            OrderDAO orderDAO=new OrderDAO();
-            Order order=orderDAO.findEntityById((long)1);
-            System.out.println(order);
+            RecipeDAO orderDAO=new RecipeDAO();
+            Recipe r2=orderDAO.findEntityById(1);
+            System.out.println("ff"+r2);
+            Recipe recipe=new Recipe(1,4,8,1,35,false);
+            boolean f=orderDAO.create(recipe);
+            //System.out.println(f);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
