@@ -11,8 +11,8 @@ public class CommandHelper {
 
     private static HashMap<TypeCommand,ICommand> commands;
     static {
-        commands = new HashMap<TypeCommand, ICommand>();
-        commands.put(TypeCommand.AUTHORIZATION, new AutorizationCommand());
+        commands = new HashMap<>();
+        commands.put(TypeCommand.AUTHORIZATION, new AuthorizationCommand());
         commands.put(TypeCommand.REGISTRATION,new RegistrationCommand());
         commands.put(TypeCommand.CHANGE_LANGUAGE,new ChangeLanguageCommand());
         commands.put(TypeCommand.SEARCH,new SearchCommand());
@@ -25,12 +25,12 @@ public class CommandHelper {
         commands.put(TypeCommand.PROCEED_UPDATE_MEDICINE,new ProceedUpdateMedicine());
         commands.put(TypeCommand.UPDATE_MEDICINE,new UpdateMedicineCommand());
         commands.put(TypeCommand.NEW_RECIPE,new NewRecipeCommand());
+        commands.put(TypeCommand.SHOW_DOCTOR_RECIPE,new DoctorRecipesCommand());
     }
 
     public static ICommand getCommand(String commandName) {
         TypeCommand key = TypeCommand.valueOf(commandName.replace('-', '_').toUpperCase());
-        ICommand command = commands.get(key);
-        return command;
+        return commands.get(key);
     }
 
 }

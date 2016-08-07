@@ -8,5 +8,6 @@ public class AttributeConstant {
     public static final String LOGGED_ROLE="loggedRole";
     public static final String LOGGED_ID="loggedID";
     public static final String RECIPE_LIST="recipeList";
+    public static final String ERROR_MESSAGE="errorMessage";
 
 }

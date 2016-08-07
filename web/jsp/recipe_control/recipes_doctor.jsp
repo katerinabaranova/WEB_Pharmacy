@@ -9,46 +9,19 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <h2><fmt:message key="all.medicines.header"/> </h2>
 <div class="row">
-    <div class="col-md-2"><fmt:message key="recipe.patient.surname"/> </div>
-    <div class="col-md-1"><fmt:message key="recipe.medicine.name"/> </div>
+    <div class="col-md-1"><fmt:message key="recipe.id"/> </div>
+    <div class="col-md-1"><fmt:message key="recipe.patient.id"/> </div>
     <div class="col-md-1"><fmt:message key="recipe.medicine.name"/></div>
-    <div class="col-md-1"><fmt:message key="recipe.medicine.dosage"/></div>
     <div class="col-md-1"><fmt:message key="recipe.medicine.quantity"/></div>
-    <div class="col-md-1"><fmt:message key="search.results.price"/></div>
-    <div class="col-md-1"><fmt:message key="search.results.instore"/></div>
-    <div class="col-md-1"><fmt:message key="search.results.recipe"/></div>
+    <div class="col-md-1"><fmt:message key="recipe.expired"/></div>
 </div>
-<c:forEach items="${all_medicines_list}" var="medicine">
+<c:forEach items="${recipeList}" var="recipe">
     <div class="row">
-        <div class=col-md-1>${medicine.id}</div>
-        <div class=col-md-1>${medicine.medicineName}</div>
-        <div class=col-md-1>${medicine.dosage}</div>
-        <div class=col-md-1>${medicine.packageType}</div>
-        <div class=col-md-1>${medicine.packageQuantity}</div>
-        <div class=col-md-1>${medicine.price}</div>
-        <div class=col-md-1>${medicine.storeQuantity}</div>
-        <div class=col-md-1>${medicine.recipe}</div>
-
-
-        <form action="/proceed_update_medicine" method="post">
-            <div class="form-group">
-                <div class="col-md-2">
-                    <input type="hidden" name="command" value="proceed_update_medicine" />
-                    <input type="hidden" name="medicine" value="${medicine.id}">
-                    <button type="submit" class="btn btn-warning"><fmt:message key="edit.button"/> </button>
-                </div>
-            </div>
-        </form>
-
-        <form action="/delete_medicine" method="post">
-            <div class="form-group">
-                <div class="col-md-2">
-                    <input type="hidden" name="command" value="delete_medicine" />
-                    <input type="hidden" name="medicine" value="${medicine.id}">
-                    <button type="submit" class="btn btn-danger"><fmt:message key="delete.button"/> </button>
-                </div>
-            </div>
-        </form>
+        <div class=col-md-1>${recipe.id}</div>
+        <div class=col-md-1>${recipe.patientID}</div>
+        <div class=col-md-1>${recipe.medicineID}</div>
+        <div class=col-md-1>${recipe.medicineQuantity}</div>
+        <div class=col-md-1>${recipe.expired}</div>
     </div>
     <br>
 </c:forEach>

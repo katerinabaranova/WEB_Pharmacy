@@ -10,7 +10,6 @@ import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
-import com.baranova.pharmacy.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +51,7 @@ public class Service {
         try {
             user = userDAO.findEntityByLogin(login);
             RecipeDAO recipeDAO=new RecipeDAO();
-            recipes=recipeDAO.findRecipesByPacient(user.getId());
+            recipes=recipeDAO.findRecipesByPatient(user.getId());
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }

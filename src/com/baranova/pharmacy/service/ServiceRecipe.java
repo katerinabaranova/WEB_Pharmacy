@@ -57,11 +57,9 @@ public class ServiceRecipe {
      * @return List of doctor recipes
      */
     public static List<Recipe> findDoctorRecipe(HttpServletRequest request){
-        List<Recipe> recipes=new ArrayList<Recipe>();
-        String doctorLogin=request.getSession().getAttribute(AttributeConstant.LOGGED_USER).toString();
+        List<Recipe> recipes=new ArrayList<>();
+        Long doctorID=Long.parseLong(request.getSession().getAttribute(AttributeConstant.LOGGED_ID).toString());
         try {
-            UserDAO userDAO = new UserDAO();
-            long doctorID = userDAO.findEntityByLogin(doctorLogin).getId();
             RecipeDAO recipeDAO = new RecipeDAO();
             recipes = recipeDAO.findRecipesByDoctor(doctorID);
         } catch (DAOException e){

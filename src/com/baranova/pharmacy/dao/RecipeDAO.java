@@ -65,11 +65,11 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return recipe;
     }
 
-    public List<Recipe> findRecipesByPacient(Long pacientId) throws DAOException {
+    public List<Recipe> findRecipesByPatient(Long patientId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PACIENT)){
-            st.setLong(1,pacientId);
+            st.setLong(1,patientId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();
@@ -91,6 +91,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_DOCTOR)){
+            st.setLong(1,doctorId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();
@@ -103,6 +104,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
