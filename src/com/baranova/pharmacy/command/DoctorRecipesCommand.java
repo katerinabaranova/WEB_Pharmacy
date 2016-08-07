@@ -15,5 +15,11 @@ public class DoctorRecipesCommand implements ICommand{
     @Override
     public PageName execute(HttpServletRequest request){
         List<Recipe> recipes=ServiceRecipe.findDoctorRecipe(request);
+        if (!recipes.isEmpty()){
+
+        } else {
+
+        }
+        return null;
     }
 }

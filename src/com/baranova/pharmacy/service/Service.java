@@ -20,27 +20,6 @@ import java.util.List;
 public class Service {
     private static final Logger LOG= LogManager.getLogger();
 
-    public static int checkLogingInfo(String login, String password){
-        try {
-            UserDAO userDAO = new UserDAO();
-            User user = userDAO.findEntityByLogin(login);
-            String passwordCheck="";
-            int role=0;
-            if (user.getLogin() != null) {
-                passwordCheck=user.getPassword();
-                role=user.getRole();
-            }
-            if (Security.getMD5(password).equals(passwordCheck)){
-                return role;
-            } else {
-                return -1;
-            }
-        } catch (DAOException e){
-            LOG.error(e.getMessage());
-        }
-        return -1;
-    }
-
     public static List<Medicine> searchService(String medicineName){
         MedicineDAO medicineDAO=new MedicineDAO();
         List<Medicine> medicines=new ArrayList<>();
