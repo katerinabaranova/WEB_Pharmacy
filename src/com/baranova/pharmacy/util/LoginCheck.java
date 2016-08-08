@@ -1,7 +1,11 @@
 package com.baranova.pharmacy.util;
 
 /**
- * Created by Ekaterina on 8/7/16.
+ * Check if login is not using in database.
  */
 public class LoginCheck {
+
+    public static boolean checkLoginUse(String login){
+
+    }
 }
