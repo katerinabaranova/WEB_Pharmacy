@@ -5,10 +5,12 @@ import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ChangeLanguageCommand implements ICommand {
+/**
+ * Class-command for changing  language in application.
+ */
+class ChangeLanguageCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request) {

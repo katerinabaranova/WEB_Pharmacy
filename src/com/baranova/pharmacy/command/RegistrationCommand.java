@@ -1,34 +1,44 @@
 package com.baranova.pharmacy.command;
 
 
+import com.baranova.pharmacy.constant.AttributeConstant;
+import com.baranova.pharmacy.constant.ErrorPageConstant;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.ParameterNameUser;
-import com.baranova.pharmacy.dao.UserDAO;
-import com.baranova.pharmacy.entity.User;
+import com.baranova.pharmacy.service.ServiceUser;
+import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
-import com.baranova.pharmacy.exception.DAOException;
-import com.baranova.pharmacy.service.Service;
-import com.baranova.pharmacy.util.Security;
+import com.baranova.pharmacy.util.LoginCheck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
+/**
+ * Class-command for adding new User to database.
+ */
 class RegistrationCommand implements ICommand{
     private static final Logger LOG= LogManager.getLogger();
 
     @Override
     public PageName execute(HttpServletRequest request){
-
+        SessionRequestContent requestContent=new SessionRequestContent();
+        requestContent.extractValues(request);
+        Map<String,String> parameters= requestContent.getRequestParameters();
+        boolean loginFree= LoginCheck.checkLoginUse(parameters.get(ParameterNameUser.LOGIN));
+        if (!loginFree){
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.LOGIN_IN_USE_ERROR);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
+        }
+        boolean userCreated= ServiceUser.createUser(parameters);
         if (userCreated){
-            HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_SUCCESS);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REGISTRATION_SUCCESS);
             return PageName.REGISTRATION_SUCCESS;
         } else {
-            HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.ERROR_PAGE);
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.REGISTRATION_ERROR);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
     }

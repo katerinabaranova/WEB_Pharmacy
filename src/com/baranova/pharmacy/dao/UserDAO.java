@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.dao;
 
 
+import com.baranova.pharmacy.entity.Role;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
@@ -15,13 +16,13 @@ import java.util.List;
 public class UserDAO extends AbstractDAO<User>{
 
     private static final String SQL_SELECT_ALL_USERS = "SELECT iduser,login,name,surname,email,phonenumber,city,street,housenumber,apartment FROM user";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.iduser=?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment,amount FROM user WHERE user.iduser=?";
     private static final String SQL_SELECT_USER_BY_ROLE= "SELECT iduser,login,name,surname,email,phonenumber,city,street,houseNumber,apartment FROM user WHERE user.fkrole=?";
     private static final String SQL_SELECT_USER_BY_SURNAME_NAME="SELECT iduser FROM user WHERE user.surname=? AND user.name=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,password=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=? WHERE iduser=?;";
-    private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT iduser,login,password,fkrole FROM user WHERE login=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT U.iduser,U.login,U.password,R.idrole,R.roleName FROM user U INNER JOIN role R ON U.fkrole=R.idrole WHERE U.login=?";
 
     @Override
     public List<User> findAll() throws DAOException {
@@ -69,6 +70,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setStreet(resultSet.getString("street"));
                 user.setHouseNumber(resultSet.getInt("housenumber"));
                 user.setApartment(resultSet.getInt("apartment"));
+                user.setAmount(resultSet.getInt("amount"));
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'User' failed):" , e);
@@ -108,12 +110,16 @@ public class UserDAO extends AbstractDAO<User>{
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_USER_BY_LOGIN)){
             st.setString(1,login.toLowerCase());
+
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 user.setLogin(resultSet.getString("login"));
                 user.setId(resultSet.getLong("iduser"));
                 user.setPassword(resultSet.getString("password"));
-                user.setRole(resultSet.getInt("fkrole"));
+                Role role=new Role();
+                role.setId(resultSet.getLong("idrole"));
+                role.setRole(resultSet.getString("roleName"));
+                user.setRole(role);
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);
@@ -169,10 +175,11 @@ public class UserDAO extends AbstractDAO<User>{
             st.setString(8,entity.getStreet());
             st.setInt(9,entity.getHouseNumber());
             st.setInt(10,entity.getApartment());
-            st.setInt(11,entity.getRole());
+            st.setLong(11,entity.getRole().getId());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'User' failed):",e);
+            e.printStackTrace();
+            throw new DAOException("Impossible to execute request(request or table 'User' failed):",e.getCause());
         }
         return isCreated;
     }
@@ -192,7 +199,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setString(8,entity.getStreet());
             st.setInt(9,entity.getHouseNumber());
             st.setInt(10,entity.getApartment());
-            st.setInt(11,entity.getRole());
+            st.setLong(11,entity.getRole().getId());
             st.setLong(12,entity.getUserID());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {

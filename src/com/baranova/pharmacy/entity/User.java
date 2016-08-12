@@ -13,12 +13,13 @@ public class User extends Entity {
     private int apartment;
     private String email;
     private String phoneNumber;
-    private int role;
+    private Role role=new Role();
+    private int amount;
 
     public User(){
     }
     public User(long id, String login, String password, String name, String surname,
-                String city, String adress, int houseNumber, int apartment, String email, String phoneNumber, int role) {
+                String city, String adress, int houseNumber, int apartment, String email, String phoneNumber, Role role) {
         super(id);
         this.login = login;
         this.password = password;
@@ -45,7 +46,8 @@ public class User extends Entity {
     public int getApartment() {return apartment;}
     public String getEmail() {return email;}
     public String getPhoneNumber() {return phoneNumber;}
-    public int getRole() {return role;}
+    public Role getRole() {return role;}
+    public int getAmount(){return amount;}
 
     public void setUserID(long id){super.setId(id);}
     public void setLogin(String login) {this.login = login;}
@@ -58,12 +60,13 @@ public class User extends Entity {
     public void setApartment(int apartment) {this.apartment = apartment;}
     public void setEmail(String email) {this.email = email;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
-    public void setRole(int role) {this.role = role;}
+    public void setRole(Role role) {this.role = role;}
+    public void setAmount(int amount) {this.amount = amount;}
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + super.getId() + '\'' +
+                "id=" + super.getId() +
                 "login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -72,6 +75,8 @@ public class User extends Entity {
                 ", houseNumber=" + houseNumber +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", role='"+role.getRole()+'\'' +
+                ", amount="+amount + "RUB"+
                 '}';
     }
 

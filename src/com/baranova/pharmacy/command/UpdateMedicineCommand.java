@@ -1,5 +1,7 @@
 package com.baranova.pharmacy.command;
 
+import com.baranova.pharmacy.constant.AttributeConstant;
+import com.baranova.pharmacy.constant.ErrorPageConstant;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.service.ServiceMedicine;
 import com.baranova.pharmacy.type.PageName;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Class command for update Medicine info in database.
  */
-public class UpdateMedicineCommand implements ICommand {
+class UpdateMedicineCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request){
@@ -18,8 +20,9 @@ public class UpdateMedicineCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.UPDATE_MEDICINE_SUCCESS);
             return PageName.UPDATE_MEDICINE_SUCCESS;
         } else {
-            request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.UPDATE_MEDICINE_ERROR);
-            return PageName.UPDATE_MEDICINE_ERROR;
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.UPDATE_MEDICINE_ERROR);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
         }
     }
 }

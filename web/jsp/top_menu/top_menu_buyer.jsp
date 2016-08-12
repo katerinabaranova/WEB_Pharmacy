@@ -37,7 +37,7 @@
   <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <ul class="nav navbar-nav navbar-left">
-        <li>Welcome, ${loggedUser}</li>
+        <li><fmt:message key="buyer.menu.welcome"/> ${loggedUser}</li>
       </ul>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">

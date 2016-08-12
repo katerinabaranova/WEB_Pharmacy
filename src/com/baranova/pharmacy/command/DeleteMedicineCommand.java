@@ -1,30 +1,30 @@
 package com.baranova.pharmacy.command;
 
+import com.baranova.pharmacy.constant.AttributeConstant;
+import com.baranova.pharmacy.constant.ErrorPageConstant;
+import com.baranova.pharmacy.constant.ParameterMedicine;
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.service.ServiceMedicine;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Class-command for removing  medicine from database.
  */
-public class DeleteMedicineCommand implements ICommand {
+class DeleteMedicineCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request){
-        Long id=Long.parseLong(request.getParameter("medicine"));
+        Long id=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
         boolean isDeleted= ServiceMedicine.deleteMedicine(id);
         if (isDeleted){
-            HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.DELETE_MEDICINE_SUCCESS);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.DELETE_MEDICINE_SUCCESS);
             return PageName.DELETE_MEDICINE_SUCCESS;
         } else {
-            HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.DELETE_MEDICINE_ERROR);
-            return PageName.DELETE_MEDICINE_ERROR;
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.DELETE_MEDICINE_ERROR);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
         }
     }
 }

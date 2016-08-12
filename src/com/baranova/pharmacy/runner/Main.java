@@ -2,9 +2,11 @@ package com.baranova.pharmacy.runner;
 
 import com.baranova.pharmacy.dao.OrderDAO;
 import com.baranova.pharmacy.dao.RecipeDAO;
+import com.baranova.pharmacy.dao.RoleDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.entity.Recipe;
+import com.baranova.pharmacy.entity.Role;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
@@ -17,15 +19,13 @@ public class Main {
 
     public static void main(String[] args){
 
+        Role role=new Role();
         try {
-            RecipeDAO orderDAO=new RecipeDAO();
-            Recipe r2=orderDAO.findEntityById(1);
-            System.out.println("ff"+r2);
-            Recipe recipe=new Recipe(1,4,8,1,35,false);
-            boolean f=orderDAO.create(recipe);
-            //System.out.println(f);
+            RoleDAO roleDAO=new RoleDAO();
+            role=roleDAO.findEntityByName("buyer");
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
+        System.out.println(role);
     }
 }

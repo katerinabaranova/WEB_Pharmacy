@@ -1,6 +1,12 @@
 package com.baranova.pharmacy.entity;
 
+import com.baranova.pharmacy.dao.UserDAO;
+import com.baranova.pharmacy.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Recipe extends Entity{
+    private static final Logger LOG= LogManager.getLogger();
 
     private long patientID;
     private long doctorID;
@@ -33,13 +39,21 @@ public class Recipe extends Entity{
 
     @Override
     public String toString() {
-        return "Recipe{" +
-                "patientID=" + patientID +
-                ", doctorID=" + doctorID +
-                ", medicineID=" + medicineID +
-                ", medicineQuantity=" + medicineQuantity +
-                ", expired=" + expired +
-                '}';
+        String recipe="";
+        try {
+
+            recipe = "Recipe{" +
+
+                    "patientID=" + new UserDAO().findEntityById(patientID).getSurname() +
+                    ", doctorID=" + doctorID +
+                    ", medicineID=" + medicineID +
+                    ", medicineQuantity=" + medicineQuantity +
+                    ", expired=" + expired +
+                    '}';
+        } catch (DAOException e){
+            LOG.error("sd");
+        }
+        return recipe;
     }
 
 }

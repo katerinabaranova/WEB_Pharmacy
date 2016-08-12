@@ -8,11 +8,11 @@ import com.baranova.pharmacy.pool.ProxyConnection;
 import java.sql.*;
 import java.util.List;
 
-
+//TODO писать ли JAVADOC  к DAO классам
 public class RoleDAO extends AbstractDAO<Role>{
 
-    private static final String SQL_SELECT_ROLE_BY_ID = "SELECT idrole,roleName FROM role WHERE idrole=?";
-    private static final String SQL_SELECT_ROLE_BY_NAME = "SELECT idrole,roleName FROM role WHERE roleName=?";
+    private static final String SQL_SELECT_ROLE_BY_ID = "SELECT idrole,roleName FROM pharmacy.role WHERE idrole=?";
+    private static final String SQL_SELECT_ROLE_BY_NAME = "SELECT idrole,roleName FROM pharmacy.role WHERE roleName=?";
 
     @Override
     public List<Role> findAll() throws DAOException {
@@ -24,12 +24,14 @@ public class RoleDAO extends AbstractDAO<Role>{
         Role role= new Role();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_ROLE_BY_ID)){
+            st.setLong(1,id);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 role.setRole(resultSet.getString("roleName"));
                 role.setId(resultSet.getInt("idrole"));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
         return role;
@@ -39,6 +41,7 @@ public class RoleDAO extends AbstractDAO<Role>{
         Role role= new Role();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_ROLE_BY_NAME)){
+            st.setString(1,name);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 role.setRole(resultSet.getString("roleName"));
