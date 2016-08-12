@@ -5,7 +5,7 @@ import com.baranova.pharmacy.type.TypeCommand;
 import java.util.HashMap;
 
 /**
- * Created by Ekaterina on 7/18/16.
+ * Storing all commands that are used in application in HashMap for convenient access .
  */
 public class CommandHelper {
 
@@ -26,6 +26,7 @@ public class CommandHelper {
         commands.put(TypeCommand.UPDATE_MEDICINE,new UpdateMedicineCommand());
         commands.put(TypeCommand.NEW_RECIPE,new NewRecipeCommand());
         commands.put(TypeCommand.SHOW_DOCTOR_RECIPE,new DoctorRecipesCommand());
+        commands.put(TypeCommand.SIGN_OUT,new SignOutCommand());
     }
 
     public static ICommand getCommand(String commandName) {

@@ -12,7 +12,7 @@
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SIGN_OUT);%>
 
 <h3><fmt:message key="sign.out.header"/> </h3>
-<form class="form-horizontal" action="../sign-out" method="post">
+<form class="form-horizontal" action="/sign_out" method="post">
     <fieldset>
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
