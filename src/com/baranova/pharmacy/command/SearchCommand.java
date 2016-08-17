@@ -6,20 +6,23 @@ import com.baranova.pharmacy.service.Service;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class SearchCommand implements ICommand  {
+/**
+ *Class command for medicine search
+ */
+
+class SearchCommand implements ICommand  {
     @Override
     public PageName execute(HttpServletRequest request) {
         String medicineName=request.getParameter("medicineName");
         List<Medicine> medicines= Service.searchService(medicineName);
         if (!medicines.isEmpty()) {
             request.setAttribute("medicineList", medicines);
-            request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SEARCH_RESULTS);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.SEARCH_RESULTS);
             return PageName.SEARCH_RESULTS;
         } else {
-            request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NO_SEARCH_RESULTS);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.NO_SEARCH_RESULTS);
             return PageName.NO_SEARCH_RESULTS;
         }
     }

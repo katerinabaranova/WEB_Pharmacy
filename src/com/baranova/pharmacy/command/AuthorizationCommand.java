@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * Class-command for user authorization.
+ * Class command for user authorization.
  */
 class AuthorizationCommand implements ICommand {
 

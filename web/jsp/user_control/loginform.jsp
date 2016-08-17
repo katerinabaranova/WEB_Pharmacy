@@ -11,7 +11,7 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.LOGGING_FORM);%>
 
-<form class="form-horizontal" action="../login" method="post">
+<form class="form-horizontal" action="/login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>
         <div class="form-group">
@@ -36,5 +36,4 @@
         <input type="hidden" name="command" value="authorization" />
     </fieldset>
 </form>
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a</p>
-<%@include file="bottom/bottom.jsp" %>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

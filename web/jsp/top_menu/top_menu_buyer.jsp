@@ -50,8 +50,8 @@
             </form>
            </li>
           <li>
-            <form action="/show_recipes" method="post">
-              <input type="hidden" name="command" value="show_recipes" />
+            <form action="/show_buyer_recipe" method="post">
+              <input type="hidden" name="command" value="show_buyer_recipe" />
               <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
             </form>
           </li>

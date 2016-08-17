@@ -23,7 +23,4 @@
         <input type="hidden" name="command" value="sign-out">
     </fieldset>
 </form>
-
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-
-    <%@ include file="bottom/bottom.jsp"%>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

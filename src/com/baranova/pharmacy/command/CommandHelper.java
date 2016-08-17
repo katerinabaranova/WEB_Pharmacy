@@ -17,7 +17,6 @@ public class CommandHelper {
         commands.put(TypeCommand.CHANGE_LANGUAGE,new ChangeLanguageCommand());
         commands.put(TypeCommand.SEARCH,new SearchCommand());
         commands.put(TypeCommand.SHOW_ORDERS,new OrdersCommand());
-        commands.put(TypeCommand.SHOW_BUYER_RECIPE,new RecipesCommand());
         commands.put(TypeCommand.SHOW_MEDICINES,new MedicinesCommand());
         commands.put(TypeCommand.PREPARE_ORDER,new PrepareOrderCommand());
         commands.put(TypeCommand.NEW_MEDICINE,new NewMedicineCommand());
@@ -25,8 +24,11 @@ public class CommandHelper {
         commands.put(TypeCommand.PROCEED_UPDATE_MEDICINE,new ProceedUpdateMedicine());
         commands.put(TypeCommand.UPDATE_MEDICINE,new UpdateMedicineCommand());
         commands.put(TypeCommand.NEW_RECIPE,new NewRecipeCommand());
+        commands.put(TypeCommand.SHOW_BUYER_RECIPE,new BuyerRecipesCommand());
         commands.put(TypeCommand.SHOW_DOCTOR_RECIPE,new DoctorRecipesCommand());
         commands.put(TypeCommand.SIGN_OUT,new SignOutCommand());
+        commands.put(TypeCommand.RENEW_RECIPE_REQUEST, new RenewRecipeCommand());
+        commands.put(TypeCommand.NEW_ORDER,new NewOrderCommand());
     }
 
     public static ICommand getCommand(String commandName) {

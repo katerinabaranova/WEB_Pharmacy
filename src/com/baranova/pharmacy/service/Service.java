@@ -25,37 +25,10 @@ public class Service {
         try {
             medicines = medicineDAO.findEntityByName(medicineName);
         }catch (DAOException e){
+            e.printStackTrace();
             LOG.error(e.getMessage());
         }
         return medicines;
-    }
-
-    public static List<Order>  showOrdersService(String login){
-        UserDAO userDAO=new UserDAO();
-        List<Order> orders=new ArrayList<>();
-        User user;
-        try {
-            user = userDAO.findEntityByLogin(login);
-            OrderDAO orderDAO=new OrderDAO();
-            orders=orderDAO.findOrdersByUser(user.getId());
-        } catch (DAOException e){
-            LOG.error(e.getMessage());
-        }
-        return orders;
-    }
-
-    public static List<Recipe> showRecipesService(String login){
-        UserDAO userDAO=new UserDAO();
-        List<Recipe> recipes=new ArrayList<>();
-        User user;
-        try {
-            user = userDAO.findEntityByLogin(login);
-            RecipeDAO recipeDAO=new RecipeDAO();
-            recipes=recipeDAO.findRecipesByPatient(user.getId());
-        } catch (DAOException e){
-            LOG.error(e.getMessage());
-        }
-        return recipes;
     }
 
     public static Medicine getMedicineService(Long id){

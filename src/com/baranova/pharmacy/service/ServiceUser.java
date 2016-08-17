@@ -1,6 +1,6 @@
 package com.baranova.pharmacy.service;
 
-import com.baranova.pharmacy.constant.ParameterNameUser;
+import com.baranova.pharmacy.constant.ParameterUser;
 import com.baranova.pharmacy.dao.RoleDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Role;
@@ -31,37 +31,37 @@ public class ServiceUser {
        for (Map.Entry<String,String> parameter:parameters.entrySet()) {
            try {
                switch (parameter.getKey()) {
-                   case ParameterNameUser.LOGIN:
-                       user.setLogin(parameter.getValue());
+                   case ParameterUser.LOGIN:
+                       user.setLogin(parameter.getValue().toLowerCase());
                        break;
-                   case ParameterNameUser.PASSWORD:
+                   case ParameterUser.PASSWORD:
                        user.setPassword(Security.getMD5(parameter.getValue()));
                        break;
-                   case ParameterNameUser.NAME:
-                       user.setName(parameter.getValue());
+                   case ParameterUser.NAME:
+                       user.setName(parameter.getValue().toLowerCase());
                        break;
-                   case ParameterNameUser.SURNAME:
-                       user.setSurname(parameter.getValue());
+                   case ParameterUser.SURNAME:
+                       user.setSurname(parameter.getValue().toLowerCase());
                        break;
-                   case ParameterNameUser.CITY:
+                   case ParameterUser.CITY:
                        user.setCity(parameter.getValue());
                        break;
-                   case ParameterNameUser.STREET:
+                   case ParameterUser.STREET:
                        user.setStreet(parameter.getValue());
                        break;
-                   case ParameterNameUser.HOUSE_NUMBER:
+                   case ParameterUser.HOUSE_NUMBER:
                        user.setHouseNumber(Integer.parseInt(parameter.getValue()));
                        break;
-                   case ParameterNameUser.APARTMENT:
+                   case ParameterUser.APARTMENT:
                        user.setApartment(Integer.parseInt(parameter.getValue()));
                        break;
-                   case ParameterNameUser.EMAIL:
+                   case ParameterUser.EMAIL:
                        user.setEmail(parameter.getValue());
                        break;
-                   case ParameterNameUser.PHONE_NUMBER:
+                   case ParameterUser.PHONE_NUMBER:
                        user.setPhoneNumber(parameter.getValue());
                        break;
-                   case ParameterNameUser.ROLE:
+                   case ParameterUser.ROLE:
                        Role role = roleDAO.findEntityByName(parameter.getValue());
                        user.setRole(role);
                        break;
@@ -70,7 +70,6 @@ public class ServiceUser {
                LOG.error(e.getMessage());
            }
        }
-       System.out.println(user);
        boolean userCreated=false;
        try {
            userCreated = userDAO.create(user);
@@ -92,14 +91,11 @@ public class ServiceUser {
 
         for (Map.Entry<String,String> parameter:parameterValues.entrySet()){
             switch (parameter.getKey()){
-                case ParameterNameUser.LOGIN:
-                    login=parameter.getValue();
+                case ParameterUser.LOGIN:
+                    login=parameter.getValue().toLowerCase();
                     break;
-                case ParameterNameUser.PASSWORD:
+                case ParameterUser.PASSWORD:
                     password=parameter.getValue();
-                    break;
-                default:
-                    //TODO делать в дефолт
                     break;
             }
         }

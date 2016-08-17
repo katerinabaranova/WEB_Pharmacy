@@ -1,6 +1,8 @@
 package com.baranova.pharmacy.dao;
 
+import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
@@ -29,8 +31,14 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong("idorder"));
-                order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setMedicineName(resultSet.getString("fkMedicine"));
+                long buyerID=resultSet.getLong("fkBuyer");
+                User user=new User();
+                user.setId(buyerID);
+                order.setBuyer(user);
+                long medicineID=resultSet.getLong("fkMedicine");
+                Medicine medicine=new Medicine();
+                medicine.setId(medicineID);
+                order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
                 order.setPaid(resultSet.getBoolean("paid"));
@@ -52,12 +60,18 @@ public class OrderDAO extends AbstractDAO<Order>{
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 order.setId(resultSet.getLong("idorder"));
-                order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setMedicineName(resultSet.getString("medicineName"));
+                long buyerID=resultSet.getLong("fkBuyer");
+                User user=new User();
+                user.setId(buyerID);
+                order.setBuyer(user);
+                long medicineID=resultSet.getLong("fkMedicine");
+                Medicine medicine=new Medicine();
+                medicine.setId(medicineID);
+                order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setDelivery(resultSet.getBoolean("delivery"));
                 order.setPaid(resultSet.getBoolean("paid"));
+                order.setDelivery(resultSet.getBoolean("delivery"));
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
@@ -74,12 +88,18 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong("idorder"));
-                order.setFkUserID(resultSet.getLong("fkBuyer"));
-                order.setMedicineName(resultSet.getString("fkMedicine"));
+                long buyerID=resultSet.getLong("fkBuyer");
+                User user=new User();
+                user.setId(buyerID);
+                order.setBuyer(user);
+                long medicineID=resultSet.getLong("fkMedicine");
+                Medicine medicine=new Medicine();
+                medicine.setId(medicineID);
+                order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setDelivery(resultSet.getBoolean("delivery"));
                 order.setPaid(resultSet.getBoolean("paid"));
+                order.setDelivery(resultSet.getBoolean("delivery"));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -91,7 +111,7 @@ public class OrderDAO extends AbstractDAO<Order>{
     @Override
     public boolean delete(long id) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isDeleted=false;
+        boolean isDeleted;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_ORDER_BY_ID)){
             st.setLong(1,id);
             isDeleted=st.execute();
@@ -109,15 +129,15 @@ public class OrderDAO extends AbstractDAO<Order>{
     @Override
     public boolean create(Order entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isCreated=false;
+        boolean isCreated;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_ORDER)){
-            st.setLong(1,entity.getFkUserID());
-            st.setString(2,entity.getMedicineName());
+            st.setLong(1,entity.getBuyer().getId());
+            st.setLong(2,entity.getMedicine().getId());
             st.setInt(3,entity.getQuantity());
             st.setInt(4,entity.getTotalAmount());
             st.setBoolean(5,entity.isDelivery());
             st.setBoolean(6,entity.isPaid());
-            isCreated=st.execute();
+            isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
         }
@@ -127,17 +147,17 @@ public class OrderDAO extends AbstractDAO<Order>{
     @Override
     public boolean update(Order entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isUpdate=false;
+        boolean isUpdate;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_ORDER_BY_ENTITY)){
             st.setLong(1,entity.getId());
-            st.setLong(2,entity.getFkUserID());
-            st.setString(3,entity.getMedicineName());
+            st.setLong(2,entity.getBuyer().getId());
+            st.setLong(3,entity.getMedicine().getId());
             st.setInt(4,entity.getQuantity());
             st.setInt(5,entity.getTotalAmount());
             st.setBoolean(6,entity.isDelivery());
             st.setBoolean(7,entity.isPaid());
             st.setLong(8,entity.getId());
-            isUpdate=st.execute();
+            isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table failed):", e);
         }

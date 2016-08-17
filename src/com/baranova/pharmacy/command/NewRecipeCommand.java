@@ -1,29 +1,31 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.dao.RecipeDAO;
-import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
-import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
-public class NewRecipeCommand implements ICommand {
+class NewRecipeCommand implements ICommand {
     private static final Logger LOG= LogManager.getLogger();
 
     @Override
     public PageName execute(HttpServletRequest request){
-        boolean isCreated= ServiceRecipe.createNewRecipe(request);
+        SessionRequestContent requestContent=new SessionRequestContent();
+        requestContent.extractValues(request);
+        Map<String,String> parameters=requestContent.getRequestParameters();
+        boolean isCreated= ServiceRecipe.createNewRecipe(parameters);
         if (isCreated){
             HttpSession session=request.getSession();
-            session.setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_SUCCESS);
+            session.setAttribute(ParameterName.LAST_PAGE, PageName.REGISTRATION_SUCCESS);
             return PageName.REGISTRATION_SUCCESS;
         } else {
-            return PageName.REGISTRATION_ERROR;
+            return PageName.ERROR_PAGE;
         }
     }
 }

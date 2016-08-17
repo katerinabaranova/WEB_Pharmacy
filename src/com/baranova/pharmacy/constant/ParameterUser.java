@@ -3,7 +3,7 @@ package com.baranova.pharmacy.constant;
 /**
  * Parameters receiving from form of user registration
  */
-public class ParameterNameUser {
+public class ParameterUser {
     public static final String LOGIN="Login";
     public static final String PASSWORD="Password";
     public static final String NAME="Name";

@@ -26,7 +26,7 @@
         <div class=col-md-1>${medicine.price}</div>
         <div class=col-md-1>${medicine.storeQuantity}</div>
         <div class=col-md-1>${medicine.recipe}</div>
-        <form action="../prepare_order" method="post">
+        <form action="/prepare_order" method="post">
             <input type="hidden" name="command" value="prepare_order" />
             <input type="hidden" name="medicine" value="${medicine.id}">
             <button type="submit" class="btn btn-success"><fmt:message key="search.results.button"/> </button>
@@ -34,5 +34,4 @@
     </div>
     <br>
 </c:forEach>
-    <p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-        <%@ include file="bottom/bottom.jsp"%>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

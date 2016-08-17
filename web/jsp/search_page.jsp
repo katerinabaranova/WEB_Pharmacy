@@ -12,7 +12,7 @@
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SEARCH_PAGE);%>
 
 
-    <form class="form-horizontal" action="../search" method="post">
+    <form class="form-horizontal" action="/search" method="post">
         <fieldset>
 
             <legend><fmt:message key="search.legend"/></legend>
@@ -32,7 +32,4 @@
             <input type="hidden" name="command" value="search">
         </fieldset>
     </form>
-
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-
-<%@ include file="bottom/bottom.jsp"%>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

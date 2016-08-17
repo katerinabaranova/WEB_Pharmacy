@@ -19,7 +19,7 @@
 <c:forEach items="${orderList}" var="order">
     <div class="row">
         <div class=col-md-1>${order.id}</div>
-        <div class=col-md-1>${order.medicineName}</div>
+        <div class=col-md-1>${order.medicine.medicineName}</div>
         <div class=col-md-1>${order.quantity}</div>
         <div class=col-md-2>${order.totalAmount}</div>
         <div class=col-md-1>${order.paid}</div>
@@ -27,7 +27,4 @@
     </div>
     <br>
 </c:forEach>
-
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
-
-<%@ include file="bottom/bottom.jsp"%>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

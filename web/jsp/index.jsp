@@ -11,17 +11,16 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.INDEX);%>
 
-<form class="form-horizontal" action="../search" method="post">
+<form class="form-horizontal" action="/search" method="post">
     <fieldset>
 
         <legend><fmt:message key="search.legend"/></legend>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/></label>
+            <label class="col-md-4 control-label" for="medicine"><fmt:message key="search.medicine.label"/></label>
             <div class="col-md-4">
-                <input id="medicineName" pattern="[A-Za-z0-9]{4,25}" name="medicineName" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicine" pattern="[A-Za-z0-9]{4,25}" name="medicine" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
-
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
@@ -32,6 +31,4 @@
         <input type="hidden" name="command" value="search">
     </fieldset>
 </form>
-
-
-<%@include file="bottom/bottom.jsp" %>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

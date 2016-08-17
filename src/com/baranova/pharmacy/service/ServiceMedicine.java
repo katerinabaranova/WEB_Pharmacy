@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class-service for command classes for making operations with Medicine entity
@@ -17,19 +19,42 @@ public class ServiceMedicine {
 
     /**
      * Method call DAO method to create new medicine
-     * @param request HttpServletRequest
+     * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
-    public static boolean newMedicineCreate(HttpServletRequest request){
+    public static boolean newMedicineCreate(Map<String,String> parameters){
         Medicine medicine=new Medicine();
         MedicineDAO medicineDAO=new MedicineDAO();
-        medicine.setMedicineName(request.getParameter(ParameterMedicine.MEDICINE_NAME));
-        medicine.setDosage(Integer.parseInt(request.getParameter(ParameterMedicine.MEDICINE_DOSAGE)));
-        medicine.setPackageType(request.getParameter(ParameterMedicine.MEDICINE_PACKAGE));
-        medicine.setPackageQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.PACK_QUANTITY)));
-        medicine.setStoreQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.INSTORE_QUANTITY)));
-        medicine.setPrice(Integer.parseInt(request.getParameter(ParameterMedicine.PRICE)));
-        medicine.setRecipe(Boolean.parseBoolean(request.getParameter(ParameterMedicine.RECIPE)));
+        for (Map.Entry<String,String> parameter:parameters.entrySet()) {
+            switch (parameter.getKey()){
+                case ParameterMedicine.MEDICINE_NAME:
+                    medicine.setMedicineName(parameter.getValue());
+                    break;
+                case ParameterMedicine.MEDICINE_DOSAGE:
+                    medicine.setDosage(Integer.parseInt(parameter.getValue()));
+                    break;
+                case ParameterMedicine.MEDICINE_PACKAGE:
+                    medicine.setPackageType(parameter.getValue());
+                    break;
+                case ParameterMedicine.PACK_QUANTITY:
+                    medicine.setPackageQuantity(Integer.parseInt(parameter.getValue()));
+                    break;
+                case ParameterMedicine.INSTORE_QUANTITY:
+                    medicine.setStoreQuantity(Integer.parseInt(parameter.getValue()));
+                    break;
+                case ParameterMedicine.PRICE:
+                    medicine.setPrice(Integer.parseInt(parameter.getValue()));
+                    break;
+                case ParameterMedicine.RECIPE:
+                    if ("1".equalsIgnoreCase(parameter.getValue())){
+                        medicine.setRecipe(true);
+                    } else {
+                        medicine.setRecipe(false);
+                    }
+                    break;
+            }
+        }
+
         boolean isCreated=false;
         try {
             isCreated = medicineDAO.create(medicine);

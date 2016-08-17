@@ -14,9 +14,9 @@
     <fieldset>
         <legend><fmt:message key="adding.new.medicine"/> </legend>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/></label>
+            <label class="col-md-4 control-label" for="medicine"><fmt:message key="search.medicine.label"/></label>
             <div class="col-md-4">
-                <input id="medicineName" name="medicineName" placeholder="" class="form-control input-md"  pattern="[A-Za-Z0-9\\-]{4,20}" required="" type="text">
+                <input id="medicine" name="medicine" placeholder="" class="form-control input-md"  pattern="[A-Za-Z0-9\\-]{4,20}" required="" type="text">
             </div>
         </div>
 
@@ -76,5 +76,4 @@
 </form>
 
     <br>
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
     <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>

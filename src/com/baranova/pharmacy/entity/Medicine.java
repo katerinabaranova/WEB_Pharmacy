@@ -8,6 +8,9 @@ public class Medicine extends Entity {
     private int price;
     private String packageType;
     private int packageQuantity;
+
+
+
     private int storeQuantity;
     private boolean recipe;
 
@@ -59,4 +62,6 @@ public class Medicine extends Entity {
                 ", recipe=" + recipe +
                 '}';
     }
+
+
 }

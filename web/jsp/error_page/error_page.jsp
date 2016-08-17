@@ -14,6 +14,5 @@
 <hr>
 <br>
 <h3><fmt:message key="${errorMessage}"/></h3>
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
     <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>
 

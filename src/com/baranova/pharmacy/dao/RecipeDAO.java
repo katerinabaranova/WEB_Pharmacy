@@ -1,6 +1,8 @@
 package com.baranova.pharmacy.dao;
 
+import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Recipe;
+import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
@@ -14,13 +16,13 @@ import java.util.List;
 
 public class RecipeDAO extends AbstractDAO<Recipe> {
 
-    private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe";
-    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE idrecipe=?";
-    private static final String SQL_SELECT_RECIPE_BY_PACIENT = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkPacient=?";
-    private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired FROM pharmacy.recipe WHERE fkDoctor=?";
+    private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe";
+    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE idrecipe=?";
+    private static final String SQL_SELECT_RECIPE_BY_PATIENT = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkPatient=?";
+    private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkDoctor=?";
     private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM pharmacy.recipe WHERE idrecipe = ?;";
-    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(idrecipe,fkDoctor,fkPacient,fkMedicine,medicineQuantity,expired) values(?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET idrecipe=?,fkDoctor=?,fkPacient=?,fkMedicine=?,medicineQuantity=?,expired=? WHERE idrecipe=?;";
+    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(idrecipe,date, fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest) values(?,?,?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET idrecipe=?,date=?,fkDoctor=?,fkPatient=?,fkMedicine=?,medicineQuantity=?,expired=?,renewRequest=? WHERE idrecipe=?;";
 
     @Override
     public List<Recipe> findAll() throws DAOException {
@@ -31,11 +33,21 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();
                 recipe.setId(resultSet.getLong("idrecipe"));
-                recipe.setDoctorID(resultSet.getLong("fkDoctor"));
-                recipe.setPatientID(resultSet.getLong("fkPacient"));
-                recipe.setMedicineID(resultSet.getLong("fkMedicine"));
+                recipe.setDate(resultSet.getDate("date"));
+                Long patientID=resultSet.getLong("fkPatient");
+                Long doctorID=resultSet.getLong("fkDoctor");
+                UserDAO userDAO=new UserDAO();
+                User patient=userDAO.findEntityById(patientID);
+                User doctor=userDAO.findEntityById(doctorID);
+                recipe.setPatient(patient);
+                recipe.setDoctor(doctor);
+                Long medicineID=resultSet.getLong("fkMedicine");
+                MedicineDAO medicineDAO=new MedicineDAO();
+                Medicine medicine=medicineDAO.findEntityById(medicineID);
+                recipe.setMedicine(medicine);
                 recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
                 recipe.setExpired(resultSet.getBoolean("expired"));
+                recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
@@ -43,6 +55,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         }
         return recipes;
     }
+
 
     @Override
     public Recipe findEntityById (long id)  throws DAOException {
@@ -53,11 +66,21 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 recipe.setId(resultSet.getLong("idrecipe"));
-                recipe.setDoctorID(resultSet.getLong("fkDoctor"));
-                recipe.setPatientID(resultSet.getLong("fkPacient"));
-                recipe.setMedicineID(resultSet.getLong("fkMedicine"));
+                recipe.setDate(resultSet.getDate("date"));
+                Long patientID=resultSet.getLong("fkPatient");
+                Long doctorID=resultSet.getLong("fkDoctor");
+                UserDAO userDAO=new UserDAO();
+                User patient=userDAO.findEntityById(patientID);
+                User doctor=userDAO.findEntityById(doctorID);
+                recipe.setPatient(patient);
+                recipe.setDoctor(doctor);
+                Long medicineID=resultSet.getLong("fkMedicine");
+                MedicineDAO medicineDAO=new MedicineDAO();
+                Medicine medicine=medicineDAO.findEntityById(medicineID);
+                recipe.setMedicine(medicine);
                 recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
                 recipe.setExpired(resultSet.getBoolean("expired"));
+                recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
             }
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
@@ -65,29 +88,40 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return recipe;
     }
 
-    public List<Recipe> findRecipesByPatient(Long patientId) throws DAOException {
+    public List<Recipe> findRecipesByPatient(long patientId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PACIENT)){
+        try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PATIENT)){
             st.setLong(1,patientId);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();
                 recipe.setId(resultSet.getLong("idrecipe"));
-                recipe.setDoctorID(resultSet.getLong("fkDoctor"));
-                recipe.setPatientID(resultSet.getLong("fkPacient"));
-                recipe.setMedicineID(resultSet.getLong("fkMedicine"));
+                recipe.setDate(resultSet.getDate("date"));
+                Long patientID=resultSet.getLong("fkPatient");
+                Long doctorID=resultSet.getLong("fkDoctor");
+                UserDAO userDAO=new UserDAO();
+                User patient=userDAO.findEntityById(patientID);
+                User doctor=userDAO.findEntityById(doctorID);
+                recipe.setPatient(patient);
+                recipe.setDoctor(doctor);
+                Long medicineID=resultSet.getLong("fkMedicine");
+                MedicineDAO medicineDAO=new MedicineDAO();
+                Medicine medicine=medicineDAO.findEntityById(medicineID);
+                recipe.setMedicine(medicine);
                 recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
                 recipe.setExpired(resultSet.getBoolean("expired"));
+                recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
     }
 
-    public List<Recipe> findRecipesByDoctor(Long doctorId) throws DAOException {
+    public List<Recipe> findRecipesByDoctor(long doctorId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_DOCTOR)){
@@ -96,11 +130,21 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();
                 recipe.setId(resultSet.getLong("idrecipe"));
-                recipe.setDoctorID(resultSet.getLong("fkDoctor"));
-                recipe.setPatientID(resultSet.getLong("fkPacient"));
-                recipe.setMedicineID(resultSet.getLong("fkMedicine"));
+                recipe.setDate(resultSet.getDate("date"));
+                Long patientID=resultSet.getLong("fkPatient");
+                Long doctorID=resultSet.getLong("fkDoctor");
+                UserDAO userDAO=new UserDAO();
+                User patient=userDAO.findEntityById(patientID);
+                User doctor=userDAO.findEntityById(doctorID);
+                recipe.setPatient(patient);
+                recipe.setDoctor(doctor);
+                Long medicineID=resultSet.getLong("fkMedicine");
+                MedicineDAO medicineDAO=new MedicineDAO();
+                Medicine medicine=medicineDAO.findEntityById(medicineID);
+                recipe.setMedicine(medicine);
                 recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
                 recipe.setExpired(resultSet.getBoolean("expired"));
+                recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
@@ -113,7 +157,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     @Override
     public boolean delete(long idRecipe) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isDeleted=false;
+        boolean isDeleted;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_RECIPE_BY_ID)){
             st.setLong(1,idRecipe);
             isDeleted=0<st.executeUpdate();
@@ -132,18 +176,18 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public boolean create(Recipe entity) throws DAOException {
         System.out.println(entity);
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isCreated=false;
+        boolean isCreated;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_RECIPE)){
-
             st.setLong(1,entity.getId());
-            st.setLong(2,entity.getDoctorID());
-            st.setLong(3,entity.getPatientID());
-            st.setLong(4,entity.getMedicineID());
-            st.setInt(5,entity.getMedicineQuantity());
-            st.setBoolean(6,entity.isExpired());
+            st.setDate(2,new java.sql.Date(entity.getDate().getTime()));
+            st.setLong(3,entity.getDoctor().getId());
+            st.setLong(4,entity.getPatient().getId());
+            st.setLong(5,entity.getMedicine().getId());
+            st.setInt(6,entity.getMedicineQuantity());
+            st.setBoolean(7,entity.isExpired());
+            st.setBoolean(8,entity.isRenewRequest());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isCreated;
@@ -152,15 +196,17 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     @Override
     public boolean update(Recipe entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
-        boolean isUpdate=false;
+        boolean isUpdate;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_UPDATE_RECIPE_BY_ENTITY)){
             st.setLong(1,entity.getId());
-            st.setLong(2,entity.getDoctorID());
-            st.setLong(3,entity.getPatientID());
-            st.setLong(4,entity.getMedicineID());
-            st.setInt(5,entity.getMedicineQuantity());
-            st.setBoolean(6,entity.isExpired());
-            st.setLong(7,entity.getId());
+            st.setDate(2,new java.sql.Date(entity.getDate().getTime()));
+            st.setLong(3,entity.getDoctor().getId());
+            st.setLong(4,entity.getPatient().getId());
+            st.setLong(5,entity.getMedicine().getId());
+            st.setInt(6,entity.getMedicineQuantity());
+            st.setBoolean(7,entity.isExpired());
+            st.setBoolean(8,entity.isRenewRequest());
+            st.setLong(9,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);

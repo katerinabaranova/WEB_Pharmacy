@@ -10,5 +10,4 @@
 <h3><fmt:message key="update.medicine.success"/> </h3>
 <br>
 <br>
-<p><a href=# onclick="history.back(); return false;"><fmt:message key="button.back" /></a>
 <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>
