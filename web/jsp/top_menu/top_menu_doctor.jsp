@@ -24,7 +24,8 @@
       <button type="submit" class="btn-link"><fmt:message key="language.en"/> </button>
     </form>
   </li>
-  <li><form action="/controller" method="post">
+  <li>
+    <form action="/controller" method="post">
     <input type="hidden" name="language" value="ru" />
     <input type="hidden" name="command" value="change_language" />
     <button type="submit" class="btn-link"><fmt:message key="language.ru"/> </button>
@@ -50,8 +51,8 @@
             </form>
            </li>
           <li>
-            <form action="/show_requests" method="post">
-              <input type="hidden" name="command" value="show_requests" />
+            <form action="/show_renew_requests" method="post">
+              <input type="hidden" name="command" value="show_renew_requests" />
               <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
             </form>
           </li>

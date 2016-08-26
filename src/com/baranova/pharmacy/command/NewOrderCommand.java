@@ -36,12 +36,18 @@ class NewOrderCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
+        boolean checkRecipe=OrderParametersCheck.checkRecipe(parameters);
+        if (!checkRecipe){
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.NO_RECIPE);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
+        }
         boolean isCreated= OrderService.newOrderCreate(parameters);
         if (isCreated){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ORDER_SUCCESS);
             return PageName.ORDER_SUCCESS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.NOT_ENOUGH_MONEY);
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.NEW_ORDER_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

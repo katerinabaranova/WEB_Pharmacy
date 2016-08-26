@@ -24,7 +24,7 @@
         <div class="col-md-1">${recipe.date}</div>
         <div class="col-md-2">${recipe.patient.surname}</div>
         <div class="col-md-2">${recipe.patient.name}</div>
-        <div class="col-md-1">${recipe.medicine.medicine}</div>
+        <div class="col-md-1">${recipe.medicine.medicineName}</div>
         <div class="col-md-1">${recipe.medicine.dosage}</div>
         <div class="col-md-1">${recipe.medicineQuantity}</div>
         <div class="col-md-1">${recipe.expired}</div>

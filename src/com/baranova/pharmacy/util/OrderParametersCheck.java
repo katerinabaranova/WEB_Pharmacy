@@ -3,13 +3,17 @@ package com.baranova.pharmacy.util;
 import com.baranova.pharmacy.constant.ParameterOrder;
 import com.baranova.pharmacy.constant.ServiceCost;
 import com.baranova.pharmacy.dao.MedicineDAO;
+import com.baranova.pharmacy.dao.RecipeDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Medicine;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,5 +79,50 @@ public class OrderParametersCheck {
             LOG.error(e.getMessage());
         }
         return medicine.getStoreQuantity()>=needQuantity;
+    }
+
+    public static boolean checkRecipe (Map <String,String> parameters) {
+        long medicineID=0;
+        int needQuantity=0;
+        long userID=0;
+        for (Map.Entry<String,String> parameter:parameters.entrySet()) {
+            switch (parameter.getKey()){
+                case ParameterOrder.QUANTITY:
+                    needQuantity=Integer.parseInt(parameter.getValue());
+                    break;
+                case ParameterOrder.MEDICINE_ID:
+                    medicineID=Long.parseLong(parameter.getValue());
+                    break;
+                case ParameterOrder.USER_ID:
+                    userID=Long.parseLong(parameter.getValue());
+                    break;
+            }
+        }
+
+        MedicineDAO medicineDAO=new MedicineDAO();
+        Medicine medicine=new Medicine();
+        try {
+            medicine = medicineDAO.findEntityById(medicineID);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        if (!medicine.isRecipe()){
+            return true;
+        }
+        int needMedicineQuantity=needQuantity*medicine.getPackageQuantity();
+        RecipeDAO recipeDAO=new RecipeDAO();
+        List<Recipe> recipes=new ArrayList<>();
+        try {
+            recipes = recipeDAO.findRecipesByPatient(userID);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        int recipeQuantity=0;
+        for (Recipe recipe:recipes){
+            if (recipe.getMedicine().getId()==medicineID){
+                recipeQuantity+=recipe.getMedicineQuantity();
+            }
+        }
+        return (needQuantity*medicine.getPackageQuantity()<=recipeQuantity);
     }
 }

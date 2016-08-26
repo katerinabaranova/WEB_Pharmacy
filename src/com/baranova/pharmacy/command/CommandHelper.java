@@ -29,6 +29,7 @@ public class CommandHelper {
         commands.put(TypeCommand.SIGN_OUT,new SignOutCommand());
         commands.put(TypeCommand.RENEW_RECIPE_REQUEST, new RenewRecipeCommand());
         commands.put(TypeCommand.NEW_ORDER,new NewOrderCommand());
+        commands.put(TypeCommand.SHOW_RENEW_REQUESTS,new ShowRenewRequests());
     }
 
     public static ICommand getCommand(String commandName) {

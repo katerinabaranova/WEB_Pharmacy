@@ -16,5 +16,10 @@ public class ErrorPageConstant {
     public static final String NOT_ENOUGH_MONEY="error.not.payability";
     public static final String NOT_ENOUGH_QUANTITY="error.order.quantity";
     public static final String NO_MEDICINE_ERROR="no.medicine.error";
+    public static final String NO_RECIPE="error.no.recipe";
+    public static final String RECIPE_NOT_EXPIRED="error.recipe.notexpired";
+    public static final String RENEW_RECIPE_ERROR="error.recipe.renew";
+    public static final String NEW_ORDER_ERROR="error.new.order";
+
 
 }

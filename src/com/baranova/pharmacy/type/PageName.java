@@ -17,7 +17,6 @@ public enum PageName {
     NEW_MEDICINE_FORM("jsp/medicine_control/new_medicine_form.jsp"),
     NEW_MEDICINE_SUCCESS("jsp/medicine_control/new_medicine_success.jsp"),
     NEW_RECIPE_FORM("jsp/recipe_control/recipe_form.jsp"),
-    NO_MEDICINE_PAGE("jsp/medicine_control/no_medicine_page.jsp"),
     NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
     ORDER_FORM("jsp/order_control/order_form.jsp"),
     ORDER_SUCCESS("jsp/order_control/order_success.jsp"),
@@ -25,13 +24,17 @@ public enum PageName {
     RECIPE_DOCTOR_PAGE("jsp/recipe_control/recipes_doctor.jsp"),
     REGISTRATION_FORM("jsp/registration_form.jsp"),
     REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
+    RENEW_REQUEST_RECIPES("jsp/recipe_control/recipes_requests_doctor.jsp"),
+    RENEW_REQUEST_SUCCESS("jsp/recipe_control/renew_request_success.jsp"),
     SIGN_OUT("jsp/sign_out.jsp"),
     SEARCH_PAGE("jsp/search_page.jsp"),
     SEARCH_RESULTS("jsp/search_results.jsp"),
     PROCCED_UPDATE("jsp/medicine_control/procced_update.jsp"),
     UPDATE_MEDICINE_SUCCESS("jsp/medicine_control/update_medicine_success.jsp"),
     USER_ORDERS("jsp/order_control/user_orders.jsp"),
-    USER_PAGE ("jsp/loginsuccess.jsp");
+    USER_PAGE ("jsp/user_control/loginsuccess.jsp");
+
+
     private String pageName;
 
     PageName(String pageName) {
