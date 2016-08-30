@@ -20,13 +20,11 @@ class ShowRenewRequests implements ICommand {
         Long id=Long.parseLong(request.getSession().getAttribute(AttributeConstant.LOGGED_ID).toString());
         List<Recipe> listRecipes= ServiceRecipe.findDoctorRecipeRequests(id);
         if (!listRecipes.isEmpty()){
-            System.out.println("sdsdsd");
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_RECIPES);
             request.setAttribute(AttributeConstant.RECIPE_LIST,listRecipes);
             return PageName.RENEW_REQUEST_RECIPES;
         } else {
-            System.out.println("sdsdsdsdssfsf");
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.ERROR_USER_RECIPE);
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.SHOW_REQUESTS_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

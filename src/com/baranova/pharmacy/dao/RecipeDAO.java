@@ -22,7 +22,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     private static final String SQL_SELECT_RECIPE_BY_PATIENT = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkPatient=?";
     private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkDoctor=?";
     private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM pharmacy.recipe WHERE idrecipe = ?;";
-    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(idrecipe,date, fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest) values(?,?,?,?,?,?,?,?);";
+    private static final String SQL_CREATE_RECIPE = "INSERT INTO pharmacy.recipe(date, fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest) values(?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET idrecipe=?,date=?,fkDoctor=?,fkPatient=?,fkMedicine=?,medicineQuantity=?,expired=?,renewRequest=? WHERE idrecipe=?;";
     private static final String SQL_SELECT_RECIPE_REQUEST_BY_DOCTOR = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkDoctor=? AND renewRequest=?";
 
@@ -209,20 +209,19 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
     @Override
     public boolean create(Recipe entity) throws DAOException {
-        System.out.println(entity);
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isCreated;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_RECIPE)){
-            st.setLong(1,entity.getId());
-            st.setDate(2,new java.sql.Date(entity.getDate().getTime()));
-            st.setLong(3,entity.getDoctor().getId());
-            st.setLong(4,entity.getPatient().getId());
-            st.setLong(5,entity.getMedicine().getId());
-            st.setInt(6,entity.getMedicineQuantity());
-            st.setBoolean(7,entity.isExpired());
-            st.setBoolean(8,entity.isRenewRequest());
+            st.setDate(1,new java.sql.Date(entity.getDate().getTime()));
+            st.setLong(2,entity.getDoctor().getId());
+            st.setLong(3,entity.getPatient().getId());
+            st.setLong(4,entity.getMedicine().getId());
+            st.setInt(5,entity.getMedicineQuantity());
+            st.setBoolean(6,entity.isExpired());
+            st.setBoolean(7,entity.isRenewRequest());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isCreated;

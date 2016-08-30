@@ -6,6 +6,7 @@ package com.baranova.pharmacy.type;
 public enum TypeCommand {
 
     AUTHORIZATION,
+    BALANCE_REFILL,
     CHANGE_LANGUAGE,
     DELETE_MEDICINE,
     NEW_MEDICINE,
@@ -14,6 +15,7 @@ public enum TypeCommand {
     PREPARE_ORDER,
     PROCEED_UPDATE_MEDICINE,
     REGISTRATION,
+    RENEW_RECIPE,
     RENEW_RECIPE_REQUEST,
     SEARCH,
     SIGN_OUT,

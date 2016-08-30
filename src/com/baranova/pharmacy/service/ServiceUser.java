@@ -77,7 +77,7 @@ public class ServiceUser {
            LOG.error(e.getMessage());
        }
        return userCreated;
-    }
+   }
 
     /**
      * Сheck the correctness of the login and password receiving from authorization form
@@ -115,5 +115,36 @@ public class ServiceUser {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Call DAO method to refill user balance
+     * @param parameterValues  Map<String,String> that contain name of parameters and theirs value
+     * @return boolean value if user balance was increased
+     */
+    public static boolean refillBalance(Map<String,String> parameterValues){
+        User user;
+        int amount=0;
+        UserDAO userDAO=new UserDAO();
+        long userID=0;
+        for (Map.Entry<String,String> parameter:parameterValues.entrySet()) {
+            switch (parameter.getKey()) {
+                case ParameterUser.USER_ID:
+                    userID=Integer.parseInt(parameter.getValue());
+                    break;
+                case ParameterUser.AMOUNT:
+                    amount=Integer.parseInt(parameter.getValue());
+                    break;
+            }
+        }
+        boolean isUpdated=false;
+        try {
+            user=userDAO.findEntityById(userID);
+            user.setAmount(user.getAmount()+amount);
+            isUpdated=userDAO.update(user);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return isUpdated;
     }
 }

@@ -1,34 +1,30 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.*;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.service.ServiceRecipe;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class command to send request to renew recipe.
+ * Created by Ekaterina on 8/26/16.
  */
 class RenewRecipeCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request) {
-
-        Long id=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE_ID));
-        boolean isExpired= ServiceRecipe.checkIsExpired(id);
-        if (!isExpired) {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.RECIPE_NOT_EXPIRED);
-            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
-            return PageName.ERROR_PAGE;
-        }
-        boolean isUpdated= ServiceRecipe.renewRequest(id);
-        if (isUpdated){
-            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_SUCCESS);
-            return PageName.RENEW_REQUEST_SUCCESS;
+        Long recipeId=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE));
+        Recipe recipe= ServiceRecipe.renewRecipe(recipeId);
+        if (recipe!=null){
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_RECIPE_SUCCESS);
+            request.getSession().setAttribute(ParameterName.RECIPE,recipe);
+            return PageName.RENEW_RECIPE_SUCCESS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.RENEW_RECIPE_ERROR);
+            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.RENEW_REQUEST_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
+
     }
 }

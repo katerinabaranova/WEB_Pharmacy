@@ -43,6 +43,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_control/refill_balance_form.jsp"><fmt:message key="menu.search"/> </a></li>
           <li>
             <form action="/show_orders" method="post">
               <input type="hidden" name="command" value="show_orders" />

@@ -18,8 +18,11 @@ public class ErrorPageConstant {
     public static final String NO_MEDICINE_ERROR="no.medicine.error";
     public static final String NO_RECIPE="error.no.recipe";
     public static final String RECIPE_NOT_EXPIRED="error.recipe.notexpired";
-    public static final String RENEW_RECIPE_ERROR="error.recipe.renew";
+    public static final String RENEW_REQUEST_ERROR = "error.request.renew";
     public static final String NEW_ORDER_ERROR="error.new.order";
+    public static final String SHOW_REQUESTS_ERROR="error.show.renew.requests";
+    public static final String REFILL_BALANCE_ERROR="refill.balance.error";
+
 
 
 }

@@ -15,4 +15,7 @@ public class ParameterUser {
     public static final String PHONE_NUMBER ="Phonenumber";
     public static final String EMAIL="Email";
     public static final String ROLE="Role";
+    public static final String AMOUNT="increaseAmount";
+    public static final String USER_ID="userID";
+
 }

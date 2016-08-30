@@ -32,7 +32,7 @@
             <div class="form-group">
                 <div class="col-md-2">
                     <input type="hidden" name="command" value="renew_recipe" />
-                    <input type="hidden" name="medicine" value="${recipe.id}">
+                    <input type="hidden" name="recipe" value="${recipe.id}">
                     <button type="submit" class="btn btn-success"><fmt:message key="renew.request.button"/> </button>
                 </div>
             </div>

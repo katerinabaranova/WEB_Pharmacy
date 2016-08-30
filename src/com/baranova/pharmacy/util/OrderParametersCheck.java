@@ -109,7 +109,6 @@ public class OrderParametersCheck {
         if (!medicine.isRecipe()){
             return true;
         }
-        int needMedicineQuantity=needQuantity*medicine.getPackageQuantity();
         RecipeDAO recipeDAO=new RecipeDAO();
         List<Recipe> recipes=new ArrayList<>();
         try {

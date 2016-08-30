@@ -8,4 +8,6 @@ public class ParameterName {
     public static final String LAST_PAGE="last_page";
     public static final String LANGUAGE="language";
     public static final String MEDICINE="medicine";
+    public static final String RECIPE="recipe";
+
 }

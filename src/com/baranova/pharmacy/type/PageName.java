@@ -24,6 +24,8 @@ public enum PageName {
     RECIPE_DOCTOR_PAGE("jsp/recipe_control/recipes_doctor.jsp"),
     REGISTRATION_FORM("jsp/registration_form.jsp"),
     REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
+    REFILL_BALANCE_SUCCESS("jsp/user_control/refill_success.jsp"),
+    RENEW_RECIPE_SUCCESS("jsp/recipe_control/renew_recipe_success.jsp"),
     RENEW_REQUEST_RECIPES("jsp/recipe_control/recipes_requests_doctor.jsp"),
     RENEW_REQUEST_SUCCESS("jsp/recipe_control/renew_request_success.jsp"),
     SIGN_OUT("jsp/sign_out.jsp"),

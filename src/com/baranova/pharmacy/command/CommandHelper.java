@@ -27,9 +27,11 @@ public class CommandHelper {
         commands.put(TypeCommand.SHOW_BUYER_RECIPE,new BuyerRecipesCommand());
         commands.put(TypeCommand.SHOW_DOCTOR_RECIPE,new DoctorRecipesCommand());
         commands.put(TypeCommand.SIGN_OUT,new SignOutCommand());
-        commands.put(TypeCommand.RENEW_RECIPE_REQUEST, new RenewRecipeCommand());
+        commands.put(TypeCommand.RENEW_RECIPE_REQUEST, new RenewRequestCommand());
         commands.put(TypeCommand.NEW_ORDER,new NewOrderCommand());
         commands.put(TypeCommand.SHOW_RENEW_REQUESTS,new ShowRenewRequests());
+        commands.put(TypeCommand.RENEW_RECIPE,new RenewRecipeCommand());
+        commands.put(TypeCommand.BALANCE_REFILL,new BalanceRefillCommand());
     }
 
     public static ICommand getCommand(String commandName) {

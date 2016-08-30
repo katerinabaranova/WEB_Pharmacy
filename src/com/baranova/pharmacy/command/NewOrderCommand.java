@@ -19,7 +19,6 @@ class NewOrderCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request) {
-        long userID=Long.parseLong(request.getSession().getAttribute("loggedID").toString());
         SessionRequestContent requestContent=new SessionRequestContent();
         requestContent.extractValues(request);
         Map<String,String> parameters=requestContent.getRequestParameters();

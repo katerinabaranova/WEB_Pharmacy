@@ -181,4 +181,27 @@ public class ServiceRecipe {
         }
 
     }
+
+    public static Recipe renewRecipe(long recipeId){
+        RecipeDAO recipeDAO=new RecipeDAO();
+        Recipe recipe;
+        Recipe newRecipe=new Recipe();
+        boolean isCreated=false;
+        try {
+            recipe=recipeDAO.findEntityById(recipeId);
+            recipe.setRenewRequest(false);
+            recipeDAO.update(recipe);
+            newRecipe=new Recipe();
+            newRecipe.setMedicine(recipe.getMedicine());
+            newRecipe.setDoctor(recipe.getDoctor());
+            newRecipe.setPatient(recipe.getPatient());
+            newRecipe.setRenewRequest(false);
+            newRecipe.setMedicineQuantity(recipe.getMedicineQuantity());
+            newRecipe.setExpired(false);
+            isCreated=recipeDAO.create(newRecipe);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return isCreated?newRecipe:null;
+    }
 }

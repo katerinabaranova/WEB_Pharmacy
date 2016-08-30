@@ -17,13 +17,13 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Login"><fmt:message key="login.label.username"/></label>
             <div class="col-md-4">
-                <input id="Login" name="Login" type="text" pattern="[A-Za-Z]{5,15}" placeholder="" class="form-control input-md" required="">
+                <input id="Login" name="Login" type="text" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="Password"><fmt:message key="login.label.password"/></label>
             <div class="col-md-4">
-                <input id="Password" name="Password" pattern="[A-Za-z0-9]{4,15}" type="password" placeholder="" class="form-control input-md" required="">
+                <input id="Password" name="Password" pattern="[A-Za-z0-9]{5,15}" type="password" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
 
