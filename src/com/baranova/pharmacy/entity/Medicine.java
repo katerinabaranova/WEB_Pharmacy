@@ -5,12 +5,9 @@ public class Medicine extends Entity {
 
     private String medicineName;
     private int dosage;
-    private int price;
+    private double price;
     private String packageType;
     private int packageQuantity;
-
-
-
     private int storeQuantity;
     private boolean recipe;
 
@@ -29,7 +26,7 @@ public class Medicine extends Entity {
     public long getId(){return super.getId();}
     public String getMedicineName() {return medicineName;}
     public int getDosage() {return dosage;}
-    public int getPrice() {return price;}
+    public double getPrice() {return price;}
     public String getPackageType() {return packageType;}
     public int getPackageQuantity() {return packageQuantity;}
     public int getStoreQuantity() {return storeQuantity;}
@@ -38,7 +35,7 @@ public class Medicine extends Entity {
     public void setId(long id){super.setId(id);}
     public void setMedicineName(String medicineName) {this.medicineName = medicineName;}
     public void setDosage(int dosage) {this.dosage = dosage;}
-    public void setPrice(int price) {this.price = price;}
+    public void setPrice(double price) {this.price = price;}
     public void setPackageType(String packageType) {
         this.packageType = packageType;
     }

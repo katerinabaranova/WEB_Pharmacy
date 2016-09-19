@@ -20,21 +20,23 @@ public enum PageName {
     NO_SEARCH_RESULTS("jsp/no_search_results.jsp"),
     ORDER_FORM("jsp/order_control/order_form.jsp"),
     ORDER_SUCCESS("jsp/order_control/order_success.jsp"),
+    PROCCED_UPDATE("jsp/medicine_control/procced_update.jsp"),
     RECIPE_BUYER_PAGE("jsp/recipe_control/recipes_buyer.jsp"),
     RECIPE_DOCTOR_PAGE("jsp/recipe_control/recipes_doctor.jsp"),
     REGISTRATION_FORM("jsp/registration_form.jsp"),
     REGISTRATION_SUCCESS("jsp/registration_success.jsp"),
+    REFILL_BALANCE_FORM("jsp/user_control/refill_balance_form.jsp"),
     REFILL_BALANCE_SUCCESS("jsp/user_control/refill_success.jsp"),
     RENEW_RECIPE_SUCCESS("jsp/recipe_control/renew_recipe_success.jsp"),
     RENEW_REQUEST_RECIPES("jsp/recipe_control/recipes_requests_doctor.jsp"),
     RENEW_REQUEST_SUCCESS("jsp/recipe_control/renew_request_success.jsp"),
     SIGN_OUT("jsp/sign_out.jsp"),
-    SEARCH_PAGE("jsp/search_page.jsp"),
-    SEARCH_RESULTS("jsp/search_results.jsp"),
-    PROCCED_UPDATE("jsp/medicine_control/procced_update.jsp"),
+    SEARCH_PAGE("jsp/medicine_control/search_page.jsp"),
+    SEARCH_RESULTS("jsp/medicine_control/search_results.jsp"),
     UPDATE_MEDICINE_SUCCESS("jsp/medicine_control/update_medicine_success.jsp"),
     USER_ORDERS("jsp/order_control/user_orders.jsp"),
-    USER_PAGE ("jsp/user_control/loginsuccess.jsp");
+    USER_PAGE ("jsp/user_control/loginsuccess.jsp"),
+    WRONG_INPUT_PAGE("jsp/error_page/wrong_input_page.jsp");
 
 
     private String pageName;

@@ -5,6 +5,7 @@ import com.baranova.pharmacy.entity.*;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.service.Service;
 import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.util.PatternCheck;
 import com.baranova.pharmacy.util.Security;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +20,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List <Recipe> recipes= ServiceRecipe.findDoctorRecipeRequests((long)8);
-        System.out.println(recipes);
+        MedicineDAO medicineDAO=new MedicineDAO();
+        boolean isDeleted=false;
+        try{
+            isDeleted=medicineDAO.delete(9);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
     }
 }

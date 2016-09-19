@@ -21,7 +21,7 @@
 <c:forEach items="${all_medicines_list}" var="medicine">
     <div class="row">
         <div class=col-md-1>${medicine.id}</div>
-        <div class=col-md-1>${medicine.medicine}</div>
+        <div class=col-md-1>${medicine.medicineName}</div>
         <div class=col-md-1>${medicine.dosage}</div>
         <div class=col-md-1>${medicine.packageType}</div>
         <div class=col-md-1>${medicine.packageQuantity}</div>

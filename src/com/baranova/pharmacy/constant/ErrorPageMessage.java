@@ -3,7 +3,7 @@ package com.baranova.pharmacy.constant;
 /**
  * Types of messages that should be send to the error page.
  */
-public class ErrorPageConstant {
+public class ErrorPageMessage {
 
     public static final String LOGIN_ERROR="error.login.header";
     public static final String LOGIN_IN_USE_ERROR ="error.login.using";
@@ -22,6 +22,8 @@ public class ErrorPageConstant {
     public static final String NEW_ORDER_ERROR="error.new.order";
     public static final String SHOW_REQUESTS_ERROR="error.show.renew.requests";
     public static final String REFILL_BALANCE_ERROR="refill.balance.error";
+    public static final String WRONG_PASSWORDS="wrong.passwords.error";
+
 
 
 

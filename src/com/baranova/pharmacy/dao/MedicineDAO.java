@@ -36,7 +36,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
-                medicine.setPrice(resultSet.getInt("price"));
+                medicine.setPrice(resultSet.getDouble("price"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
             }
@@ -60,7 +60,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
-                medicine.setPrice(resultSet.getInt("price"));
+                medicine.setPrice(resultSet.getDouble("price"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
             }
         } catch (SQLException e) {
@@ -69,21 +69,6 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
         return medicine;
     }
 
-
-    public Medicine findMedicineNameById (long id)  throws DAOException {
-        Medicine medicine = new Medicine();
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_SELECT_MEDICINE_NAME_BY_ID)){
-            st.setLong(1,id);
-            ResultSet resultSet = st.executeQuery();
-            while (resultSet.next()) {
-                medicine.setMedicineName(resultSet.getString("medicineName"));
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
-        }
-        return medicine;
-    }
 
     public Medicine findIDByNameDosage(String name, int dosage) throws DAOException {
         Medicine medicine=new Medicine();
@@ -114,7 +99,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setDosage(resultSet.getInt("dosage"));
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
-                medicine.setPrice(resultSet.getInt("price"));
+                medicine.setPrice(resultSet.getDouble("price"));
                 medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
@@ -152,7 +137,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(2,entity.getDosage());
             st.setString(3,entity.getPackageType());
             st.setInt(4,entity.getPackageQuantity());
-            st.setInt(5,entity.getPrice());
+            st.setDouble(5,entity.getPrice());
             st.setInt(6,entity.getStoreQuantity());
             st.setBoolean(7,entity.isRecipe());
             isCreated=0<st.executeUpdate();
@@ -172,7 +157,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(3,entity.getDosage());
             st.setString(4,entity.getPackageType());
             st.setInt(5,entity.getPackageQuantity());
-            st.setInt(6,entity.getPrice());
+            st.setDouble(6,entity.getPrice());
             st.setInt(7,entity.getStoreQuantity());
             st.setBoolean(8,entity.isRecipe());
             st.setLong(9,entity.getId());

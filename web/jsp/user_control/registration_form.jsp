@@ -30,6 +30,13 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-4 control-label" for="ConfirmPassword"><fmt:message key="registration.password"/></label>
+            <div class="col-md-4">
+                <input id="ConfirmPassword" name="SubmitPassword" placeholder="" class="form-control input-md" required="" type="password">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-md-4 control-label" for="Name"><fmt:message key="registration.name"/> </label>
             <div class="col-md-4">
                 <input id="Name" name="Name" placeholder="" class="form-control input-md" required="" type="text">

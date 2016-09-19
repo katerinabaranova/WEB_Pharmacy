@@ -203,7 +203,7 @@ public class UserDAO extends AbstractDAO<User>{
             st.setInt(8,entity.getHouseNumber());
             st.setInt(9,entity.getApartment());
             st.setLong(10,entity.getRole().getId());
-            st.setInt(11,entity.getAmount());
+            st.setDouble(11,entity.getAmount());
             st.setLong(12,entity.getUserID());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {

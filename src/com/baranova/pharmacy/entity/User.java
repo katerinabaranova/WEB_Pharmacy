@@ -14,7 +14,7 @@ public class User extends Entity {
     private String email;
     private String phoneNumber;
     private Role role=new Role();
-    private int amount;
+    private double amount;
 
     public User(){
     }
@@ -47,7 +47,7 @@ public class User extends Entity {
     public String getEmail() {return email;}
     public String getPhoneNumber() {return phoneNumber;}
     public Role getRole() {return role;}
-    public int getAmount(){return amount;}
+    public double getAmount(){return amount;}
 
     public void setUserID(long id){super.setId(id);}
     public void setLogin(String login) {this.login = login;}
@@ -61,7 +61,7 @@ public class User extends Entity {
     public void setEmail(String email) {this.email = email;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
     public void setRole(Role role) {this.role = role;}
-    public void setAmount(int amount) {this.amount = amount;}
+    public void setAmount(double amount) {this.amount = amount;}
 
     @Override
     public String toString() {

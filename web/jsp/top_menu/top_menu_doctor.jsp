@@ -56,7 +56,7 @@
               <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
             </form>
           </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

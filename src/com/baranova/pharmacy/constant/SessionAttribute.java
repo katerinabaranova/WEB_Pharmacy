@@ -1,6 +1,6 @@
 package com.baranova.pharmacy.constant;
 
-public class AttributeConstant {
+public class SessionAttribute {
     public static final String INCLUDE_TOP_MENU="include_top_menu";
     public static final String MEDICINE_FOR_ORDER="medicine_for_order";
     public static final String ALL_MEDICINE_LIST="all_medicines_list";
@@ -10,6 +10,5 @@ public class AttributeConstant {
     public static final String RECIPE_LIST="recipeList";
     public static final String ERROR_MESSAGE="errorMessage";
     public static final String AMOUNT="amount";
-
-
+    public static final String WRONG_INPUTS="wrongInputs";
 }

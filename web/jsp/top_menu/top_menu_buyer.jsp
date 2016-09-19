@@ -42,8 +42,8 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_control/refill_balance_form.jsp"><fmt:message key="menu.search"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_control/refill_balance_form.jsp"><fmt:message key="menu.balance.refill"/> </a></li>
           <li>
             <form action="/show_orders" method="post">
               <input type="hidden" name="command" value="show_orders" />
@@ -56,7 +56,7 @@
               <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
             </form>
           </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>
     </div>

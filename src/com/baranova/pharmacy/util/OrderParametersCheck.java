@@ -52,7 +52,7 @@ public class OrderParametersCheck {
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
-        int availableBalance=user.getAmount();
+        double availableBalance=user.getAmount();
 
         return availableBalance >= orderAmount;
     }

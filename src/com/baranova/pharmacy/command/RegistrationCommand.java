@@ -1,8 +1,8 @@
 package com.baranova.pharmacy.command;
 
 
-import com.baranova.pharmacy.constant.AttributeConstant;
-import com.baranova.pharmacy.constant.ErrorPageConstant;
+import com.baranova.pharmacy.constant.SessionAttribute;
+import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.ParameterUser;
 import com.baranova.pharmacy.service.ServiceUser;
@@ -28,7 +28,13 @@ class RegistrationCommand implements ICommand{
         Map<String,String> parameters= requestContent.getRequestParameters();
         boolean loginFree= LoginCheck.checkLoginUse(parameters.get(ParameterUser.LOGIN));
         if (!loginFree){
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.LOGIN_IN_USE_ERROR);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.LOGIN_IN_USE_ERROR);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
+        }
+        boolean checkPasswords=ServiceUser.checkPasswords(parameters);
+        if (!checkPasswords){
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.WRONG_PASSWORDS);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
@@ -37,7 +43,7 @@ class RegistrationCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REGISTRATION_SUCCESS);
             return PageName.REGISTRATION_SUCCESS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.REGISTRATION_ERROR);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.REGISTRATION_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

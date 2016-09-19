@@ -43,7 +43,7 @@ public class ServiceMedicine {
                     medicine.setStoreQuantity(Integer.parseInt(parameter.getValue()));
                     break;
                 case ParameterMedicine.PRICE:
-                    medicine.setPrice(Integer.parseInt(parameter.getValue()));
+                    medicine.setPrice(Double.parseDouble(parameter.getValue()));
                     break;
                 case ParameterMedicine.RECIPE:
                     if ("1".equalsIgnoreCase(parameter.getValue())){
@@ -85,7 +85,7 @@ public class ServiceMedicine {
      * @param id receiving from JSP medicine id
      * @return Medicine with necessary id
      */
-    public static Medicine getMedicineService(long id){
+    public static Medicine getMedicine(long id){
         MedicineDAO medicineDAO=new MedicineDAO();
         Medicine medicine=new Medicine();
         try{
@@ -111,7 +111,7 @@ public class ServiceMedicine {
         medicine.setPackageType(request.getParameter(ParameterMedicine.MEDICINE_PACKAGE));
         medicine.setPackageQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.PACK_QUANTITY)));
         medicine.setStoreQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.INSTORE_QUANTITY)));
-        medicine.setPrice(Integer.parseInt(request.getParameter(ParameterMedicine.PRICE)));
+        medicine.setPrice(Double.parseDouble(request.getParameter(ParameterMedicine.PRICE)));
         medicine.setRecipe(Boolean.parseBoolean(request.getParameter(ParameterMedicine.RECIPE)));
         boolean isUpdate=false;
         try{

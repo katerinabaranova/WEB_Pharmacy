@@ -1,13 +1,13 @@
 package com.baranova.pharmacy.customtag;
 
-import com.baranova.pharmacy.constant.AttributeConstant;
+import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Created by Ekaterina on 7/23/16.
+ * Choose navigation menu for type of user .
  */
 @SuppressWarnings("serial")
 public class ChooseMenuTag extends TagSupport {
@@ -21,13 +21,13 @@ public class ChooseMenuTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         if (role==0){
-            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_COMMON.getPageName());
+            pageContext.setAttribute(SessionAttribute.INCLUDE_TOP_MENU,PageName.MENU_COMMON.getPageName());
         }else if (role == 1) {
-            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_BUYER.getPageName());
+            pageContext.setAttribute(SessionAttribute.INCLUDE_TOP_MENU,PageName.MENU_BUYER.getPageName());
         } else if (role==2){
-            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_DOCTOR.getPageName());
+            pageContext.setAttribute(SessionAttribute.INCLUDE_TOP_MENU,PageName.MENU_DOCTOR.getPageName());
         } else if (role==3){
-            pageContext.setAttribute(AttributeConstant.INCLUDE_TOP_MENU,PageName.MENU_PHARMACIST.getPageName());
+            pageContext.setAttribute(SessionAttribute.INCLUDE_TOP_MENU,PageName.MENU_PHARMACIST.getPageName());
         }
         return SKIP_BODY;
     }

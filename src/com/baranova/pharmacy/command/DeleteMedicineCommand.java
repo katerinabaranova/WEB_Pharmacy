@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.command;
 
-import com.baranova.pharmacy.constant.AttributeConstant;
-import com.baranova.pharmacy.constant.ErrorPageConstant;
+import com.baranova.pharmacy.constant.SessionAttribute;
+import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterMedicine;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.service.ServiceMedicine;
@@ -22,7 +22,7 @@ class DeleteMedicineCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.DELETE_MEDICINE_SUCCESS);
             return PageName.DELETE_MEDICINE_SUCCESS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.DELETE_MEDICINE_ERROR);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.DELETE_MEDICINE_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

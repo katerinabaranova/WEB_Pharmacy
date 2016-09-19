@@ -17,7 +17,7 @@ class RenewRequestCommand implements ICommand {
         Long id=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE_ID));
         boolean isExpired= ServiceRecipe.checkIsExpired(id);
         if (!isExpired) {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.RECIPE_NOT_EXPIRED);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.RECIPE_NOT_EXPIRED);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
@@ -26,7 +26,7 @@ class RenewRequestCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_SUCCESS);
             return PageName.RENEW_REQUEST_SUCCESS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.RENEW_REQUEST_ERROR);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.RENEW_REQUEST_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

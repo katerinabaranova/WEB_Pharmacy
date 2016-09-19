@@ -14,5 +14,5 @@
 <hr>
 <br>
 <h3><fmt:message key="${errorMessage}"/></h3>
-    <jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/bottom/bottom.jsp"/>
 

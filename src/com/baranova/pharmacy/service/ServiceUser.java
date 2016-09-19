@@ -20,6 +20,27 @@ public class ServiceUser {
     private static final Logger LOG= LogManager.getLogger();
 
     /**
+     * Method check if password and confirm password in the registration form appropriate each other
+     * @param parameters Map<String,String> that contain name of parameters and theirs value
+     * @return boolean value if password and confirm password are appropriate each other
+     */
+    public static boolean checkPasswords(Map<String,String> parameters){
+        String password="";
+        String confirmPassword="";
+        for (Map.Entry<String,String> parameter:parameters.entrySet()) {
+            switch (parameter.getKey()) {
+                case ParameterUser.PASSWORD:
+                    password = parameter.getValue();
+                    break;
+                case ParameterUser.CONFIRM_PASSWORD:
+                    confirmPassword = parameter.getValue();
+                    break;
+            }
+        }
+        return password!=null?password.equals(confirmPassword):false;
+    }
+
+    /**
      * Method call DAO method to create new User
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed

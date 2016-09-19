@@ -43,7 +43,7 @@
             <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-                <li><a href="${pageContext.request.contextPath}/jsp/registration_form.jsp"><fmt:message key="menu.signup" /></a></li>
+                <li><a href="${pageContext.request.contextPath}/jsp/user_control/registration_form.jsp"><fmt:message key="menu.signup" /></a></li>
                 <li><a href="${pageContext.request.contextPath}/jsp/user_control/loginform.jsp"><fmt:message key="menu.signin"/> </a></li>
             </ul>
           </div>

@@ -6,6 +6,7 @@ package com.baranova.pharmacy.constant;
 public class ParameterUser {
     public static final String LOGIN="Login";
     public static final String PASSWORD="Password";
+    public static final String CONFIRM_PASSWORD="ConfirmPassword";
     public static final String NAME="Name";
     public static final String SURNAME="Surname";
     public static final String CITY="City";

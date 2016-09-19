@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.command;
 
-import com.baranova.pharmacy.constant.AttributeConstant;
-import com.baranova.pharmacy.constant.ErrorPageConstant;
+import com.baranova.pharmacy.constant.SessionAttribute;
+import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.service.OrderService;
@@ -24,7 +24,7 @@ class OrdersCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.USER_ORDERS);
             return PageName.USER_ORDERS;
         } else {
-            request.getSession().setAttribute(AttributeConstant.ERROR_MESSAGE, ErrorPageConstant.ERROR_USER_ORDER);
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.ERROR_USER_ORDER);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }

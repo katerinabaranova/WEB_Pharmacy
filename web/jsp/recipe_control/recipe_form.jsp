@@ -17,35 +17,35 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="patientSurname"><fmt:message key="recipe.patient.surname"/></label>
             <div class="col-md-4">
-                <input id="patientSurname" name="patientSurname" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="patientSurname" name="patientSurname" pattern="[A-Za-zА-Яа-я]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="patientName"><fmt:message key="recipe.patient.name"/> </label>
             <div class="col-md-4">
-                <input id="patientName" name="patientName" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="patientName" name="patientName" pattern="[A-Za-zА-Яа-я\-]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicine"><fmt:message key="recipe.medicine.name"/></label>
             <div class="col-md-4">
-                <input id="medicine" name="medicine" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicine" name="medicine" placeholder="" pattern="[A-Za-z0-9 -]{4-20}" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineDosage"><fmt:message key="recipe.medicine.dosage"/> </label>
             <div class="col-md-4">
-                <input id="medicineDosage" name="medicineDosage" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicineDosage" name="medicineDosage" pattern="[1-9][0-9]{0,6}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineQuantity"><fmt:message key="recipe.medicine.quantity"/></label>
             <div class="col-md-4">
-                <input id="medicineQuantity" name="medicineQuantity" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicineQuantity" name="medicineQuantity" pattern="[1-9]{1}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 

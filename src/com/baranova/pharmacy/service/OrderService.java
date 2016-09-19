@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.service;
 
 import com.baranova.pharmacy.constant.ParameterOrder;
+import com.baranova.pharmacy.constant.ServiceCost;
 import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.dao.OrderDAO;
 import com.baranova.pharmacy.dao.UserDAO;
@@ -62,12 +63,12 @@ public class OrderService {
             order.setBuyer(user);
             medicine=medicineDAO.findEntityById(medicineID);
             order.setMedicine(medicine);
-            order.setTotalAmount(medicine.getPrice()*order.getQuantity());
+            order.setTotalAmount(medicine.getPrice()*order.getQuantity()+(order.isDelivery()?ServiceCost.DELIVERY_COST:0));
             isCreated = orderDAO.create(order);
             int newStoreQuantity=medicine.getStoreQuantity()-order.getQuantity();
             medicine.setStoreQuantity(newStoreQuantity);
             medicineDAO.update(medicine);
-            int newUserAmount=user.getAmount()-order.getTotalAmount();
+            double newUserAmount=user.getAmount()-order.getTotalAmount();
             user.setAmount(newUserAmount);
             userDAO.update(user);
         } catch (DAOException e){

@@ -134,7 +134,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(1,entity.getBuyer().getId());
             st.setLong(2,entity.getMedicine().getId());
             st.setInt(3,entity.getQuantity());
-            st.setInt(4,entity.getTotalAmount());
+            st.setDouble(4,entity.getTotalAmount());
             st.setBoolean(5,entity.isDelivery());
             st.setBoolean(6,entity.isPaid());
             isCreated=0<st.executeUpdate();
@@ -153,7 +153,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(2,entity.getBuyer().getId());
             st.setLong(3,entity.getMedicine().getId());
             st.setInt(4,entity.getQuantity());
-            st.setInt(5,entity.getTotalAmount());
+            st.setDouble(5,entity.getTotalAmount());
             st.setBoolean(6,entity.isDelivery());
             st.setBoolean(7,entity.isPaid());
             st.setLong(8,entity.getId());

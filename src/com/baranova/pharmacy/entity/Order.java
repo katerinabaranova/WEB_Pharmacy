@@ -9,7 +9,7 @@ public class Order extends Entity {
     private User buyer;
     private Medicine medicine;
     private int quantity;
-    private int totalAmount;
+    private double totalAmount;
     private boolean paid;
     private boolean delivery;
 
@@ -30,7 +30,7 @@ public class Order extends Entity {
     public User getBuyer() {return buyer;}
     public Medicine getMedicine() {return medicine;}
     public int getQuantity() {return quantity;}
-    public int getTotalAmount() {return totalAmount;}
+    public double getTotalAmount() {return totalAmount;}
     public boolean isPaid() {return paid;}
     public boolean isDelivery() {return delivery;}
 
@@ -38,7 +38,7 @@ public class Order extends Entity {
     public void setBuyer(User buyer) {this.buyer = buyer;}
     public void setMedicine(Medicine medicine) {this.medicine = medicine;}
     public void setQuantity(int quantity) {this.quantity = quantity;}
-    public void setTotalAmount(int totalAmount) {this.totalAmount = totalAmount;}
+    public void setTotalAmount(double totalAmount) {this.totalAmount = totalAmount;}
     public void setPaid(boolean paid) {this.paid = paid;}
     public void setDelivery(boolean delivery) {this.delivery = delivery;}
 

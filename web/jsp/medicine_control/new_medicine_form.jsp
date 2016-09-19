@@ -14,44 +14,44 @@
     <fieldset>
         <legend><fmt:message key="adding.new.medicine"/> </legend>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="medicine"><fmt:message key="search.medicine.label"/></label>
+            <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/></label>
             <div class="col-md-4">
-                <input id="medicine" name="medicine" placeholder="" class="form-control input-md"  pattern="[A-Za-Z0-9\\-]{4,20}" required="" type="text">
+                <input id="medicineName" name="medicineName" placeholder="" class="form-control input-md"  pattern="[A-Za-z0-9 -]{4-20}" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineDosage"><fmt:message key="search.results.dosage"/> </label>
             <div class="col-md-4">
-                <input id="medicineDosage" name="medicineDosage" placeholder="" class="form-control input-md" pattern="[0-9]{1-7}" required="" type="text">
+                <input id="medicineDosage" name="medicineDosage" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,6}" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicinePackage"><fmt:message key="search.results.package"/> </label>
             <div class="col-md-4">
-                <input id="medicinePackage" name="medicinePackage" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicinePackage" name="medicinePackage" placeholder="" class="form-control input-md" pattern="[A-Za-z0-9 -]{4-20}" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="packQuantity"><fmt:message key="search.results.quantity"/> </label>
             <div class="col-md-2">
-                <input id="packQuantity" name="packQuantity" placeholder="" class="form-control input-md" pattern="[0-9]{1-4}" required="" type="text">
+                <input id="packQuantity" name="packQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="price"><fmt:message key="search.results.price"/> </label>
             <div class="col-md-2">
-                <input id="price" name="price" placeholder="" class="form-control input-md" pattern="[0-9]{1-7}"required="" type="text">
+                <input id="price" name="price" placeholder="" class="form-control input-md" pattern="[0-9]+(\.[0-9]{2})?" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="instoreQuantity"><fmt:message key="search.results.instore"/> </label>
             <div class="col-md-2">
-                <input id="instoreQuantity" name="instoreQuantity" placeholder="" class="form-control input-md" pattern="[0-9]{1-4}" required="" type="text">
+                <input id="instoreQuantity" name="instoreQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
             </div>
         </div>
 
