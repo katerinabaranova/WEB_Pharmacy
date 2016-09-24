@@ -23,6 +23,8 @@ public class ErrorPageMessage {
     public static final String SHOW_REQUESTS_ERROR="error.show.renew.requests";
     public static final String REFILL_BALANCE_ERROR="refill.balance.error";
     public static final String WRONG_PASSWORDS="wrong.passwords.error";
+    public static final String NO_SEARCH_RESULTS="search.no.results";
+    public static final String IMPOSSIBLE_MAKE_ORDER="impossible.make.order";
 
 
 

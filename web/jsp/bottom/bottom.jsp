@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" %>
 </div>
-<hr>
-      <footer>
-        <p>&copy; Health Care</p>
-      </footer>
+</div> <!-- maincontainer -->
+</div> <!-- supercontainer-->
+<div class="supercontainer footer2">
+    <p>&copy; Health Care
+</div>
 </body>
 </html>

@@ -16,9 +16,9 @@
 
         <legend><fmt:message key="search.legend"/></legend>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="medicine"><fmt:message key="search.medicine.label"/></label>
+            <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/></label>
             <div class="col-md-4">
-                <input id="medicine" pattern="[A-Za-z0-9]{4,25}" name="medicine" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="medicineName" pattern="[A-Za-z0-9 ]{3,25}" name="medicineName" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 

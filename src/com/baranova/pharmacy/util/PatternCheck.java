@@ -5,6 +5,7 @@ import com.baranova.pharmacy.constant.ParameterRecipe;
 import com.baranova.pharmacy.constant.ParameterUser;
 import com.baranova.pharmacy.constant.Patterns;
 
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -147,6 +148,76 @@ public class PatternCheck {
                 case ParameterRecipe.MEDICINE_QUANTITY:
                     if (!checkPatternAppropriateness(Patterns.RECIPE_MEDICINE_QUANTITY,parameter.getValue())){
                         wrongFields.add(ParameterRecipe.MEDICINE_QUANTITY);
+                    }
+                    break;
+            }
+        }
+        return wrongFields;
+    }
+
+
+    /**
+     * Check correctness of filling registration form
+     * @param parameters Map<String,String> that contain name of parameters and theirs value
+     * @return List of field, that doesn't appropriate theirs pattern
+     */
+    public static List<String> checkRegistrationForm (Map<String,String> parameters){
+        List<String>  wrongFields=new ArrayList<>();
+        for (Map.Entry<String,String> parameter:parameters.entrySet()){
+            switch (parameter.getKey()){
+                case ParameterUser.LOGIN:
+                    if (!checkPatternAppropriateness(Patterns.LOGIN,parameter.getValue())){
+                        wrongFields.add(ParameterUser.LOGIN);
+                    }
+                    break;
+                case ParameterUser.PASSWORD:
+                    if (!checkPatternAppropriateness(Patterns.PASSWORD,parameter.getValue())){
+                        wrongFields.add(ParameterUser.PASSWORD);
+                    }
+                    break;
+                case ParameterUser.CONFIRM_PASSWORD:
+                    if (!checkPatternAppropriateness(Patterns.PASSWORD,parameter.getValue())){
+                        wrongFields.add(ParameterUser.CONFIRM_PASSWORD);
+                    }
+                    break;
+                case ParameterUser.NAME:
+                    if (!checkPatternAppropriateness(Patterns.PATIENT_NAME,parameter.getValue())){
+                        wrongFields.add(ParameterUser.NAME);
+                    }
+                    break;
+                case ParameterUser.SURNAME:
+                    if (!checkPatternAppropriateness(Patterns.PATIENT_SURNAME,parameter.getValue())){
+                        wrongFields.add(ParameterUser.SURNAME);
+                    }
+                    break;
+                case ParameterUser.CITY:
+                    if (!checkPatternAppropriateness(Patterns.CITY,parameter.getValue())){
+                        wrongFields.add(ParameterUser.CITY);
+                    }
+                    break;
+                case ParameterUser.STREET:
+                    if (!checkPatternAppropriateness(Patterns.STREET,parameter.getValue())){
+                        wrongFields.add(ParameterUser.STREET);
+                    }
+                    break;
+                case ParameterUser.HOUSE_NUMBER:
+                    if (!checkPatternAppropriateness(Patterns.HOUSENUMBER,parameter.getValue())){
+                        wrongFields.add(ParameterUser.HOUSE_NUMBER);
+                    }
+                    break;
+                case ParameterUser.APARTMENT:
+                    if (!checkPatternAppropriateness(Patterns.APARTMENT,parameter.getValue())){
+                        wrongFields.add(ParameterUser.APARTMENT);
+                    }
+                    break;
+                case ParameterUser.EMAIL:
+                    if (!checkPatternAppropriateness(Patterns.EMAIL,parameter.getValue())){
+                        wrongFields.add(ParameterUser.EMAIL);
+                    }
+                    break;
+                case ParameterUser.PHONE_NUMBER:
+                    if (!checkPatternAppropriateness(Patterns.PHONENUMBER,parameter.getValue())){
+                        wrongFields.add(ParameterUser.PHONE_NUMBER);
                     }
                     break;
             }

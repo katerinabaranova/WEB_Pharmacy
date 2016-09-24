@@ -10,7 +10,7 @@
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REGISTRATION_FORM);%>
-<form class="form-horizontal" action="../registration" method="post">
+<form class="form-horizontal" action="/registration" method="post">
     <fieldset>
 
         <legend><fmt:message key="registration.legend"/></legend>
@@ -18,28 +18,28 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Login"><fmt:message key="registration.login"/> </label>
             <div class="col-md-4">
-                <input id="Login" name="Login" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Login" name="Login" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Password"><fmt:message key="registration.password"/></label>
             <div class="col-md-4">
-                <input id="Password" name="Password" placeholder="" class="form-control input-md" required="" type="password">
+                <input id="Password" name="Password" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="ConfirmPassword"><fmt:message key="registration.password"/></label>
             <div class="col-md-4">
-                <input id="ConfirmPassword" name="SubmitPassword" placeholder="" class="form-control input-md" required="" type="password">
+                <input id="ConfirmPassword" name="SubmitPassword"  pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Name"><fmt:message key="registration.name"/> </label>
             <div class="col-md-4">
-                <input id="Name" name="Name" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Name" name="Name" pattern="[A-Za-zА-Яа-я]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Surname"><fmt:message key="registration.surname"/></label>
             <div class="col-md-4">
-                <input id="Surname" name="Surname" placeholder="" class="form-control input-md" type="text">
+                <input id="Surname" name="Surname" pattern="[A-Za-zА-Яа-я\\-]{2,20}" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
@@ -55,21 +55,21 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="City"><fmt:message key="registration.city"/> </label>
             <div class="col-md-4">
-                <input id="City" name="City" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="City" name="City" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Street"><fmt:message key="registration.street"/> </label>
             <div class="col-md-4">
-                <input id="Street" name="Street" placeholder="" class="form-control input-md" type="text">
+                <input id="Street" name="Street" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Housenumber"><fmt:message key="registration.housenumber"/> </label>
             <div class="col-md-4">
-                <input id="Housenumber" name="Housenumber" placeholder="" class="form-control input-md" type="text">
+                <input id="Housenumber" name="Housenumber" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Apartment"><fmt:message key="registration.apartment"/> </label>
             <div class="col-md-4">
-                <input id="Apartment" name="Apartment" placeholder="" class="form-control input-md" type="text">
+                <input id="Apartment" name="Apartment" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
 
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Email"><fmt:message key="registration.email"/> </label>
             <div class="col-md-4">
-                <input id="Email" name="Email" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="Email" name="Email" pattern="({6,})@(\w+\.)([a-z]{2,4})" placeholder="" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -111,7 +111,7 @@
                 </label>
             </div>
         </div>
-        <input type="hidden" name="command" value="registration" />
+        <input type="hidden" name="command" value="registration"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>

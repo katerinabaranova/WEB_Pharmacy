@@ -15,9 +15,10 @@ public class Patterns {
     public static final String PATIENT_NAME="[A-Za-zА-Яа-я]{2,20}";
     public static final String PATIENT_SURNAME="[A-Za-zА-Яа-я\\-]{2,20}";
     public static final String RECIPE_MEDICINE_QUANTITY="[1-9][1}";
-
-
-
-
-
+    public static final String CITY="[A-Za-zА-Яа-я \\-]{2,20}";
+    public static final String STREET="[A-Za-zА-Яа-я\\- ]{2,20}";
+    public static final String HOUSENUMBER="[1-9][0-9]{0,4}";
+    public static final String APARTMENT="[1-9][0-9]{0,4}";
+    public static final String EMAIL="(\\w{6,})@(\\w+\\.)([a-z]{2,4})";
+    public static final String PHONENUMBER="[A-Za-zА-Яа-я\\- ]{2,20}";
 }

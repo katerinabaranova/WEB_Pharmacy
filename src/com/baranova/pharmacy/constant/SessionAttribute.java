@@ -11,4 +11,6 @@ public class SessionAttribute {
     public static final String ERROR_MESSAGE="errorMessage";
     public static final String AMOUNT="amount";
     public static final String WRONG_INPUTS="wrongInputs";
+    public static final String MEDICINE_LIST="medicineList";
+
 }

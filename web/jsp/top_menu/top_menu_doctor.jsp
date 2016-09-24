@@ -10,57 +10,61 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache">
   <title><fmt:message key="title.main"/> </title>
-  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
-  <script src="../../js/bootstrap.min.js"></script>
+  <link href="/css/bootstrap.css" rel="stylesheet" />
+  <script src="/js/bootstrap.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 
 <body>
-<ul class="nav navbar-nav navbar-left">
-  <li>
-    <form action="/controller" method="post">
-      <input type="hidden" name="language" value="en" />
-      <input type="hidden" name="command" value="change_language" />
-      <button type="submit" class="btn-link"><fmt:message key="language.en"/> </button>
-    </form>
-  </li>
-  <li>
-    <form action="/controller" method="post">
-    <input type="hidden" name="language" value="ru" />
-    <input type="hidden" name="command" value="change_language" />
-    <button type="submit" class="btn-link"><fmt:message key="language.ru"/> </button>
-  </form>
-  </li>
-</ul>
-<br />
-<br />
-<div class="container">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+  <div class="supercontainer mainbg">
+    <div class="maincontainer">
       <ul class="nav navbar-nav navbar-left">
-        <li><fmt:message key="doctor.menu.welcome"/> ${loggedUser}</li>
+        <li>
+          <form action="/controller" method="post">
+            <input type="hidden" name="language" value="en" />
+            <input type="hidden" name="command" value="change_language" />
+            <button type="submit" class="btn-link"><fmt:message key="language.en"/> </button>
+          </form>
+        </li>
+        <li>
+          <form action="/controller" method="post">
+          <input type="hidden" name="language" value="ru" />
+          <input type="hidden" name="command" value="change_language" />
+          <button type="submit" class="btn-link"><fmt:message key="language.ru"/> </button>
+        </form>
+        </li>
       </ul>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-          <li><a href="${pageContext.request.contextPath}/jsp/recipe_control/recipe_form.jsp"><fmt:message key="doctor.menu.new.recipe"/> </a></li>
-          <li>
-            <form action="/show_doctor_recipe" method="post">
-              <input type="hidden" name="command" value="show_doctor_recipe" />
-              <button type="submit" class="btn-link"><fmt:message key="doctor.menu.recipes"/> </button>
-            </form>
-           </li>
-          <li>
-            <form action="/show_renew_requests" method="post">
-              <input type="hidden" name="command" value="show_renew_requests" />
-              <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
-            </form>
-          </li>
-          <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
+  <br/>
+  <br/>
+  <div>
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+          <li><fmt:message key="doctor.menu.welcome"/> ${loggedUser}</li>
         </ul>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
+            <li><a href="${pageContext.request.contextPath}/jsp/recipe_control/recipe_form.jsp"><fmt:message key="doctor.menu.new.recipe"/> </a></li>
+            <li><a href="controller?command=show_doctor_recipe"><fmt:message key="doctor.menu.recipes"/> </a> </li>
+
+            <li>
+              <form action="/show_doctor_recipe" method="post">
+                <input type="hidden" name="command" value="show_doctor_recipe" />
+                <button type="submit" class="btn-link"><fmt:message key="doctor.menu.recipes"/> </button>
+              </form>
+             </li>
+            <li>
+              <form action="/show_renew_requests" method="post">
+                <input type="hidden" name="command" value="show_renew_requests" />
+                <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
+              </form>
+            </li>
+            <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 

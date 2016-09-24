@@ -11,6 +11,25 @@ html {
 }
 body {
   margin: 0;
+  padding: 0;
+}
+.supercontainer {
+  color: #fff;
+  margin: 0;
+  padding: 50px;
+}
+.mainbg {
+  background: url("/pic/bg.jpg") repeat 0 0;
+}
+.footer2 {
+  background: #00ae55;
+  padding: 10px;
+}
+.maincontainer {
+  background: #fff;
+  color: #000;
+  padding: 40px;
+  margin: 0;
 }
 article,
 aside,
@@ -3408,8 +3427,8 @@ fieldset[disabled] .btn-danger.focus {
   outline:none;
   background:none;
   cursor:pointer;
-  padding:0;
-  text-decoration:underline;
+  padding: 15px 2px 2px 2px;
+  text-decoration:none;
   font-family:inherit;
   font-size:inherit;
 }

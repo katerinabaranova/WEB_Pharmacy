@@ -9,10 +9,12 @@ import com.baranova.pharmacy.service.ServiceUser;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.LoginCheck;
+import com.baranova.pharmacy.util.PatternCheck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +28,12 @@ class RegistrationCommand implements ICommand{
         SessionRequestContent requestContent=new SessionRequestContent();
         requestContent.extractValues(request);
         Map<String,String> parameters= requestContent.getRequestParameters();
+        List<String> wrongInputs= PatternCheck.checkRegistrationForm(parameters);
+        if (!wrongInputs.isEmpty()){
+            request.getSession().setAttribute(SessionAttribute.WRONG_INPUTS,wrongInputs);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
+            return  PageName.WRONG_INPUT_PAGE;
+        }
         boolean loginFree= LoginCheck.checkLoginUse(parameters.get(ParameterUser.LOGIN));
         if (!loginFree){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.LOGIN_IN_USE_ERROR);
