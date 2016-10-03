@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Class-service for command classes for making operations with Recipe entity.
  */
-public class ServiceRecipe {
+public class RecipeService {
     private static final Logger LOG= LogManager.getLogger();
 
     /**

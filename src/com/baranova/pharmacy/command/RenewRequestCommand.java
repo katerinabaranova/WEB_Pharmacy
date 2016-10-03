@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.*;
-import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.service.RecipeService;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +15,13 @@ class RenewRequestCommand implements ICommand {
     public PageName execute(HttpServletRequest request) {
 
         Long id=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE_ID));
-        boolean isExpired= ServiceRecipe.checkIsExpired(id);
+        boolean isExpired= RecipeService.checkIsExpired(id);
         if (!isExpired) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.RECIPE_NOT_EXPIRED);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
-        boolean isUpdated= ServiceRecipe.renewRequest(id);
+        boolean isUpdated= RecipeService.renewRequest(id);
         if (isUpdated){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_SUCCESS);
             return PageName.RENEW_REQUEST_SUCCESS;

@@ -9,7 +9,7 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_MEDICINE_FORM);%>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.NEW_MEDICINE_FORM);%>
 <form class="form-horizontal" action="/new_medicine">
     <fieldset>
         <legend><fmt:message key="adding.new.medicine"/> </legend>
@@ -51,7 +51,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="instoreQuantity"><fmt:message key="search.results.instore"/> </label>
             <div class="col-md-2">
-                <input id="instoreQuantity" name="instoreQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
+                <input id="inStoreQuantity" name="inStoreQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
             </div>
         </div>
 

@@ -5,7 +5,7 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.ParameterUser;
-import com.baranova.pharmacy.service.ServiceUser;
+import com.baranova.pharmacy.service.UserService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.LoginCheck;
@@ -34,19 +34,19 @@ class RegistrationCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        boolean loginFree= LoginCheck.checkLoginUse(parameters.get(ParameterUser.LOGIN));
-        if (!loginFree){
+        boolean loginTaken= LoginCheck.checkLoginUse(parameters.get(ParameterUser.LOGIN));
+        if (loginTaken){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.LOGIN_IN_USE_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
-        boolean checkPasswords=ServiceUser.checkPasswords(parameters);
+        boolean checkPasswords= UserService.checkPasswords(parameters);
         if (!checkPasswords){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.WRONG_PASSWORDS);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
-        boolean userCreated= ServiceUser.createUser(parameters);
+        boolean userCreated= UserService.createUser(parameters);
         if (userCreated){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REGISTRATION_SUCCESS);
             return PageName.REGISTRATION_SUCCESS;

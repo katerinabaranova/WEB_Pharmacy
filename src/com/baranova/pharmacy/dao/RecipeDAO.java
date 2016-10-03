@@ -6,7 +6,7 @@ import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
-import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.service.RecipeService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,7 +117,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
@@ -150,7 +149,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
@@ -179,7 +177,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
                 recipe.setExpired(resultSet.getBoolean("expired"));
                 recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
-                ServiceRecipe.fillRecipe(recipe);
+                RecipeService.fillRecipe(recipe);
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
@@ -200,11 +198,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isDeleted;
-    }
-
-    @Override
-    public boolean delete(Recipe entity) throws DAOException {
-        throw new DAOException("This operation is not available in this version");
     }
 
     @Override

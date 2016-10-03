@@ -5,7 +5,6 @@ import com.baranova.pharmacy.constant.ParameterRecipe;
 import com.baranova.pharmacy.constant.ParameterUser;
 import com.baranova.pharmacy.constant.Patterns;
 
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,8 @@ import java.util.regex.Pattern;
 public class PatternCheck {
     /**
      * Check if some input appropriate definite pattern
-     * @param pattern
-     * @param input - String form input
+     * @param pattern that is defined for input
+     * @param input  String form input
      * @return boolean value if input appropriate pattern
      */
 
@@ -101,9 +100,9 @@ public class PatternCheck {
                         wrongFields.add(ParameterMedicine.PACK_QUANTITY);
                     }
                     break;
-                case ParameterMedicine.INSTORE_QUANTITY:
+                case ParameterMedicine.IN_STORE_QUANTITY:
                     if (!checkPatternAppropriateness(Patterns.QUANTITY,parameter.getValue())){
-                        wrongFields.add(ParameterMedicine.INSTORE_QUANTITY);
+                        wrongFields.add(ParameterMedicine.IN_STORE_QUANTITY);
                     }
                     break;
                 case  ParameterMedicine.PRICE:

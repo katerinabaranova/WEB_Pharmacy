@@ -19,14 +19,14 @@ public class User extends Entity {
     public User(){
     }
     public User(long id, String login, String password, String name, String surname,
-                String city, String adress, int houseNumber, int apartment, String email, String phoneNumber, Role role) {
+                String city, String address, int houseNumber, int apartment, String email, String phoneNumber, Role role) {
         super(id);
         this.login = login;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.city = city;
-        this.street = adress;
+        this.street = address;
         this.houseNumber = houseNumber;
         this.apartment=apartment;
         this.email = email;
@@ -35,7 +35,7 @@ public class User extends Entity {
     }
 
 
-    public long getUserID(){return super.getId();}
+    public long getUserId(){return super.getId();}
     public String getLogin() {return login;}
     public String getPassword() {return password;}
     public String getName() {return name;}
@@ -49,7 +49,7 @@ public class User extends Entity {
     public Role getRole() {return role;}
     public double getAmount(){return amount;}
 
-    public void setUserID(long id){super.setId(id);}
+    public void setUserId(long id){super.setId(id);}
     public void setLogin(String login) {this.login = login;}
     public void setPassword(String password) {this.password = password;}
     public void setName(String name) {this.name = name;}
@@ -71,7 +71,6 @@ public class User extends Entity {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
                 ", houseNumber=" + houseNumber +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

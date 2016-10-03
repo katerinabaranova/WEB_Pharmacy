@@ -2,7 +2,7 @@ package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.SessionAttribute;
-import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.service.RecipeService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.PatternCheck;
@@ -32,7 +32,7 @@ class NewRecipeCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        boolean isCreated= ServiceRecipe.createNewRecipe(parameterValues);
+        boolean isCreated= RecipeService.createNewRecipe(parameterValues);
         if (isCreated){
             HttpSession session=request.getSession();
             session.setAttribute(ParameterName.LAST_PAGE, PageName.REGISTRATION_SUCCESS);

@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
  * Class generator for MD5 hashcode
  */
 public class Security {
+
     private static final Logger LOG= LogManager.getLogger();
 
     /**

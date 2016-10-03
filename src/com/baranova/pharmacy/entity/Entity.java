@@ -3,7 +3,7 @@ package com.baranova.pharmacy.entity;
 import java.io.Serializable;
 
 /**
- * Created by Ekaterina on 7/9/16.
+ * Entity abstract class.
  */
 public abstract class Entity implements Serializable,Cloneable{
 

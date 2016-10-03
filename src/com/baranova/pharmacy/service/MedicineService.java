@@ -8,13 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Class-service for command classes for making operations with Medicine entity
  */
-public class ServiceMedicine {
+public class MedicineService {
+
     private static final Logger LOG= LogManager.getLogger();
 
     /**
@@ -39,7 +41,7 @@ public class ServiceMedicine {
                 case ParameterMedicine.PACK_QUANTITY:
                     medicine.setPackageQuantity(Integer.parseInt(parameter.getValue()));
                     break;
-                case ParameterMedicine.INSTORE_QUANTITY:
+                case ParameterMedicine.IN_STORE_QUANTITY:
                     medicine.setStoreQuantity(Integer.parseInt(parameter.getValue()));
                     break;
                 case ParameterMedicine.PRICE:
@@ -110,7 +112,7 @@ public class ServiceMedicine {
         medicine.setDosage(Integer.parseInt(request.getParameter(ParameterMedicine.MEDICINE_DOSAGE)));
         medicine.setPackageType(request.getParameter(ParameterMedicine.MEDICINE_PACKAGE));
         medicine.setPackageQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.PACK_QUANTITY)));
-        medicine.setStoreQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.INSTORE_QUANTITY)));
+        medicine.setStoreQuantity(Integer.parseInt(request.getParameter(ParameterMedicine.IN_STORE_QUANTITY)));
         medicine.setPrice(Double.parseDouble(request.getParameter(ParameterMedicine.PRICE)));
         medicine.setRecipe(Boolean.parseBoolean(request.getParameter(ParameterMedicine.RECIPE)));
         boolean isUpdate=false;
@@ -120,5 +122,38 @@ public class ServiceMedicine {
             LOG.error(e.getMessage());
         }
         return isUpdate;
+    }
+
+    public static List<Medicine> searchService(String medicineName){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        List<Medicine> medicines=new ArrayList<>();
+        try {
+            medicines = medicineDAO.findEntityByName(medicineName);
+        }catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicines;
+    }
+
+    public static Medicine getMedicineService(Long id){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        Medicine medicine=null;
+        try {
+            medicine = medicineDAO.findEntityById(id);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicine;
+    }
+
+    public static List<Medicine> getAllMedicineService(){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        List<Medicine> medicines=new ArrayList<>();
+        try{
+            medicines=medicineDAO.findAll();
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicines;
     }
 }

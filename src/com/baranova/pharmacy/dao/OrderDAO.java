@@ -46,7 +46,7 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return orders;
     }
@@ -74,7 +74,7 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setDelivery(resultSet.getBoolean("delivery"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return order;
     }
@@ -103,7 +103,7 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return orders;
     }
@@ -116,14 +116,9 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(1,id);
             isDeleted=st.execute();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return isDeleted;
-    }
-
-    @Override
-    public boolean delete(Order entity) throws DAOException {
-        throw new DAOException("This operation is not available in this version");
     }
 
     @Override
@@ -139,7 +134,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setBoolean(6,entity.isPaid());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return isCreated;
     }
@@ -159,7 +154,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(8,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return isUpdate;
     }

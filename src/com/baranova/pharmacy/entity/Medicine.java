@@ -14,7 +14,8 @@ public class Medicine extends Entity {
     public Medicine(){
     }
 
-    public Medicine(String medicineName, int dosage,  String packageType, int packageQuantity, int price, int storeQuantity,boolean recipe) {
+    public Medicine(long id, String medicineName, int dosage,  String packageType, int packageQuantity, int price, int storeQuantity,boolean recipe) {
+        super(id);
         this.medicineName = medicineName;
         this.dosage = dosage;
         this.price = price;

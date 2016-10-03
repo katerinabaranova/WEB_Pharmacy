@@ -4,7 +4,7 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterMedicine;
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.service.ServiceMedicine;
+import com.baranova.pharmacy.service.MedicineService;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ class DeleteMedicineCommand implements ICommand {
     @Override
     public PageName execute(HttpServletRequest request){
         Long id=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
-        boolean isDeleted= ServiceMedicine.deleteMedicine(id);
+        boolean isDeleted= MedicineService.deleteMedicine(id);
         if (isDeleted){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.DELETE_MEDICINE_SUCCESS);
             return PageName.DELETE_MEDICINE_SUCCESS;

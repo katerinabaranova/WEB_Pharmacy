@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.*;
-import com.baranova.pharmacy.service.ServiceUser;
+import com.baranova.pharmacy.service.UserService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.PatternCheck;
@@ -27,7 +27,7 @@ class BalanceRefillCommand implements ICommand {
             return  PageName.WRONG_INPUT_PAGE;
         }
         parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute("loggedID").toString());
-        boolean isRefilled= ServiceUser.refillBalance(parameters);
+        boolean isRefilled= UserService.refillBalance(parameters);
         if (isRefilled){
             request.getSession().setAttribute(SessionAttribute.AMOUNT, parameters.get(ParameterUser.AMOUNT));
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REFILL_BALANCE_SUCCESS);

@@ -18,83 +18,77 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Login"><fmt:message key="registration.login"/> </label>
             <div class="col-md-4">
-                <input id="Login" name="Login" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="login" name="Login" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Password"><fmt:message key="registration.password"/></label>
             <div class="col-md-4">
-                <input id="Password" name="Password" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
+                <input id="password" name="Password" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="ConfirmPassword"><fmt:message key="registration.password"/></label>
             <div class="col-md-4">
-                <input id="ConfirmPassword" name="SubmitPassword"  pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
+                <input id="confirmPassword" name="SubmitPassword"  pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="" type="password">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Name"><fmt:message key="registration.name"/> </label>
             <div class="col-md-4">
-                <input id="Name" name="Name" pattern="[A-Za-zА-Яа-я]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
-
+                <input id="name" name="Name" pattern="[A-Za-zА-Яа-я]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Surname"><fmt:message key="registration.surname"/></label>
             <div class="col-md-4">
-                <input id="Surname" name="Surname" pattern="[A-Za-zА-Яа-я\\-]{2,20}" placeholder="" class="form-control input-md" type="text">
-
+                <input id="surname" name="Surname" pattern="[A-Za-zА-Яа-я\\-]{2,20}" placeholder="" class="form-control input-md" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="City"><fmt:message key="registration.city"/> </label>
             <div class="col-md-4">
-                <input id="City" name="City" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="city" name="City" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Street"><fmt:message key="registration.street"/> </label>
             <div class="col-md-4">
-                <input id="Street" name="Street" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" type="text">
+                <input id="street" name="Street" pattern="[A-Za-zА-Яа-я \\-]{2,20}" placeholder="" class="form-control input-md" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Housenumber"><fmt:message key="registration.housenumber"/> </label>
             <div class="col-md-4">
-                <input id="Housenumber" name="Housenumber" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
-
+                <input id="housenumber" name="Housenumber" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Apartment"><fmt:message key="registration.apartment"/> </label>
             <div class="col-md-4">
-                <input id="Apartment" name="Apartment" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
-
+                <input id="apartment" name="Apartment" pattern="[1-9][0-9]{0,4}" placeholder="" class="form-control input-md" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Email"><fmt:message key="registration.email"/> </label>
             <div class="col-md-4">
-                <input id="Email" name="Email" pattern="({6,})@(\w+\.)([a-z]{2,4})" placeholder="" class="form-control input-md" required="" type="text">
-
+                <input id="email" name="Email" pattern="({6,})@(\w+\.)([a-z]{2,4})" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="Phonenumber"><fmt:message key="registration.phonenumber"/> </label>
             <div class="col-md-4">
-                <input id="Phonenumber" name="Phonenumber" placeholder="" class="form-control input-md" required="" type="text">
-
+                <input id="phonenumber" name="Phonenumber" placeholder="" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
@@ -102,11 +96,11 @@
             <label class="col-md-4 control-label" for="role-0"><fmt:message key="registration.role.legend"/></label>
             <div class="col-md-4">
                 <label class="radio-inline" for="role-0">
-                    <input name="Role" id="role-0" value="buyer" checked="checked" type="radio">
+                    <input name="role" id="role-0" value="buyer" checked="checked" type="radio">
                     <fmt:message key="registration.role.buyer"/>
                 </label>
                 <label class="radio-inline" for="role-1">
-                    <input name="Role" id="role-1" value="doctor" type="radio">
+                    <input name="role" id="role-1" value="doctor" type="radio">
                     <fmt:message key="registration.role.doctor"/>
                 </label>
             </div>
@@ -119,7 +113,6 @@
                 <button id="singlebutton" name="singlebutton" class="btn btn-primary"><fmt:message key="register.button"/> </button>
             </div>
         </div>
-
     </fieldset>
 </form>
 

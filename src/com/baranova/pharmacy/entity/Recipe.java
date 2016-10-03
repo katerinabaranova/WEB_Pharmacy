@@ -1,12 +1,8 @@
 package com.baranova.pharmacy.entity;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.Date;
 
 public class Recipe extends Entity{
-    private static final Logger LOG= LogManager.getLogger();
 
     private Date date=new Date();
     private User patient;
@@ -28,21 +24,24 @@ public class Recipe extends Entity{
         this.expired = expired;
         this.renewRequest=renewRequest;
     }
+
+    public long getRecipeId(){return super.getId();}
+    public Date getDate() {return date;}
     public User getPatient() {return patient;}
     public User getDoctor() {return doctor;}
     public Medicine getMedicine() {return medicine;}
-    public boolean isExpired() {return expired;}
     public int getMedicineQuantity() {return medicineQuantity;}
+    public boolean isExpired() {return expired;}
     public boolean isRenewRequest() {return renewRequest;}
-    public Date getDate() {return date;}
 
+    public void setRecipeId(long id){super.setId(id);}
+    public void setDate(Date date) {this.date = date;}
     public void setPatient(User patient) {this.patient = patient;}
     public void setDoctor(User doctor) {this.doctor = doctor;}
     public void setMedicine(Medicine medicine) {this.medicine = medicine;}
-    public void setExpired(boolean expired) {this.expired = expired;}
     public void setMedicineQuantity(int medicineQuantity) {this.medicineQuantity = medicineQuantity;}
+    public void setExpired(boolean expired) {this.expired = expired;}
     public void setRenewRequest(boolean renewRequest) {this.renewRequest = renewRequest;}
-    public void setDate(Date date) {this.date = date;}
 
     @Override
     public String toString() {

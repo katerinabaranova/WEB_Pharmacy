@@ -3,6 +3,8 @@ package com.baranova.pharmacy.servlet;
 import com.baranova.pharmacy.command.CommandHelper;
 import com.baranova.pharmacy.command.ICommand;
 import com.baranova.pharmacy.constant.ParameterName;
+import com.baranova.pharmacy.pool.ConnectionPool;
+import com.baranova.pharmacy.pool.ProxyConnection;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ public class Controller extends HttpServlet {
         processRequest(request,response);
     }
 
+
+
     @Override
     protected void doGet(HttpServletRequest request,HttpServletResponse response)
             throws ServletException,IOException {
@@ -35,4 +39,11 @@ public class Controller extends HttpServlet {
         PageName pageName = command.execute(request);
         request.getRequestDispatcher(pageName.getPageName()).forward(request, response);
     }
+
+    @Override
+    public void destroy() {
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        connectionPool.closingPool();
+    }
+
 }

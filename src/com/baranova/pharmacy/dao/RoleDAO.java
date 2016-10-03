@@ -31,8 +31,7 @@ public class RoleDAO extends AbstractDAO<Role>{
                 role.setId(resultSet.getInt("idrole"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Role' failed):", e);
         }
         return role;
     }
@@ -48,18 +47,13 @@ public class RoleDAO extends AbstractDAO<Role>{
                 role.setId(resultSet.getInt("idrole"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Role' failed):", e);
         }
         return role;
     }
 
     @Override
     public boolean delete(long id) throws DAOException {
-        throw new DAOException("This operation is not available in this version");
-    }
-
-    @Override
-    public boolean delete(Role entity) throws DAOException {
         throw new DAOException("This operation is not available in this version");
     }
 

@@ -15,15 +15,16 @@ import java.util.Map;
 /**
  * Class-service for making operations with User entity.
  */
-public class ServiceUser {
+public class UserService {
 
     private static final Logger LOG= LogManager.getLogger();
 
     /**
-     * Method check if password and confirm password in the registration form appropriate each other
+     * Method check if fields "password" and "confirm password" in the registration form appropriate each other
      * @param parameters Map<String,String> that contain name of parameters and theirs value
-     * @return boolean value if password and confirm password are appropriate each other
+     * @return boolean value if "password" and "confirm password" appropriate each other
      */
+
     public static boolean checkPasswords(Map<String,String> parameters){
         String password="";
         String confirmPassword="";
@@ -45,6 +46,7 @@ public class ServiceUser {
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
+
    public static boolean createUser(Map<String,String> parameters){
        User user=new User();
        UserDAO userDAO=new UserDAO();
@@ -145,7 +147,7 @@ public class ServiceUser {
      */
     public static boolean refillBalance(Map<String,String> parameterValues){
         User user;
-        int amount=0;
+        double amount=0;
         UserDAO userDAO=new UserDAO();
         long userID=0;
         for (Map.Entry<String,String> parameter:parameterValues.entrySet()) {
@@ -154,7 +156,7 @@ public class ServiceUser {
                     userID=Integer.parseInt(parameter.getValue());
                     break;
                 case ParameterUser.AMOUNT:
-                    amount=Integer.parseInt(parameter.getValue());
+                    amount=Double.parseDouble(parameter.getValue());
                     break;
             }
         }

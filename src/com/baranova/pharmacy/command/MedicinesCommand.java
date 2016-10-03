@@ -4,7 +4,7 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.entity.Medicine;
-import com.baranova.pharmacy.service.Service;
+import com.baranova.pharmacy.service.MedicineService;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ class MedicinesCommand implements ICommand{
 
     @Override
     public PageName execute(HttpServletRequest request){
-        List<Medicine> medicines= Service.getAllMedicineService();
+        List<Medicine> medicines= MedicineService.getAllMedicineService();
         if (!medicines.isEmpty()){
             request.getSession().setAttribute(SessionAttribute.ALL_MEDICINE_LIST, medicines);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.MEDICINE_PAGE);

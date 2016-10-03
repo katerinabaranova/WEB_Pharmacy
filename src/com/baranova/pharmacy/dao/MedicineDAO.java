@@ -13,14 +13,13 @@ import java.util.List;
 
 public class MedicineDAO extends AbstractDAO <Medicine> {
 
-    private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM pharmacy.medicine";
-    private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM pharmacy.medicine WHERE medicine.idmedicine=?";
-    private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe FROM pharmacy.medicine WHERE medicine.medicineName=?";
+    private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine";
+    private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.idmedicine=?";
+    private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.medicineName=?";
     private static final String SQL_SELECT_MEDICINE_BY_NAME_DOSAGE = "SELECT idmedicine FROM medicine WHERE medicine.medicineName=? AND medicine.dosage=?";
     private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM medicine WHERE medicine.idmedicine = ?;";
-    private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,instoreQuantity,recipe) values(?,?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,instoreQuantity=?,recipe=? WHERE idmedicine=?;";
-    private static final String SQL_SELECT_MEDICINE_NAME_BY_ID="SELECT medicineName FROM pharmacy.medicine WHERE idmedicine=?;";
+    private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe) values(?,?,?,?,?,?,?);";
+    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,storeQuantity=?,recipe=? WHERE idmedicine=?;";
 
     @Override
     public List<Medicine> findAll() throws DAOException {
@@ -30,18 +29,18 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Medicine medicine = new Medicine();
-                medicine.setId(resultSet.getInt("idmedicine"));
+                medicine.setId(resultSet.getLong("idmedicine"));
                 medicine.setMedicineName(resultSet.getString("medicineName"));
                 medicine.setDosage(resultSet.getInt("dosage"));
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
-                medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
+                medicine.setStoreQuantity(resultSet.getInt("storeQuantity"));
                 medicine.setPrice(resultSet.getDouble("price"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return medicines;
     }
@@ -54,17 +53,17 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setLong(1,id);
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
-                medicine.setId(resultSet.getInt("idmedicine"));
+                medicine.setId(resultSet.getLong("idmedicine"));
                 medicine.setMedicineName(resultSet.getString("medicineName"));
                 medicine.setDosage(resultSet.getInt("dosage"));
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
-                medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
+                medicine.setStoreQuantity(resultSet.getInt("storeQuantity"));
                 medicine.setPrice(resultSet.getDouble("price"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return medicine;
     }
@@ -81,7 +80,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
                 medicine.setId(resultSet.getLong("idmedicine"));
             }
         } catch (SQLException e){
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return medicine;
     }
@@ -94,18 +93,18 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Medicine medicine = new Medicine();
-                medicine.setId(resultSet.getInt("idmedicine"));
+                medicine.setId(resultSet.getLong("idmedicine"));
                 medicine.setMedicineName(resultSet.getString("medicineName"));
                 medicine.setDosage(resultSet.getInt("dosage"));
                 medicine.setPackageType(resultSet.getString("medicinePackage"));
                 medicine.setPackageQuantity(resultSet.getInt("packQuantity"));
                 medicine.setPrice(resultSet.getDouble("price"));
-                medicine.setStoreQuantity(resultSet.getInt("instoreQuantity"));
+                medicine.setStoreQuantity(resultSet.getInt("storeQuantity"));
                 medicine.setRecipe(resultSet.getBoolean("recipe"));
                 medicines.add(medicine);
             }
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return medicines;
     }
@@ -118,14 +117,9 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setLong(1,id);
             isDeleted=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return isDeleted;
-    }
-
-    @Override
-    public boolean delete(Medicine entity) throws DAOException {
-        return false;
     }
 
     @Override
@@ -142,7 +136,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setBoolean(7,entity.isRecipe());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return isCreated;
     }
@@ -163,7 +157,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setLong(9,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request or table 'Medicine' failed):", e);
+            throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return isUpdate;
     }

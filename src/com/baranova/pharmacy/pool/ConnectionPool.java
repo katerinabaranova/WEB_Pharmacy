@@ -36,7 +36,7 @@ public class ConnectionPool {
             prop.put("useUnicode",resource.getString("db.useUnicode"));
             String url = resource.getString("db.url");
             int size = Integer.parseInt(resource.getString("db.poolsize"));
-            connectionQueue = new ArrayBlockingQueue<ProxyConnection>(size);
+            connectionQueue = new ArrayBlockingQueue<>(size);
             for (int i = 0; i < size; i++) {
                 Connection connection = DriverManager.getConnection(url, prop);
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
@@ -52,8 +52,10 @@ public class ConnectionPool {
         if (!instanceCreated.get()) {
             lock.lock();
             try {
-                instance = new ConnectionPool();
-                instanceCreated.getAndSet(true);
+                 if (instance==null) {
+                     instance = new ConnectionPool();
+                     instanceCreated.getAndSet(true);
+                 }
             }finally {
                 lock.unlock();
             }
@@ -85,12 +87,12 @@ public class ConnectionPool {
 
     public void closingPool(){
         try {
-            for (ProxyConnection connection : connectionQueue) {
+            while (!connectionQueue.isEmpty()){
                 ProxyConnection proxyConnection = connectionQueue.take();
                 proxyConnection.realClose();
             }
         }catch (InterruptedException e){
-            LOG.error("Cannot close conection with database");
+            LOG.error("Cannot close connection with database");
         }
     }
 }

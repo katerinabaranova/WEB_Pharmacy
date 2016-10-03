@@ -9,7 +9,7 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.SEARCH_PAGE);%>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.SEARCH_PAGE);%>
 
     <form class="form-horizontal" action="/search" method="post">
         <fieldset>

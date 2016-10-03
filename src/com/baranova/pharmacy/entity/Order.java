@@ -1,11 +1,7 @@
 package com.baranova.pharmacy.entity;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class Order extends Entity {
 
-    private static final Logger LOG= LogManager.getLogger();
     private User buyer;
     private Medicine medicine;
     private int quantity;
@@ -45,7 +41,7 @@ public class Order extends Entity {
     @Override
     public String toString() {
         return "Order{" +
-                "buyer=" + buyer +
+                "buyer=" + buyer.getSurname() +" "+buyer.getSurname()+
                 ", medicine=" + medicine.getMedicineName() +
                 "("+medicine.getDosage()+"mg)"+
                 ", quantity=" + quantity +

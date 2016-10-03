@@ -9,9 +9,9 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.LOGGING_FORM);%>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.LOGGING_FORM);%>
 
-<form class="form-horizontal" action="/login" method="post">
+<form class="form-horizontal" action="login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>
         <div class="form-group">

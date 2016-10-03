@@ -1,8 +1,9 @@
 package com.baranova.pharmacy.exception;
 
 /**
- * Created by Ekaterina on 7/11/16.
+ * Signals that some of the database requests has been failed
  */
+
 public class DAOException extends Exception{
 
     public DAOException() {

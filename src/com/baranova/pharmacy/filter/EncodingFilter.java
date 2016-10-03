@@ -6,13 +6,13 @@ import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
 /**
- * Created by Ekaterina on 8/7/16.
+ *  Character Encoding Filter
  */
 
 @WebFilter(urlPatterns = {"/*"},
         initParams = {
                 @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})
-public class UTF8 implements Filter {
+public class EncodingFilter implements Filter {
     private String code;
 
     public void init(FilterConfig fConfig) throws ServletException {

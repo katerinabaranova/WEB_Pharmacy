@@ -4,7 +4,7 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.entity.User;
-import com.baranova.pharmacy.service.ServiceUser;
+import com.baranova.pharmacy.service.UserService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.PatternCheck;
@@ -33,10 +33,10 @@ class AuthorizationCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        User user= ServiceUser.loginService(parameterValues);
+        User user= UserService.loginService(parameterValues);
         if (user!=null){
             request.getSession().setAttribute(SessionAttribute.LOGGED_USER,user.getLogin());
-            request.getSession().setAttribute(SessionAttribute.LOGGED_ROLE,user.getRole().getId());
+            request.getSession().setAttribute(SessionAttribute.LOGGED_ROLE,user.getRole().getRole());
             request.getSession().setAttribute(SessionAttribute.LOGGED_ID,user.getId());
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.USER_PAGE);
             return PageName.USER_PAGE;

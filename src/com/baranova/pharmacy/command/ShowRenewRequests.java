@@ -4,7 +4,7 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.entity.Recipe;
-import com.baranova.pharmacy.service.ServiceRecipe;
+import com.baranova.pharmacy.service.RecipeService;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ class ShowRenewRequests implements ICommand {
     @Override
     public PageName execute(HttpServletRequest request) {
         Long id=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
-        List<Recipe> listRecipes= ServiceRecipe.findDoctorRecipeRequests(id);
+        List<Recipe> listRecipes= RecipeService.findDoctorRecipeRequests(id);
         if (!listRecipes.isEmpty()){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_RECIPES);
             request.setAttribute(SessionAttribute.RECIPE_LIST,listRecipes);

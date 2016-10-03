@@ -3,7 +3,7 @@ package com.baranova.pharmacy.command;
 import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
-import com.baranova.pharmacy.service.ServiceMedicine;
+import com.baranova.pharmacy.service.MedicineService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.PatternCheck;
@@ -28,7 +28,7 @@ class NewMedicineCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        boolean isCreated= ServiceMedicine.newMedicineCreate(parameters);
+        boolean isCreated= MedicineService.newMedicineCreate(parameters);
         if (isCreated) {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.NEW_MEDICINE_SUCCESS);
             return PageName.NEW_MEDICINE_SUCCESS;
