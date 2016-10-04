@@ -17,19 +17,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Check if user have enough money to pay for order
+ * Class ensure
  */
 public class OrderParametersCheck {
     private static final Logger LOG= LogManager.getLogger();
 
     public static boolean checkPayAbility(Map<String,String> parameters) {
         long userID=0;
-        int orderAmount=1;
+        double orderAmount=1;
         boolean delivery=false;
         for (Map.Entry<String,String> parameter:parameters.entrySet()) {
             switch (parameter.getKey()){
                 case ParameterOrder.PRICE:
-                    orderAmount*=Integer.parseInt(parameter.getValue());
+                    orderAmount*=Double.parseDouble(parameter.getValue());
                     break;
                 case ParameterOrder.QUANTITY:
                     orderAmount*=Integer.parseInt(parameter.getValue());

@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.*;
+import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.service.UserService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class command increase user amount.
+ * Class command for refill user amount.
  */
 class BalanceRefillCommand implements ICommand {
 
@@ -26,9 +27,13 @@ class BalanceRefillCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute("loggedID").toString());
+        parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         boolean isRefilled= UserService.refillBalance(parameters);
+        User user=UserService.findUserByID(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         if (isRefilled){
+            if (user!=null){
+                request.getSession().setAttribute(SessionAttribute.LOGGED_USER_OBJECT, user);
+            }
             request.getSession().setAttribute(SessionAttribute.AMOUNT, parameters.get(ParameterUser.AMOUNT));
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REFILL_BALANCE_SUCCESS);
             return PageName.REFILL_BALANCE_SUCCESS;

@@ -122,7 +122,6 @@ public class UserService {
                     break;
             }
         }
-
         User user=new User();
         try {
             UserDAO userDAO = new UserDAO();
@@ -169,5 +168,22 @@ public class UserService {
             LOG.error(e.getMessage());
         }
         return isUpdated;
+    }
+
+    /**
+     * Call DAO method to find  user by Id
+     * @param userId Id to be checked
+     * @return User if user with this id exists, and null if not
+     */
+    public static User findUserByID(String userId){
+        User user = null;
+        UserDAO userDAO=new UserDAO();
+        Long id=Long.parseLong(userId);
+        try {
+            user=userDAO.findEntityById(id);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return user;
     }
 }

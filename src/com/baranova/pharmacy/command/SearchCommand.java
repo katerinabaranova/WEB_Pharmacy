@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.command;
 
 import com.baranova.pharmacy.constant.ErrorPageMessage;
+import com.baranova.pharmacy.constant.ParameterMedicine;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.entity.Medicine;
@@ -11,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Class command for medicine search
+ * Class command for medicine search.
  */
 
 class SearchCommand implements ICommand  {
     @Override
     public PageName execute(HttpServletRequest request) {
-        String medicineName=request.getParameter("medicineName");
+        String medicineName=request.getParameter(ParameterMedicine.MEDICINE_NAME);
         List<Medicine> medicines= MedicineService.searchService(medicineName);
         if (!medicines.isEmpty()) {
             request.getSession().setAttribute(SessionAttribute.MEDICINE_LIST, medicines);

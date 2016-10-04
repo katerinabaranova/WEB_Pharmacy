@@ -41,12 +41,7 @@ public class OrderService {
                     order.setQuantity(Integer.parseInt(parameter.getValue()));
                     break;
                 case ParameterOrder.DELIVERY:
-                    System.out.println(parameter.getValue());
-                    if ("1".equalsIgnoreCase(parameter.getValue())){
-                        order.setDelivery(true);
-                    } else {
-                        order.setDelivery(true);
-                    }
+                    order.setDelivery(Boolean.parseBoolean(parameter.getValue()));
                     break;
                 case ParameterOrder.USER_ID:
                     userID=Long.parseLong(parameter.getValue());

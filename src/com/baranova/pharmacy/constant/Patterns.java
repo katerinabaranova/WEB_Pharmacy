@@ -7,7 +7,7 @@ public class Patterns {
     public static final String LOGIN="[A-Za-z0-9]{5,15}";
     public static final String PASSWORD="[A-Za-z0-9]{5,15}";
     public static final String INCREASE_AMOUNT="[1-9][\\d]?";
-    public static final String MEDICINE_NAME="[\\w\\-]{4,20}";
+    public static final String MEDICINE_NAME="[\\w\\- ]{4,20}";
     public static final String DOSAGE="[1-9][\\d]{0,6}";
     public static final String QUANTITY="[1-9][\\d]{0,4}";
     public static final String MEDICINE_PACKAGE ="[\\w\\-]{4,20}";

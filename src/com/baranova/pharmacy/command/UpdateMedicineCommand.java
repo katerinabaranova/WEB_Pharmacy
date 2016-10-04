@@ -4,9 +4,11 @@ import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.service.MedicineService;
+import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Class command for update Medicine info in database.
@@ -15,7 +17,10 @@ class UpdateMedicineCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request){
-        boolean isUpdated= MedicineService.updateMedicineService(request);
+        SessionRequestContent requestContent=new SessionRequestContent();
+        requestContent.extractValues(request);
+        Map<String,String> parameters=requestContent.getRequestParameters();
+        boolean isUpdated= MedicineService.updateMedicineService(parameters);
         if (isUpdated){
             request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.UPDATE_MEDICINE_SUCCESS);
             return PageName.UPDATE_MEDICINE_SUCCESS;

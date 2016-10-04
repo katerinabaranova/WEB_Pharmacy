@@ -8,7 +8,9 @@ import com.baranova.pharmacy.pool.ProxyConnection;
 import java.sql.*;
 import java.util.List;
 
-//TODO писать ли JAVADOC  к DAO классам
+/**
+ *
+ */
 public class RoleDAO extends AbstractDAO<Role>{
 
     private static final String SQL_SELECT_ROLE_BY_ID = "SELECT idrole,roleName FROM pharmacy.role WHERE idrole=?";

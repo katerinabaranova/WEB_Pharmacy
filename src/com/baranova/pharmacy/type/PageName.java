@@ -17,6 +17,7 @@ public enum PageName {
     NEW_MEDICINE_FORM("jsp/medicine_control/new_medicine_form.jsp"),
     NEW_MEDICINE_SUCCESS("jsp/medicine_control/new_medicine_success.jsp"),
     NEW_RECIPE_FORM("jsp/recipe_control/recipe_form.jsp"),
+    NEW_RECIPE_SUCCESS("jsp/recipe_control/new_recipe_success.jsp"),
     ORDER_FORM("jsp/order_control/order_form.jsp"),
     ORDER_SUCCESS("jsp/order_control/order_success.jsp"),
     PROCEED_UPDATE("jsp/medicine_control/procced_update.jsp"),

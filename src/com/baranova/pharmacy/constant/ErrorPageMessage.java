@@ -25,7 +25,7 @@ public class ErrorPageMessage {
     public static final String WRONG_PASSWORDS="wrong.passwords.error";
     public static final String NO_SEARCH_RESULTS="search.no.results";
     public static final String IMPOSSIBLE_MAKE_ORDER="impossible.make.order";
-
+    public static final String NEW_RECIPE_ERROR="new.recipe.error";
 
 
 

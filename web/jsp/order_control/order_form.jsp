@@ -44,8 +44,8 @@
             <label class="col-md-4 control-label" for="delivery"><fmt:message key="user.orders.delivery"/> </label>
             <div class="col-md-2">
                 <select id="delivery" name="delivery" class="form-control" >
-                    <option value="1" ><fmt:message key="label.yes"/> </option>
-                    <option value="2"><fmt:message key="label.no"/></option>
+                    <option value="true" ><fmt:message key="label.yes"/> </option>
+                    <option value="false"><fmt:message key="label.no"/></option>
                 </select>
             </div>
         </div>

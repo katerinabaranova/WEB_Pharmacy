@@ -5,11 +5,12 @@ import com.baranova.pharmacy.type.TypeCommand;
 import java.util.HashMap;
 
 /**
- * Storing all commands that are used in application in HashMap for convenient access .
+ * Storing all commands that are used in application in HashMap for convenient access.
  */
 public class CommandHelper {
 
     private static HashMap<TypeCommand,ICommand> commands;
+
     static {
         commands = new HashMap<>();
         commands.put(TypeCommand.AUTHORIZATION, new AuthorizationCommand());
@@ -34,6 +35,11 @@ public class CommandHelper {
         commands.put(TypeCommand.BALANCE_REFILL,new BalanceRefillCommand());
     }
 
+    /**
+     * Return appropriate type of command on controller's demand
+     * @param commandName name of command receiving from controller
+     * @return Command Object
+     */
     public static ICommand getCommand(String commandName) {
         TypeCommand key = TypeCommand.valueOf(commandName.replace('-', '_').toUpperCase());
         return commands.get(key);

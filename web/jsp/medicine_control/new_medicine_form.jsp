@@ -30,7 +30,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicinePackage"><fmt:message key="search.results.package"/> </label>
             <div class="col-md-4">
-                <input id="medicinePackage" name="medicinePackage" placeholder="" class="form-control input-md" pattern="[A-Za-z0-9 -]{4-20}" required="" type="text">
+                <input id="medicinePackage" name="medicinePackage" placeholder="" class="form-control input-md" pattern="[A-Za-z0-9 -\]{3-20}" required="" type="text">
             </div>
         </div>
 
@@ -49,9 +49,9 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="instoreQuantity"><fmt:message key="search.results.instore"/> </label>
+            <label class="col-md-4 control-label" for="storeQuantity"><fmt:message key="search.results.instore"/> </label>
             <div class="col-md-2">
-                <input id="inStoreQuantity" name="inStoreQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
+                <input id="storeQuantity" name="storeQuantity" placeholder="" class="form-control input-md" pattern="[1-9][0-9]{0,4}" required="" type="text">
             </div>
         </div>
 
@@ -59,8 +59,8 @@
             <label class="col-md-4 control-label" for="recipe"><fmt:message key="need.recipe"/> </label>
             <div class="col-md-2">
                 <select id="recipe" name="recipe" class="form-control">
-                    <option value="1"><fmt:message key="label.yes"/> </option>
-                    <option value="2"><fmt:message key="label.no"/></option>
+                    <option value="true"><fmt:message key="label.yes"/> </option>
+                    <option value="false"><fmt:message key="label.no"/></option>
                 </select>
             </div>
         </div>

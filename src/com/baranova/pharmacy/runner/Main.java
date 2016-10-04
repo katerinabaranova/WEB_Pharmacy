@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.runner;
 
 import com.baranova.pharmacy.dao.*;
+import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +14,9 @@ public class Main {
         MedicineDAO medicineDAO=new MedicineDAO();
         boolean isDeleted=false;
         try{
-            isDeleted=medicineDAO.delete(9);
+            Medicine medicine=medicineDAO.findEntityById(1);
+            medicine.setStoreQuantity(3);
+            isDeleted=medicineDAO.update(medicine);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }

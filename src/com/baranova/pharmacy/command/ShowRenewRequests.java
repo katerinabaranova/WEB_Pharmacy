@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Command to show renew requests to doctor.
+ * Class command that fill list of renew requests to doctor.
  */
 class ShowRenewRequests implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request) {
-        Long id=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
-        List<Recipe> listRecipes= RecipeService.findDoctorRecipeRequests(id);
+        Long userId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        List<Recipe> listRecipes= RecipeService.findDoctorRecipeRequests(userId);
         if (!listRecipes.isEmpty()){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_REQUEST_RECIPES);
             request.setAttribute(SessionAttribute.RECIPE_LIST,listRecipes);

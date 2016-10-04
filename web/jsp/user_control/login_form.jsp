@@ -11,19 +11,19 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.LOGGING_FORM);%>
 
-<form class="form-horizontal" action="login" method="post">
+<form class="form-horizontal" action="/login" method="post">
     <fieldset>
         <legend><fmt:message key="login.legend"/> </legend>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Login"><fmt:message key="login.label.username"/></label>
+            <label class="col-md-4 control-label" for="login"><fmt:message key="login.label.username"/></label>
             <div class="col-md-4">
-                <input id="Login" name="Login" type="text" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="">
+                <input id="login" name="login" type="text" pattern="[A-Za-z0-9]{5,15}" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Password"><fmt:message key="login.label.password"/></label>
+            <label class="col-md-4 control-label" for="password"><fmt:message key="login.label.password"/></label>
             <div class="col-md-4">
-                <input id="Password" name="Password" pattern="[A-Za-z0-9]{5,15}" type="password" placeholder="" class="form-control input-md" required="">
+                <input id="password" name="password" pattern="[A-Za-z0-9]{5,15}" type="password" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
 

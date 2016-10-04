@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Class-command that fill list of pharmacy's medicines.
+ * Class command that fill list of pharmacy's medicines.
  */
 class MedicinesCommand implements ICommand{
 

@@ -21,6 +21,7 @@ import java.util.Map;
  * Class-command for adding new User to database.
  */
 class RegistrationCommand implements ICommand{
+
     private static final Logger LOG= LogManager.getLogger();
 
     @Override

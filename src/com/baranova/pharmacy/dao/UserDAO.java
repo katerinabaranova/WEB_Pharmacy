@@ -20,7 +20,7 @@ public class UserDAO extends AbstractDAO<User>{
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=?,amount=? WHERE iduser=?;";
-    private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT U.iduser,U.login,U.password,R.idrole,R.roleName FROM user U INNER JOIN role R ON U.fkrole=R.idrole WHERE U.login=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN ="SELECT U.iduser,U.login,U.password,U.amount,R.idrole,R.roleName FROM user U INNER JOIN role R ON U.fkrole=R.idrole WHERE U.login=?";
 
     @Override
     public List<User> findAll() throws DAOException {
@@ -92,6 +92,7 @@ public class UserDAO extends AbstractDAO<User>{
                 user.setLogin(resultSet.getString("login"));
                 user.setId(resultSet.getLong("iduser"));
                 user.setPassword(resultSet.getString("password"));
+                user.setAmount(resultSet.getDouble("amount"));
                 Role role=new Role();
                 role.setId(resultSet.getLong("idrole"));
                 role.setRole(resultSet.getString("roleName"));

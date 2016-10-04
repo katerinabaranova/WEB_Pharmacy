@@ -15,9 +15,9 @@ class ProceedUpdateMedicine implements ICommand {
 
     @Override
     public PageName execute (HttpServletRequest request){
-        Long id=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
-        Medicine medicine= MedicineService.getMedicine(id);
-        request.setAttribute(ParameterMedicine.MEDICINE,medicine);
+        Long medicineId=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
+        Medicine medicine= MedicineService.getMedicine(medicineId);
+        request.getSession().setAttribute(ParameterMedicine.MEDICINE,medicine);
         request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.PROCEED_UPDATE);
         return PageName.PROCEED_UPDATE;
     }

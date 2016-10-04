@@ -15,12 +15,12 @@ import java.util.List;
 
 public class OrderDAO extends AbstractDAO<Order>{
 
-    private static final String SQL_SELECT_ALL_ORDERS = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order";
-    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT O.idorder,O.fkBuyer,M.medicineName,O.quantity,O.totalAmount,O.delivery,O.paid FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine WHERE idorder=?";
-    private static final String SQL_SELECT_ORDER_BY_USER = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid FROM pharmacy.order WHERE fkBuyer=?";
+    private static final String SQL_SELECT_ALL_ORDERS = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery FROM pharmacy.order";
+    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT O.idorder,O.fkBuyer,M.medicineName,O.quantity,O.totalAmount,O.delivery FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine WHERE idorder=?";
+    private static final String SQL_SELECT_ORDER_BY_USER = "SELECT idorder,fkBuyer,fkMedicine,quantity,totalAmount,delivery FROM pharmacy.order WHERE fkBuyer=?";
     private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM pharmacy.order WHERE idorder = ?;";
-    private static final String SQL_CREATE_ORDER = "INSERT INTO pharmacy.order(fkBuyer,fkMedicine,quantity,totalAmount,delivery,paid) values(?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE pharmacy.order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=?,paid=? WHERE idorder=?;";
+    private static final String SQL_CREATE_ORDER = "INSERT INTO pharmacy.order(fkBuyer,fkMedicine,quantity,totalAmount,delivery) values(?,?,?,?,?);";
+    private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE pharmacy.order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=? WHERE idorder=?;";
 
     @Override
     public List<Order> findAll() throws DAOException {
@@ -41,7 +41,6 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setPaid(resultSet.getBoolean("paid"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
                 orders.add(order);
             }
@@ -70,7 +69,6 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setPaid(resultSet.getBoolean("paid"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
             }
         } catch (SQLException e) {
@@ -98,7 +96,6 @@ public class OrderDAO extends AbstractDAO<Order>{
                 order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt("quantity"));
                 order.setTotalAmount(resultSet.getInt("totalAmount"));
-                order.setPaid(resultSet.getBoolean("paid"));
                 order.setDelivery(resultSet.getBoolean("delivery"));
                 orders.add(order);
             }
@@ -131,7 +128,6 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setInt(3,entity.getQuantity());
             st.setDouble(4,entity.getTotalAmount());
             st.setBoolean(5,entity.isDelivery());
-            st.setBoolean(6,entity.isPaid());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
@@ -150,8 +146,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setInt(4,entity.getQuantity());
             st.setDouble(5,entity.getTotalAmount());
             st.setBoolean(6,entity.isDelivery());
-            st.setBoolean(7,entity.isPaid());
-            st.setLong(8,entity.getId());
+            st.setLong(7,entity.getId());
             isUpdate=0<st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);

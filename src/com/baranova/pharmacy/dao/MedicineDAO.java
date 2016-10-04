@@ -17,9 +17,9 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
     private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.idmedicine=?";
     private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.medicineName=?";
     private static final String SQL_SELECT_MEDICINE_BY_NAME_DOSAGE = "SELECT idmedicine FROM medicine WHERE medicine.medicineName=? AND medicine.dosage=?";
-    private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM medicine WHERE medicine.idmedicine = ?;";
+    private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM pharmacy.medicine WHERE medicine.idmedicine = ?;";
     private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe) values(?,?,?,?,?,?,?);";
-    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,storeQuantity=?,recipe=? WHERE idmedicine=?;";
+    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE pharmacy.medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,storeQuantity=?,recipe=? WHERE medicine.idmedicine=?;";
 
     @Override
     public List<Medicine> findAll() throws DAOException {
@@ -117,6 +117,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setLong(1,id);
             isDeleted=0<st.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return isDeleted;
@@ -156,7 +157,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setBoolean(8,entity.isRecipe());
             st.setLong(9,entity.getId());
             isUpdate=0<st.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);
         }
         return isUpdate;

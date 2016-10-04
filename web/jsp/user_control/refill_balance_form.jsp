@@ -9,7 +9,9 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.REFILL_BALANCE_FORM);%>
+<% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REFILL_BALANCE_FORM);%>
+<h3><fmt:message key="user.balance.now"/>  ${user.amount}</h3>
+<hr>
 <form class="form-horizontal" action="/refill_balance">
     <fieldset>
         <legend><fmt:message key="balance.refill.header"/> </legend>

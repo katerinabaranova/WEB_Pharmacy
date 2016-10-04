@@ -22,13 +22,14 @@ class NewOrderCommand implements ICommand {
         SessionRequestContent requestContent=new SessionRequestContent();
         requestContent.extractValues(request);
         Map<String,String> parameters=requestContent.getRequestParameters();
-        parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute("loggedID").toString());
+        parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         boolean payAbility= OrderParametersCheck.checkPayAbility(parameters);
         if (!payAbility) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.NOT_ENOUGH_MONEY);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
+        System.out.println(payAbility);
         boolean needQuantityAvailable=OrderParametersCheck.checkAvailableQuantity(parameters);
         if (!needQuantityAvailable) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.NOT_ENOUGH_QUANTITY);

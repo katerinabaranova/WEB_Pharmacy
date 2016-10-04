@@ -35,7 +35,8 @@ class AuthorizationCommand implements ICommand {
         }
         User user= UserService.loginService(parameterValues);
         if (user!=null){
-            request.getSession().setAttribute(SessionAttribute.LOGGED_USER,user.getLogin());
+            request.getSession().setAttribute(SessionAttribute.LOGGED_USER_OBJECT,user);
+            request.getSession().setAttribute(SessionAttribute.LOGGED_USER_ID,user.getLogin());
             request.getSession().setAttribute(SessionAttribute.LOGGED_ROLE,user.getRole().getRole());
             request.getSession().setAttribute(SessionAttribute.LOGGED_ID,user.getId());
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.USER_PAGE);

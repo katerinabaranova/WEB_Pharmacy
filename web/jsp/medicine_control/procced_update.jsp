@@ -11,7 +11,7 @@
 <hr>
 <form class="form-horizontal" action="update_medicine">
     <fieldset>
-        <input type="hidden" id="medicineID" value="${medicine.id}" name="medicineID"/>
+        <input type="hidden" id="medicineId" value="${medicine.id}" name="medicineId"/>
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/></label>
             <div class="col-md-4">
@@ -58,8 +58,8 @@
             <label class="col-md-4 control-label" for="recipe"><fmt:message key="need.recipe"/> </label>
             <div class="col-md-2">
                 <select id="recipe"  name="recipe" class="form-control">
-                    <option value="1"><fmt:message key="label.yes"/> </option>
-                    <option value="2"><fmt:message key="label.no"/></option>
+                    <option value="true"><fmt:message key="label.yes"/> </option>
+                    <option value="false"><fmt:message key="label.no"/></option>
                 </select>
             </div>
         </div>

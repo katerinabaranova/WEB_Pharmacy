@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class-command for adding new medicine to database
+ * Class command for adding new medicine to database
  */
 class NewMedicineCommand implements ICommand{
 

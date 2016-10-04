@@ -5,9 +5,9 @@ import com.baranova.pharmacy.type.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class command clear session attributes, concerning user .
+ * Class command clear for session invalidation.
  */
-public class SignOutCommand implements ICommand {
+class SignOutCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request) {

@@ -8,7 +8,7 @@ import com.baranova.pharmacy.type.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class-command for renew recipe.
+ * Class command for renew recipe.
  */
 class RenewRecipeCommand implements ICommand {
 
@@ -25,6 +25,5 @@ class RenewRecipeCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
-
     }
 }

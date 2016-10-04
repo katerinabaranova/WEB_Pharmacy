@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Class-command for changing  language in application.
+ * Class command for changing  language in application.
  */
 class ChangeLanguageCommand implements ICommand {
 

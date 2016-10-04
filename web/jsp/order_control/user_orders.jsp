@@ -14,7 +14,6 @@
     <div class="col-md-1"><fmt:message key="user.orders.quantity"/></div>
     <div class="col-md-2"><fmt:message key="user.orders.amount"/></div>
     <div class="col-md-1"><fmt:message key="user.orders.delivery"/></div>
-    <div class="col-md-1"><fmt:message key="user.orders.paid"/></div>
 </div>
 <c:forEach items="${orderList}" var="order">
     <div class="row">
@@ -22,7 +21,6 @@
         <div class=col-md-1>${order.medicine.medicineName}</div>
         <div class=col-md-1>${order.quantity}</div>
         <div class=col-md-2>${order.totalAmount}</div>
-        <div class=col-md-1>${order.paid}</div>
         <div class=col-md-1>${order.delivery}</div>
     </div>
     <br>

@@ -17,8 +17,8 @@ class BuyerRecipesCommand implements ICommand {
 
     @Override
     public PageName execute(HttpServletRequest request){
-        Long doctorID=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
-        List<Recipe> recipes= RecipeService.findBuyerRecipe(doctorID);
+        Long doctorId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        List<Recipe> recipes= RecipeService.findBuyerRecipe(doctorId);
         if (!recipes.isEmpty()){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RECIPE_BUYER_PAGE);
             request.getSession().setAttribute(SessionAttribute.RECIPE_LIST,recipes);

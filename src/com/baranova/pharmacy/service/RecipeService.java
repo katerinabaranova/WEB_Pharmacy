@@ -27,7 +27,7 @@ public class RecipeService {
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
-    public static boolean createNewRecipe(Map<String,String> parameters){
+    public static Recipe createNewRecipe(Map<String,String> parameters){
 
         UserDAO userDAO=new UserDAO();
         MedicineDAO medicineDAO=new MedicineDAO();
@@ -74,7 +74,7 @@ public class RecipeService {
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
-        return isCreated;
+        return isCreated?recipe:null;
     }
 
     /**

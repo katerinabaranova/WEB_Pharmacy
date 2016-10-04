@@ -17,10 +17,10 @@ class OrdersCommand implements ICommand{
 
     @Override
     public PageName execute(HttpServletRequest request) {
-        Long  userID=Long.parseLong(request.getSession().getAttribute("loggedID").toString());
-        List<Order> userOrders= OrderService.showOrdersService(userID);
+        Long  userId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        List<Order> userOrders= OrderService.showOrdersService(userId);
         if (!userOrders.isEmpty()) {
-            request.setAttribute("orderList", userOrders);
+            request.setAttribute(SessionAttribute.ORDER_LIST, userOrders);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.USER_ORDERS);
             return PageName.USER_ORDERS;
         } else {
