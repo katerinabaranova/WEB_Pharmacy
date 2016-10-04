@@ -12,38 +12,42 @@ import java.util.List;
 abstract class AbstractDAO <T extends Entity> {
 
     /**
-     * Returns list containing all of the elements from the definite table of the database.
-     * @return List <Entity>.
+     * Method establish connection with database for selecting all entities from definite table of the database.
+     * @return List <Entity> containing all of the elements from the definite table.
      * @throws DAOException
      */
     public abstract List<T> findAll () throws DAOException;
 
+
     /**
-     * Returns Entity object with specified id from the definite table of the database.
-     * @param id - number that define entity id that should be found.
+     * Method establish connection with database for selecting entity with specified id from definite table.
+     * @param id - specified entity id that has to be found.
      * @return Entity Object with specified id.
      * @throws DAOException
      */
     public abstract T findEntityById(long id) throws DAOException;
 
+
     /**
-     * Delete Entity object with specified id from the definite table of the database.
-     * @param id number that define entity id that should be delete.
+     * Method establish connection with database to delete entity with specified id from definite table.
+     * @param id number that define entity id that should be deleted.
      * @return true if operation of deleting was executed, false - if wasn't.
      * @throws DAOException
      */
     public abstract boolean delete(long id) throws DAOException;
 
+
     /**
-     * Add Entity object to the definite table of the database.
+     * Method establish connection with database to add new entity to definite table.
      * @param entity to be added to database.
-     * @return true if operation of creating was executed, false - if wasn't.
+     * @return true if operation of adding was executed, false - if wasn't.
      * @throws DAOException
      */
     public abstract boolean create(T entity) throws DAOException;
 
+
     /**
-     * Update Entity object in the definite table of the database.
+     * Method establish connection with database to update entity in definite table.
      * @param entity to be updated.
      * @return true if operation of updating was executed, false - if wasn't.
      * @throws DAOException
