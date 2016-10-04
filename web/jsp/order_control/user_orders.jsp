@@ -18,7 +18,7 @@
 <c:forEach items="${orderList}" var="order">
     <div class="row">
         <div class=col-md-1>${order.id}</div>
-        <div class=col-md-1>${order.medicine.medicineName}</div>
+        <div class=col-md-1>${order.medicine.medicineName}(${order.medicine.dosage})</div>
         <div class=col-md-1>${order.quantity}</div>
         <div class=col-md-2>${order.totalAmount}</div>
         <div class=col-md-1>${order.delivery}</div>
