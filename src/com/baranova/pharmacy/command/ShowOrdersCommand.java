@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Class command for filling list of user's orders.
  */
-class OrdersCommand implements ICommand{
+class ShowOrdersCommand implements ICommand{
 
     @Override
     public PageName execute(HttpServletRequest request) {

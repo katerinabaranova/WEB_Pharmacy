@@ -110,18 +110,13 @@ public class OrderParametersCheck {
             return true;
         }
         RecipeDAO recipeDAO=new RecipeDAO();
-        List<Recipe> recipes=new ArrayList<>();
+        Recipe recipe=new Recipe();
         try {
-            recipes = recipeDAO.findRecipesByPatient(userID);
+            recipe = recipeDAO.findRecipesByPatientMedicine(userID,medicineID);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
-        int recipeQuantity=0;
-        for (Recipe recipe:recipes){
-            if (recipe.getMedicine().getId()==medicineID){
-                recipeQuantity+=recipe.getMedicineQuantity();
-            }
-        }
-        return (needQuantity*medicine.getPackageQuantity()<=recipeQuantity);
+        int recipeQuantity=recipe.getMedicineQuantity();
+        return (needQuantity<=recipeQuantity);
     }
 }

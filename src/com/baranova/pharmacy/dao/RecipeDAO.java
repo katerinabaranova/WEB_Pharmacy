@@ -14,11 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that contains DAO methods for working with "recipe" table from "pharmacy" schema
+ */
 
 public class RecipeDAO extends AbstractDAO<Recipe> {
 
     private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe";
     private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE idrecipe=?";
+    private static final String SQL_SELECT_RECIPE_BY_PATIENT_MEDICINE = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkPatient=? AND fkMedicine=? AND expired=?";
     private static final String SQL_SELECT_RECIPE_BY_PATIENT = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkPatient=?";
     private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkDoctor=?";
     private static final String SQL_DELETE_RECIPE_BY_ID = "DELETE FROM pharmacy.recipe WHERE idrecipe = ?;";
@@ -122,6 +126,36 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return recipes;
     }
 
+    public Recipe findRecipesByPatientMedicine(long patientId,long medicineId) throws DAOException {
+        Recipe recipe = new Recipe();
+        ConnectionPool connectionPool=ConnectionPool.getInstance();
+        try (ProxyConnection cn=connectionPool.takeConnection(); PreparedStatement st=cn.prepareStatement(SQL_SELECT_RECIPE_BY_PATIENT_MEDICINE)){
+            st.setLong(1,patientId);
+            st.setLong(2,medicineId);
+            st.setBoolean(3,false);
+            ResultSet resultSet = st.executeQuery();
+            resultSet.next();
+            recipe.setId(resultSet.getLong("idrecipe"));
+            recipe.setDate(resultSet.getDate("date"));
+            User patient=new User();
+            User doctor=new User();
+            patient.setId(resultSet.getLong("fkPatient"));
+            doctor.setId(resultSet.getLong("fkDoctor"));
+            recipe.setPatient(patient);
+            recipe.setDoctor(doctor);
+            Medicine medicine=new Medicine();
+            medicine.setId(resultSet.getLong("fkMedicine"));
+            recipe.setMedicine(medicine);
+            recipe.setMedicineQuantity(resultSet.getInt("medicineQuantity"));
+            recipe.setExpired(resultSet.getBoolean("expired"));
+            recipe.setRenewRequest(resultSet.getBoolean("renewRequest"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
+        }
+        return recipe;
+    }
+
     public List<Recipe> findRecipesByDoctor(long doctorId) throws DAOException {
         List<Recipe> recipes = new ArrayList<>();
         ConnectionPool connectionPool=ConnectionPool.getInstance();
@@ -181,7 +215,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return recipes;
@@ -214,7 +247,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             st.setBoolean(7,entity.isRenewRequest());
             isCreated=0<st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request or table 'Recipe' failed):", e);
         }
         return isCreated;

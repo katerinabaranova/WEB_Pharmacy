@@ -29,7 +29,6 @@ class NewOrderCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return PageName.ERROR_PAGE;
         }
-        System.out.println(payAbility);
         boolean needQuantityAvailable=OrderParametersCheck.checkAvailableQuantity(parameters);
         if (!needQuantityAvailable) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.NOT_ENOUGH_QUANTITY);

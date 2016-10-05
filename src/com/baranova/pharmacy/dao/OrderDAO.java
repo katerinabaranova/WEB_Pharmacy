@@ -2,10 +2,13 @@ package com.baranova.pharmacy.dao;
 
 import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import com.baranova.pharmacy.pool.ConnectionPool;
 import com.baranova.pharmacy.pool.ProxyConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,12 +20,16 @@ import java.util.List;
  */
 public class OrderDAO extends AbstractDAO<Order>{
 
+    private static final Logger LOG= LogManager.getLogger();
     private static final String SQL_SELECT_ALL_ORDERS = "SELECT O.idorder,O.fkBuyer,O.fkMedicine,M.medicineName,M.dosage, O.quantity,O.totalAmount,O.delivery FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine";
     private static final String SQL_SELECT_ORDER_BY_ID = "SELECT O.idorder,O.fkBuyer,O.fkMedicine,M.medicineName,M.dosage, O.quantity,O.totalAmount,O.delivery FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine WHERE idorder=?";
     private static final String SQL_SELECT_ORDER_BY_USER = "SELECT O.idorder,O.fkBuyer,O.fkMedicine,M.medicineName,M.dosage, O.quantity,O.totalAmount,O.delivery FROM pharmacy.order O INNER JOIN pharmacy.medicine M ON M.idmedicine=O.fkMedicine WHERE fkBuyer=?";
     private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM pharmacy.order WHERE idorder = ?;";
     private static final String SQL_CREATE_ORDER = "INSERT INTO pharmacy.order(fkBuyer,fkMedicine,quantity,totalAmount,delivery) values(?,?,?,?,?);";
     private static final String SQL_UPDATE_ORDER_BY_ENTITY="UPDATE pharmacy.order SET idorder=?,fkBuyer=?,fkMedicine=?,quantity=?,totalAmount=?,delivery=? WHERE idorder=?;";
+    private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE pharmacy.medicine SET storeQuantity=? WHERE medicine.idmedicine=?;";
+    private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET amount=? WHERE iduser=?;";
+    private static final String SQL_UPDATE_RECIPE_BY_ENTITY="UPDATE pharmacy.recipe SET medicineQuantity=?,expired=? WHERE idrecipe=?;";
 
 
     /**
@@ -97,7 +104,7 @@ public class OrderDAO extends AbstractDAO<Order>{
 
     /**
      * Method establish connection with database for selecting orders of specified user from "order" table.
-     * @param userId - id of specified user, orders of whom has to be found.
+     * @param userId - User ID whose orders need to be found.
      * @return List <Order> containing all orders of specified user.
      * @throws DAOException
      */
@@ -126,19 +133,24 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
         return orders;
     }
 
 
+    /**
+     * Method establish connection with database for deleting order with specified id from "order" table.
+     * @param orderId number that define Order entity id that should be deleted.
+     * @return true if operation of deleting was executed, false - if wasn't.
+     * @throws DAOException
+     */
     @Override
-    public boolean delete(long id) throws DAOException {
+    public boolean delete(long orderId) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
         boolean isDeleted;
         try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_DELETE_ORDER_BY_ID)){
-            st.setLong(1,id);
+            st.setLong(1,orderId);
             isDeleted=st.execute();
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
@@ -146,23 +158,76 @@ public class OrderDAO extends AbstractDAO<Order>{
         return isDeleted;
     }
 
-    @Override
-    public boolean create(Order entity) throws DAOException {
+    /**
+     * Method establish connection with database to add new order to "order" table.
+     * @param entity - Order to be added to database.
+     * @return true if operation of adding was executed, false - if wasn't.
+     * @throws DAOException
+     */
+    public boolean create(Order entity, Recipe recipe) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();
+        ProxyConnection cn=connectionPool.takeConnection();
         boolean isCreated;
-        try (ProxyConnection cn=connectionPool.takeConnection();PreparedStatement st=cn.prepareStatement(SQL_CREATE_ORDER)){
-            st.setLong(1,entity.getBuyer().getId());
-            st.setLong(2,entity.getMedicine().getId());
-            st.setInt(3,entity.getQuantity());
-            st.setDouble(4,entity.getTotalAmount());
-            st.setBoolean(5,entity.isDelivery());
-            isCreated=0<st.executeUpdate();
+        try (PreparedStatement st1=cn.prepareStatement(SQL_CREATE_ORDER);
+                PreparedStatement st2=cn.prepareStatement(SQL_UPDATE_MEDICINE_BY_ENTITY);
+                    PreparedStatement st3=cn.prepareStatement(SQL_UPDATE_USER_BY_ENTITY);
+                        PreparedStatement st4=cn.prepareStatement(SQL_UPDATE_RECIPE_BY_ENTITY)){
+            cn.setAutoCommit(false);
+            st1.setLong(1,entity.getBuyer().getId());
+            st1.setLong(2,entity.getMedicine().getId());
+            st1.setInt(3,entity.getQuantity());
+            st1.setDouble(4,entity.getTotalAmount());
+            st1.setBoolean(5,entity.isDelivery());
+            isCreated=0<st1.executeUpdate();
+
+            st2.setInt(1,entity.getMedicine().getStoreQuantity());
+            st2.setLong(2,entity.getMedicine().getId());
+            st2.executeUpdate();
+
+            st3.setDouble(1,entity.getBuyer().getAmount());
+            st3.setLong(2,entity.getBuyer().getId());
+            st3.executeUpdate();
+
+            if (recipe!=null){
+                st4.setInt(1,recipe.getMedicineQuantity());
+                st4.setBoolean(2,recipe.isExpired());
+                st4.setLong(3,recipe.getId());
+                st4.executeUpdate();
+            }
+            cn.commit();
         } catch (SQLException e) {
-            throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
+            try {
+                cn.rollback();
+            } catch (SQLException e2){
+
+                LOG.error(e2.getMessage());
+            }
+            throw new DAOException("Impossible to execute request(request to update order failed):", e);
+        } finally {
+            if (cn!=null){
+                try {
+                    cn.close();
+                } catch (SQLException e){
+                    LOG.error("Impossible to close connection:",e);
+                }
+            }
         }
         return isCreated;
     }
 
+
+    @Override
+    public boolean create(Order entity) throws DAOException {
+        throw new DAOException("This operation is not available in this version");
+    }
+
+
+    /**
+     * Method establish connection with database to update order entity in "order" table.
+     * @param entity - Order to be updated.
+     * @return true if operation of updating was executed, false - if wasn't.
+     * @throws DAOException
+     */
     @Override
     public boolean update(Order entity) throws DAOException {
         ConnectionPool connectionPool=ConnectionPool.getInstance();

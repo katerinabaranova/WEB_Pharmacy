@@ -191,7 +191,6 @@ public class RecipeService {
             recipe=recipeDAO.findEntityById(recipeId);
             recipe.setRenewRequest(false);
             recipeDAO.update(recipe);
-            newRecipe=new Recipe();
             newRecipe.setMedicine(recipe.getMedicine());
             newRecipe.setDoctor(recipe.getDoctor());
             newRecipe.setPatient(recipe.getPatient());
@@ -203,5 +202,21 @@ public class RecipeService {
             LOG.error(e.getMessage());
         }
         return isCreated?newRecipe:null;
+    }
+
+    public static Recipe OrderRecipeUpdate(long userId, long medicineId, int quantity){
+        RecipeDAO recipeDAO=new RecipeDAO();
+        Recipe recipe=new Recipe();
+        try {
+            recipe=recipeDAO.findRecipesByPatientMedicine(userId,medicineId);
+            recipe.setMedicineQuantity(recipe.getMedicineQuantity()-quantity);
+            if (recipe.getMedicineQuantity()==0){
+                recipe.setExpired(true);
+            }
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return recipe;
+
     }
 }

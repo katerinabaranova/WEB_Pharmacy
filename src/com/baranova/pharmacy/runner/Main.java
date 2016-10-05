@@ -3,6 +3,7 @@ package com.baranova.pharmacy.runner;
 import com.baranova.pharmacy.dao.*;
 import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,10 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        OrderDAO medicineDAO=new OrderDAO();
+        RecipeDAO recipeDAO=new RecipeDAO();
         boolean isDeleted=false;
         try {
-            List<Order> order=medicineDAO.findOrdersByUser(4L);            System.out.println(order);
+            Recipe recipe=recipeDAO.findRecipesByPatientMedicine(4,1);
+            System.out.println(recipe);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }

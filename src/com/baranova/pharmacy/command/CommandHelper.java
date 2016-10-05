@@ -17,7 +17,7 @@ public class CommandHelper {
         commands.put(TypeCommand.REGISTRATION,new RegistrationCommand());
         commands.put(TypeCommand.CHANGE_LANGUAGE,new ChangeLanguageCommand());
         commands.put(TypeCommand.SEARCH,new SearchCommand());
-        commands.put(TypeCommand.SHOW_ORDERS,new OrdersCommand());
+        commands.put(TypeCommand.SHOW_ORDERS,new ShowOrdersCommand());
         commands.put(TypeCommand.SHOW_MEDICINES,new MedicinesCommand());
         commands.put(TypeCommand.PREPARE_ORDER,new PrepareOrderCommand());
         commands.put(TypeCommand.NEW_MEDICINE,new NewMedicineCommand());

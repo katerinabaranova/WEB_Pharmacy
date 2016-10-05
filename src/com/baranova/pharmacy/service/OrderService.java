@@ -7,6 +7,7 @@ import com.baranova.pharmacy.dao.OrderDAO;
 import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
+import com.baranova.pharmacy.entity.Recipe;
 import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
@@ -29,13 +30,13 @@ public class OrderService {
      */
     public static boolean newOrderCreate(Map<String,String> parameters){
         Order order=new Order();
-        long userID=0;
+        long userId=0;
         OrderDAO orderDAO=new OrderDAO();
-        long medicineID=0;
+        long medicineId=0;
         for (Map.Entry<String,String> parameter:parameters.entrySet()) {
             switch (parameter.getKey()){
                 case ParameterOrder.MEDICINE_ID:
-                    medicineID=Long.parseLong(parameter.getValue());
+                    medicineId=Long.parseLong(parameter.getValue());
                     break;
                 case ParameterOrder.QUANTITY:
                     order.setQuantity(Integer.parseInt(parameter.getValue()));
@@ -44,32 +45,40 @@ public class OrderService {
                     order.setDelivery(Boolean.parseBoolean(parameter.getValue()));
                     break;
                 case ParameterOrder.USER_ID:
-                    userID=Long.parseLong(parameter.getValue());
+                    userId=Long.parseLong(parameter.getValue());
                     break;
             }
         }
         boolean isCreated=false;
         MedicineDAO medicineDAO=new MedicineDAO();
         UserDAO userDAO=new UserDAO();
-        User user;
-        Medicine medicine;
+        User user=new User();
+        Medicine medicine=new Medicine();
         try {
-            user=userDAO.findEntityById(userID);
-            order.setBuyer(user);
-            medicine=medicineDAO.findEntityById(medicineID);
-            order.setMedicine(medicine);
-            order.setTotalAmount(medicine.getPrice()*order.getQuantity()+(order.isDelivery()?ServiceCost.DELIVERY_COST:0));
-            isCreated = orderDAO.create(order);
-            int newStoreQuantity=medicine.getStoreQuantity()-order.getQuantity();
-            medicine.setStoreQuantity(newStoreQuantity);
-            medicineDAO.update(medicine);
-            double newUserAmount=user.getAmount()-order.getTotalAmount();
-            user.setAmount(newUserAmount);
-            userDAO.update(user);
+            user=userDAO.findEntityById(userId);
+            medicine=medicineDAO.findEntityById(medicineId);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
-
+        order.setBuyer(user);
+        order.setMedicine(medicine);
+        double deliveryCost=order.isDelivery()?ServiceCost.DELIVERY_COST:0;
+        double totalAmount=medicine.getPrice()*order.getQuantity()+deliveryCost;
+        order.setTotalAmount(totalAmount);
+        int newStoreQuantity=medicine.getStoreQuantity()-order.getQuantity();
+        order.getMedicine().setStoreQuantity(newStoreQuantity);
+        double newUserAmount=user.getAmount()-order.getTotalAmount();
+        order.getBuyer().setAmount(newUserAmount);
+        try {
+            if (!order.getMedicine().isRecipe()) {
+                isCreated = orderDAO.create(order, null);
+            } else {
+                Recipe recipe=RecipeService.OrderRecipeUpdate(userId,medicineId,order.getQuantity());
+                isCreated = orderDAO.create(order,recipe);
+            }
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
         return isCreated;
     }
 
