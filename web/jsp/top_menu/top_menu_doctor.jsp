@@ -46,20 +46,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
             <li><a href="${pageContext.request.contextPath}/jsp/recipe_control/recipe_form.jsp"><fmt:message key="doctor.menu.new.recipe"/> </a></li>
-            <li><a href="controller?command=show_doctor_recipe"><fmt:message key="doctor.menu.recipes"/> </a> </li>
-
-            <li>
-              <form action="/show_doctor_recipe" method="post">
-                <input type="hidden" name="command" value="show_doctor_recipe" />
-                <button type="submit" class="btn-link"><fmt:message key="doctor.menu.recipes"/> </button>
-              </form>
-             </li>
-            <li>
-              <form action="/show_renew_requests" method="post">
-                <input type="hidden" name="command" value="show_renew_requests" />
-                <button type="submit" class="btn-link"><fmt:message key="doctor.menu.requests"/> </button>
-              </form>
-            </li>
+            <li><a href="${pageContext.request.contextPath}/controller?command=show_doctor_recipe"><fmt:message key="doctor.menu.recipes"/> </a> </li>
+            <li><a href="${pageContext.request.contextPath}/controller?command=show_renew_requests"><fmt:message key="doctor.menu.requests"/></a></li>
             <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
           </ul>
         </div>

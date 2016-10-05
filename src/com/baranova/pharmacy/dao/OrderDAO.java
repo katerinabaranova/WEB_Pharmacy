@@ -1,5 +1,7 @@
 package com.baranova.pharmacy.dao;
 
+import com.baranova.pharmacy.constant.database_constant.MedicineTable;
+import com.baranova.pharmacy.constant.database_constant.OrderTable;
 import com.baranova.pharmacy.entity.Medicine;
 import com.baranova.pharmacy.entity.Order;
 import com.baranova.pharmacy.entity.Recipe;
@@ -45,20 +47,20 @@ public class OrderDAO extends AbstractDAO<Order>{
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
-                order.setId(resultSet.getLong("idorder"));
-                long buyerID=resultSet.getLong("fkBuyer");
+                order.setId(resultSet.getLong(OrderTable.ORDER_ID));
+                long buyerID=resultSet.getLong(OrderTable.BUYER);
                 User user=new User();
                 user.setId(buyerID);
                 order.setBuyer(user);
-                long medicineID=resultSet.getLong("fkMedicine");
+                long medicineID=resultSet.getLong(OrderTable.MEDICINE);
                 Medicine medicine=new Medicine();
                 medicine.setId(medicineID);
-                medicine.setMedicineName(resultSet.getString("medicineName"));
-                medicine.setDosage(resultSet.getInt("dosage"));
+                medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
+                medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
                 order.setMedicine(medicine);
-                order.setQuantity(resultSet.getInt("quantity"));
-                order.setTotalAmount(resultSet.getDouble("totalAmount"));
-                order.setDelivery(resultSet.getBoolean("delivery"));
+                order.setQuantity(resultSet.getInt(OrderTable.QUANTITY));
+                order.setTotalAmount(resultSet.getDouble(OrderTable.TOTAL_AMOUNT));
+                order.setDelivery(resultSet.getBoolean(OrderTable.DELIVERY));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -81,20 +83,20 @@ public class OrderDAO extends AbstractDAO<Order>{
             st.setLong(1,orderId);
             ResultSet resultSet = st.executeQuery();
             resultSet.next();
-            order.setId(resultSet.getLong("idorder"));
-            long buyerID=resultSet.getLong("fkBuyer");
+            order.setId(resultSet.getLong(OrderTable.ORDER_ID));
+            long buyerID=resultSet.getLong(OrderTable.BUYER);
             User user=new User();
             user.setId(buyerID);
             order.setBuyer(user);
-            long medicineID=resultSet.getLong("fkMedicine");
+            long medicineID=resultSet.getLong(OrderTable.MEDICINE);
             Medicine medicine=new Medicine();
             medicine.setId(medicineID);
-            medicine.setMedicineName(resultSet.getString("medicineName"));
-            medicine.setDosage(resultSet.getInt("dosage"));
+            medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
+            medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
             order.setMedicine(medicine);
-            order.setQuantity(resultSet.getInt("quantity"));
-            order.setTotalAmount(resultSet.getDouble("totalAmount"));
-            order.setDelivery(resultSet.getBoolean("delivery"));
+            order.setQuantity(resultSet.getInt(OrderTable.QUANTITY));
+            order.setTotalAmount(resultSet.getDouble(OrderTable.TOTAL_AMOUNT));
+            order.setDelivery(resultSet.getBoolean(OrderTable.DELIVERY));
         } catch (SQLException e) {
             throw new DAOException("Impossible to execute request(request to table 'Order' failed):", e);
         }
@@ -116,20 +118,20 @@ public class OrderDAO extends AbstractDAO<Order>{
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 Order order = new Order();
-                order.setId(resultSet.getLong("idorder"));
-                long buyerID=resultSet.getLong("fkBuyer");
+                order.setId(resultSet.getLong(OrderTable.ORDER_ID));
+                long buyerID=resultSet.getLong(OrderTable.BUYER);
                 User user=new User();
                 user.setId(buyerID);
                 order.setBuyer(user);
-                long medicineID=resultSet.getLong("fkMedicine");
+                long medicineID=resultSet.getLong(OrderTable.MEDICINE);
                 Medicine medicine=new Medicine();
                 medicine.setId(medicineID);
-                medicine.setMedicineName(resultSet.getString("medicineName"));
-                medicine.setDosage(resultSet.getInt("dosage"));
+                medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
+                medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
                 order.setMedicine(medicine);
-                order.setQuantity(resultSet.getInt("quantity"));
-                order.setTotalAmount(resultSet.getDouble("totalAmount"));
-                order.setDelivery(resultSet.getBoolean("delivery"));
+                order.setQuantity(resultSet.getInt(OrderTable.QUANTITY));
+                order.setTotalAmount(resultSet.getDouble(OrderTable.QUANTITY));
+                order.setDelivery(resultSet.getBoolean(OrderTable.DELIVERY));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -159,7 +161,9 @@ public class OrderDAO extends AbstractDAO<Order>{
     }
 
     /**
-     * Method establish connection with database to add new order to "order" table.
+     * Method establish connection with database to add new order to "order" table. Method also update
+     * Medicine quantity in "medicine" table, User amount in "user" table, and medicine quantity and
+     * expired column in "recipe" table according to creating order.
      * @param entity - Order to be added to database.
      * @return true if operation of adding was executed, false - if wasn't.
      * @throws DAOException

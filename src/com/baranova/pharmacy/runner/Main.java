@@ -18,7 +18,8 @@ public class Main {
         RecipeDAO recipeDAO=new RecipeDAO();
         boolean isDeleted=false;
         try {
-            Recipe recipe=recipeDAO.findRecipesByPatientMedicine(4,1);
+            List<Recipe> recipe=recipeDAO.findRecipesByDoctor(8);
+
             System.out.println(recipe);
         } catch (DAOException e){
             LOG.error(e.getMessage());
