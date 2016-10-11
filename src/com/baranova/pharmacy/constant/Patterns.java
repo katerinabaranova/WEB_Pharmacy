@@ -19,6 +19,6 @@ public class Patterns {
     public static final String STREET="[A-Za-zА-Яа-я\\- ]{2,20}";
     public static final String HOUSENUMBER="[1-9][0-9]{0,4}";
     public static final String APARTMENT="[1-9][0-9]{0,4}";
-    public static final String EMAIL="(\\w{6,})@(\\w+\\.)([a-z]{2,4})";
-    public static final String PHONENUMBER="[A-Za-zА-Яа-я\\- ]{2,20}";
+    public static final String EMAIL="([\\w\\-.]+)@(\\w+\\.)([a-z]{2,4})";
+    public static final String PHONENUMBER="^(\\+375\\-|8\\-0)(17|29|44|25|33)\\-\\d{3}\\-\\d{2}\\-\\d{2}$";
 }

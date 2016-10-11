@@ -8,21 +8,34 @@ import com.baranova.pharmacy.service.OrderService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.OrderParametersCheck;
+import com.baranova.pharmacy.util.PatternCheck;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Class command for adding new order to database.
+ * Class command for adding new order to database
  */
 class NewOrderCommand implements ICommand {
 
+    /**
+     * Execute adding new order to database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
         SessionRequestContent requestContent=new SessionRequestContent();
         requestContent.extractValues(request);
         Map<String,String> parameters=requestContent.getRequestParameters();
         parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        List<String> wrongInputs= PatternCheck.checkOrderForm(parameters);
+        if (!wrongInputs.isEmpty()){
+            request.getSession().setAttribute(SessionAttribute.WRONG_INPUTS,wrongInputs);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
+            return  PageName.WRONG_INPUT_PAGE;
+        }
         boolean payAbility= OrderParametersCheck.checkPayAbility(parameters);
         if (!payAbility) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.NOT_ENOUGH_MONEY);

@@ -12,10 +12,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class command for refill user amount.
+ * Class command for refill user amount
  */
 class BalanceRefillCommand implements ICommand {
 
+    /**
+     * Execute refill of user amount
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
         SessionRequestContent requestContent=new SessionRequestContent();
@@ -27,9 +32,9 @@ class BalanceRefillCommand implements ICommand {
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        parameters.put(ParameterOrder.USER_ID,request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        parameters.put(ParameterUser.USER_ID,request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         boolean isRefilled= UserService.refillBalance(parameters);
-        User user=UserService.findUserByID(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        User user=UserService.findUserById(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         if (isRefilled){
             if (user!=null){
                 request.getSession().setAttribute(SessionAttribute.LOGGED_USER_OBJECT, user);

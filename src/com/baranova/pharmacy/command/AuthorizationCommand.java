@@ -22,6 +22,11 @@ class AuthorizationCommand implements ICommand {
 
     private static final Logger LOG= LogManager.getLogger();
 
+    /**
+     * Execute user authorization in application
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
         SessionRequestContent requestContent=new SessionRequestContent();

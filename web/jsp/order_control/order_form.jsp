@@ -7,35 +7,35 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<form class="form-horizontal" action="/new_order">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/new_order">
     <fieldset>
         <legend><fmt:message key="new.order.legend"/> </legend>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineName"><fmt:message key="search.medicine.label"/> </label>
             <div class="col-md-4">
-                <input id="medicineName" name="medicineName" value="${medicine_for_order.medicineName}"  pattern="[A-Za-Z0-9\\-]{4,20}" class="form-control input-md" required="" type="text">
+                <input id="medicineName" name="medicineName" value="${medicine_for_order.medicineName}"  pattern="[A-Za-z0-9 -]{4-20}" class="form-control input-md" required="true" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineDosage"><fmt:message key="search.results.dosage"/> </label>
             <div class="col-md-4">
-                <input id="medicineDosage" name="medicineDosage" value="${medicine_for_order.dosage}"  pattern="[0-9]{1-7}" class="form-control input-md" required="" type="text">
+                <input id="medicineDosage" name="medicineDosage" value="${medicine_for_order.dosage}"  pattern="[1-9][0-9]{0,6}" class="form-control input-md" required="true" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="price"><fmt:message key="search.results.price"/> </label>
             <div class="col-md-4">
-                <input id="price" name="price" value="${medicine_for_order.price}" pattern="[0-9]{1-7}" class="form-control input-md" required="" type="text">
+                <input id="price" name="price" value="${medicine_for_order.price}" pattern="[0-9]+(\.[0-9]{2})?" class="form-control input-md" required="true" type="text">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="medicineQuantity"><fmt:message key="recipe.medicine.quantity"/> </label>
             <div class="col-md-4">
-                <input id="medicineQuantity" name="medicineQuantity" placeholder="" pattern="[0-9]{1-2}" class="form-control input-md" required="" type="text">
+                <input id="medicineQuantity" name="medicineQuantity" placeholder="" pattern="[1-9][0-9]{0,4}" class="form-control input-md" required="true" type="text">
                 <span class="help-block"><fmt:message key="order.quantity.help"/> </span>
             </div>
         </div>

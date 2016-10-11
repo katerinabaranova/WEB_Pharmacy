@@ -11,7 +11,7 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.SEARCH_PAGE);%>
 
-    <form class="form-horizontal" action="/search" method="post">
+    <form class="form-horizontal" action="${pageContext.request.contextPath}/search" method="post">
         <fieldset>
 
             <legend><fmt:message key="search.legend"/></legend>

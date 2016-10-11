@@ -8,10 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Class command for changing  language in application.
+ * Class command for changing  language in application
  */
 class ChangeLanguageCommand implements ICommand {
 
+    /**
+     * Provide opportunity to change language on application pages
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

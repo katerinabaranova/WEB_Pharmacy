@@ -19,7 +19,7 @@ public class MedicineService {
     private static final Logger LOG= LogManager.getLogger();
 
     /**
-     * Method call DAO method to create new medicine
+     * Method call DAO method to create new medicine for adding to database
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
@@ -63,8 +63,8 @@ public class MedicineService {
 
 
     /**
-     * Method call DAO method to delete medicine defined by id
-     * @param medicineId receiving from JSP medicine id
+     * Method call DAO method to delete medicine defined by Id from database
+     * @param medicineId receiving from JSP medicine Id
      * @return boolean value if operation of deleting was executed
      */
     public static boolean deleteMedicine(long medicineId){
@@ -80,11 +80,11 @@ public class MedicineService {
 
 
     /**
-     * Method call DAO method to find medicine defined by id
-     * @param medicineId receiving from JSP medicine id
-     * @return Medicine with necessary id
+     * Method call DAO method to find medicine defined by Id in database
+     * @param medicineId receiving from JSP medicine Id
+     * @return Medicine with necessary Id
      */
-    public static Medicine getMedicine(long medicineId){
+    public static Medicine findMedicine(long medicineId){
         MedicineDAO medicineDAO=new MedicineDAO();
         Medicine medicine=new Medicine();
         try{
@@ -161,7 +161,7 @@ public class MedicineService {
      * Method call DAO method to fill list of all medicines that are in database
      * @return List of medicines
      */
-    public static List<Medicine> getAllMedicineService(){
+    public static List<Medicine> findAllMedicineService(){
         MedicineDAO medicineDAO=new MedicineDAO();
         List<Medicine> medicines=new ArrayList<>();
         try{

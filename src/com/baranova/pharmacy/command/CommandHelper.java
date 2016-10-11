@@ -38,7 +38,7 @@ public class CommandHelper {
     /**
      * Return appropriate type of command on controller's demand
      * @param commandName name of command receiving from controller
-     * @return Command Object
+     * @return Command appropriate type of comand
      */
     public static ICommand getCommand(String commandName) {
         TypeCommand key = TypeCommand.valueOf(commandName.replace('-', '_').toUpperCase());

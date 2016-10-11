@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class-service for command classes for making operations with Recipe entity.
+ * Class service for command classes for making operations with Recipe entity
  */
 public class RecipeService {
     private static final Logger LOG= LogManager.getLogger();
@@ -36,7 +36,7 @@ public class RecipeService {
         String name="";
         String surname="";
         String medicineName="";
-        long doctorID=0;
+        long doctorId=0;
         int dosage=0;
         for (Map.Entry<String,String> parameter:parameters.entrySet()) {
             switch (parameter.getKey()) {
@@ -56,7 +56,7 @@ public class RecipeService {
                     recipe.setMedicineQuantity(Integer.parseInt(parameter.getValue()));
                     break;
                 case ParameterRecipe.DOCTOR_ID:
-                    doctorID = Long.parseLong(parameter.getValue());
+                    doctorId = Long.parseLong(parameter.getValue());
                     break;
             }
         }
@@ -65,7 +65,7 @@ public class RecipeService {
         boolean isCreated=false;
         try {
             User patient=userDAO.findEntityNameSurname(surname,name);
-            User doctor=userDAO.findEntityById(doctorID);
+            User doctor=userDAO.findEntityById(doctorId);
             recipe.setPatient(patient);
             recipe.setDoctor(doctor);
             Medicine medicine =medicineDAO.findIDByNameDosage(medicineName,dosage);
@@ -79,14 +79,14 @@ public class RecipeService {
 
     /**
      * Method call DAO method to find all doctor recipes
-     * @param doctorID id of logged doctor
+     * @param doctorId id of logged doctor
      * @return List of doctor recipes
      */
-    public static List<Recipe> findDoctorRecipe(Long doctorID){
+    public static List<Recipe> findDoctorRecipe(long doctorId){
         List<Recipe> recipes=new ArrayList<>();
         try {
             RecipeDAO recipeDAO = new RecipeDAO();
-            recipes = recipeDAO.findRecipesByDoctor(doctorID);
+            recipes = recipeDAO.findRecipesByDoctor(doctorId);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
@@ -94,15 +94,15 @@ public class RecipeService {
     }
 
     /**
-     * Method call DAO method to find all doctor recipes
-     * @param buyerID id of logged doctor
-     * @return List of doctor recipes
+     * Method call DAO method to find all buyer recipes
+     * @param buyerId id of logged buyer
+     * @return List of buyer recipes
      */
-    public static List<Recipe> findBuyerRecipe(Long buyerID){
+    public static List<Recipe> findBuyerRecipe(long buyerId){
         List<Recipe> recipes=new ArrayList<>();
         try {
             RecipeDAO recipeDAO = new RecipeDAO();
-            recipes = recipeDAO.findRecipesByPatient(buyerID);
+            recipes = recipeDAO.findRecipesByPatient(buyerId);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
@@ -111,7 +111,7 @@ public class RecipeService {
 
     /**
      * Method call DAO method to check if recipe is expired
-     * @param recipeId recipe of ID to be checked
+     * @param recipeId recipe of id to be checked
      * @return boolean value if recipe is expired
      */
     public static boolean checkIsExpired(long recipeId){
@@ -126,8 +126,8 @@ public class RecipeService {
     }
 
     /**
-     * Method call DAO method to update recipe value if renew request was send from buyer
-     * @param recipeId recipe of ID to be update
+     * Method call DAO method to update recipe value on renew request field
+     * @param recipeId recipe of id to be update
      * @return boolean value if recipe is expired
      */
     public static boolean renewRequest(long recipeId){
@@ -148,40 +148,28 @@ public class RecipeService {
         return isUpdated;
     }
 
+
     /**
-     * Method call DAO method to find all doctor recipe renew requests
-     * @param doctorID id of logged doctor
+     * Method call DAO method to find all doctor renew recipe requests
+     * @param doctorId id of logged doctor
      * @return List of doctor recipes
      */
-    public static List<Recipe> findDoctorRecipeRequests(Long doctorID){
+    public static List<Recipe> findDoctorRecipeRequests(long doctorId){
         List<Recipe> recipes=new ArrayList<>();
         try {
             RecipeDAO recipeDAO = new RecipeDAO();
-            recipes = recipeDAO.findRecipesRequest(doctorID);
+            recipes = recipeDAO.findRecipesRequest(doctorId);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
         return recipes;
     }
 
-
-    public static void fillRecipe(Recipe recipe){
-        UserDAO userDAO=new UserDAO();
-        MedicineDAO medicineDAO=new MedicineDAO();
-        try {
-            User patient=userDAO.findEntityById(recipe.getPatient().getId());
-            User doctor=userDAO.findEntityById(recipe.getDoctor().getId());
-            Medicine medicine=medicineDAO.findEntityById(recipe.getMedicine().getId());
-            recipe.setPatient(patient);
-            recipe.setDoctor(doctor);
-            recipe.setMedicine(medicine);
-
-        } catch (DAOException e){
-            LOG.error(e.getMessage());
-        }
-
-    }
-
+    /**
+     * Method call DAO method to create new recipe based on the old recipe
+     * @param recipeId - id of recipe to copied
+     * @return new recipe created based on old recipe
+     */
     public static Recipe renewRecipe(long recipeId){
         RecipeDAO recipeDAO=new RecipeDAO();
         Recipe recipe;
@@ -204,6 +192,14 @@ public class RecipeService {
         return isCreated?newRecipe:null;
     }
 
+
+    /**
+     * Method prepare recipe for  modifying according to the new order
+     * @param userId id of patient whose recipe is
+     * @param medicineId id of recipe's medicine
+     * @param quantity - quantity of medicine in order
+     * @return recipe that updated according to the new order
+     */
     public static Recipe OrderRecipeUpdate(long userId, long medicineId, int quantity){
         RecipeDAO recipeDAO=new RecipeDAO();
         Recipe recipe=new Recipe();

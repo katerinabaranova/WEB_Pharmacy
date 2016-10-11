@@ -5,16 +5,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Ekaterina on 8/11/16.
+ * Class for extract values from HttpServletRequest.
  */
 public class SessionRequestContent {
 
-    private Map<String, Object> requestAttributes;
     private Map<String, String> requestParameters=new HashMap<>();
 
     public SessionRequestContent(){
 
     }
+
+    /**
+     * Extract values from HttpServletRequest
+     * @param request - HttpServletRequest to be analyzed
+     */
     public void extractValues(HttpServletRequest request){
         Map<String, String[]> parameterMap=request.getParameterMap();
         for (Map.Entry<String,String[]> parameter:parameterMap.entrySet()){
@@ -23,10 +27,11 @@ public class SessionRequestContent {
         }
     }
 
-    public Map<String, Object> getRequestAttributes() {
-        return requestAttributes;
-    }
 
+    /**
+     * Return requestParameters extracted from the HttpServletRequest
+     * @return Map<String,String> of request parameters
+     */
     public Map<String, String> getRequestParameters() {
         return requestParameters;
     }

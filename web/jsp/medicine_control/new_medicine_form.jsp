@@ -10,7 +10,7 @@
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.NEW_MEDICINE_FORM);%>
-<form class="form-horizontal" action="/new_medicine">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/new_medicine">
     <fieldset>
         <legend><fmt:message key="adding.new.medicine"/> </legend>
         <div class="form-group">

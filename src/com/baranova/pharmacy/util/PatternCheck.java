@@ -1,9 +1,6 @@
 package com.baranova.pharmacy.util;
 
-import com.baranova.pharmacy.constant.ParameterMedicine;
-import com.baranova.pharmacy.constant.ParameterRecipe;
-import com.baranova.pharmacy.constant.ParameterUser;
-import com.baranova.pharmacy.constant.Patterns;
+import com.baranova.pharmacy.constant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -217,6 +214,40 @@ public class PatternCheck {
                 case ParameterUser.PHONE_NUMBER:
                     if (!checkPatternAppropriateness(Patterns.PHONENUMBER,parameter.getValue())){
                         wrongFields.add(ParameterUser.PHONE_NUMBER);
+                    }
+                    break;
+            }
+        }
+        return wrongFields;
+    }
+
+    /**
+     * Check correctness of filling new order form
+     * @param parameters Map<String,String> that contain name of parameters and theirs value
+     * @return List of field, that doesn't appropriate theirs pattern
+     */
+    public static List<String> checkOrderForm (Map<String,String> parameters){
+        List<String>  wrongFields=new ArrayList<>();
+        for (Map.Entry<String,String> parameter:parameters.entrySet()){
+            switch (parameter.getKey()){
+                case ParameterMedicine.MEDICINE_NAME:
+                    if (!checkPatternAppropriateness(Patterns.MEDICINE_NAME,parameter.getValue())){
+                        wrongFields.add(ParameterMedicine.MEDICINE_NAME);
+                    }
+                    break;
+                case ParameterMedicine.MEDICINE_DOSAGE:
+                    if (!checkPatternAppropriateness(Patterns.DOSAGE,parameter.getValue())){
+                        wrongFields.add(ParameterMedicine.MEDICINE_DOSAGE);
+                    }
+                    break;
+                case ParameterOrder.PRICE:
+                    if (!checkPatternAppropriateness(Patterns.PRICE,parameter.getValue())){
+                        wrongFields.add(ParameterOrder.PRICE);
+                    }
+                    break;
+                case ParameterOrder.QUANTITY:
+                    if (!checkPatternAppropriateness(Patterns.QUANTITY,parameter.getValue())){
+                        wrongFields.add(ParameterMedicine.PACK_QUANTITY);
                     }
                     break;
             }

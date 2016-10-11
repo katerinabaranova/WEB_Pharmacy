@@ -10,18 +10,18 @@
 <h1><fmt:message key="user.orders.header"/> </h1>
 <div class="row">
     <div class="col-md-1"><fmt:message key="user.orders.id"/> </div>
-    <div class="col-md-1"><fmt:message key="user.orders.medicine"/></div>
-    <div class="col-md-1"><fmt:message key="user.orders.quantity"/></div>
+    <div class="col-md-2"><fmt:message key="user.orders.medicine"/></div>
+    <div class="col-md-2"><fmt:message key="user.orders.quantity"/></div>
     <div class="col-md-2"><fmt:message key="user.orders.amount"/></div>
-    <div class="col-md-1"><fmt:message key="user.orders.delivery"/></div>
+    <div class="col-md-2"><fmt:message key="user.orders.delivery"/></div>
 </div>
 <c:forEach items="${orderList}" var="order">
     <div class="row">
         <div class=col-md-1>${order.id}</div>
-        <div class=col-md-1>${order.medicine.medicineName}(${order.medicine.dosage})</div>
-        <div class=col-md-1>${order.quantity}</div>
+        <div class=col-md-2>${order.medicine.medicineName}(${order.medicine.dosage})</div>
+        <div class=col-md-2>${order.quantity}</div>
         <div class=col-md-2>${order.totalAmount}</div>
-        <div class=col-md-1>${order.delivery}</div>
+        <div class=col-md-2>${order.delivery}</div>
     </div>
     <br>
 </c:forEach>

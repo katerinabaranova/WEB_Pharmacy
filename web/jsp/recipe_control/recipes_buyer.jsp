@@ -26,7 +26,7 @@
         <div class="col-md-1">${recipe.medicine.dosage}</div>
         <div class="col-md-1">${recipe.medicineQuantity}</div>
         <div class="col-md-1">${recipe.expired}</div>
-        <form action="/renew_recipe_request" method="post">
+        <form action="${pageContext.request.contextPath}/renew_recipe_request" method="post">
             <div class="form-group">
                 <div class="col-md-2">
                     <input type="hidden" name="command" value="renew_recipe_request" />

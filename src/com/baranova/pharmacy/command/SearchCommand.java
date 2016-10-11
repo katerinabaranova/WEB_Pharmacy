@@ -12,10 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Class command for medicine search.
+ * Class command for medicine search
  */
 
 class SearchCommand implements ICommand  {
+
+    /**
+     * Provide search of specified medicine in database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
         String medicineName=request.getParameter(ParameterMedicine.MEDICINE_NAME);

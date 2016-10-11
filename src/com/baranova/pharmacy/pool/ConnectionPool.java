@@ -15,6 +15,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Class creator for connections pool
+ */
 
 public class ConnectionPool {
     private static final Logger LOG= LogManager.getLogger();
@@ -48,6 +51,10 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Create new Connection pool entity if it doesn't exist, and return link to existing if it already exist.
+     * @return Create new Connection pool entity if it doesn't exist, and return link to existing if it already exist.
+     */
     public static ConnectionPool getInstance(){
         if (!instanceCreated.get()) {
             lock.lock();
@@ -63,6 +70,10 @@ public class ConnectionPool {
         return instance;
     }
 
+    /**
+     * Take connection from connection pool to execute specified DAO method
+     * @return connection to database from connection pool
+     */
     public ProxyConnection takeConnection() {
         ProxyConnection connection=null;
         try {
@@ -73,6 +84,10 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Return connection that was used to execute specified DAO method to connection pool
+     * @param connection connection that should be returned to connection pool
+     */
     public void releaseConnection(ProxyConnection connection){
         try {
             if (!connection.getAutoCommit()) {
@@ -85,6 +100,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Close all connections to database in connection pool
+     */
     public void closingPool(){
         try {
             while (!connectionQueue.isEmpty()){

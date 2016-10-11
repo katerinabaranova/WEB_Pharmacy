@@ -7,9 +7,9 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<h3><fmt:message key="update.medicine"/> id=${medicine.id}</h3>
+<h3><fmt:message key="update.medicine"/>${medicine.id}</h3>
 <hr>
-<form class="form-horizontal" action="update_medicine">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/update_medicine">
     <fieldset>
         <input type="hidden" id="medicineId" value="${medicine.id}" name="medicineId"/>
         <div class="form-group">

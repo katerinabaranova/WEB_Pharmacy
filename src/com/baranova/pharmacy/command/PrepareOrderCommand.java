@@ -14,15 +14,20 @@ import javax.servlet.http.HttpServletRequest;
  */
 class PrepareOrderCommand implements ICommand {
 
+    /**
+     * Prepare new user order for convenient ordering
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
-        Long medicineId=Long.parseLong(request.getParameter(ParameterName.MEDICINE));
+        long medicineId=Long.parseLong(request.getParameter(ParameterName.MEDICINE));
         if (request.getSession().getAttribute(SessionAttribute.LOGGED_USER_ID)==null){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.IMPOSSIBLE_MAKE_ORDER);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
             return  PageName.ERROR_PAGE;
         }
-        Medicine medicine= MedicineService.getMedicine(medicineId);
+        Medicine medicine= MedicineService.findMedicine(medicineId);
         request.setAttribute(SessionAttribute.MEDICINE_FOR_ORDER, medicine);
         request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ORDER_FORM);
         return PageName.ORDER_FORM;

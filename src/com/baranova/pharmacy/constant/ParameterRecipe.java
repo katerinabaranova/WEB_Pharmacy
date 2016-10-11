@@ -11,5 +11,5 @@ public class ParameterRecipe {
     public static final String MEDICINE_NAME="medicineName";
     public static final String MEDICINE_DOSAGE="medicineDosage";
     public static final String MEDICINE_QUANTITY="medicineQuantity";
-    public static final String DOCTOR_ID="doctorID";
+    public static final String DOCTOR_ID="doctorId";
 }

@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * !!!!
+ * Wrapper for Connection
  */
 
 

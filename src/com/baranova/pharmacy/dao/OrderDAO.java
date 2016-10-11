@@ -48,13 +48,13 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong(OrderTable.ORDER_ID));
-                long buyerID=resultSet.getLong(OrderTable.BUYER);
+                long buyerId=resultSet.getLong(OrderTable.BUYER);
                 User user=new User();
-                user.setId(buyerID);
+                user.setId(buyerId);
                 order.setBuyer(user);
-                long medicineID=resultSet.getLong(OrderTable.MEDICINE);
+                long medicineId=resultSet.getLong(OrderTable.MEDICINE);
                 Medicine medicine=new Medicine();
-                medicine.setId(medicineID);
+                medicine.setId(medicineId);
                 medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
                 medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
                 order.setMedicine(medicine);
@@ -84,13 +84,13 @@ public class OrderDAO extends AbstractDAO<Order>{
             ResultSet resultSet = st.executeQuery();
             resultSet.next();
             order.setId(resultSet.getLong(OrderTable.ORDER_ID));
-            long buyerID=resultSet.getLong(OrderTable.BUYER);
+            long buyerId=resultSet.getLong(OrderTable.BUYER);
             User user=new User();
-            user.setId(buyerID);
+            user.setId(buyerId);
             order.setBuyer(user);
-            long medicineID=resultSet.getLong(OrderTable.MEDICINE);
+            long medicineId=resultSet.getLong(OrderTable.MEDICINE);
             Medicine medicine=new Medicine();
-            medicine.setId(medicineID);
+            medicine.setId(medicineId);
             medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
             medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
             order.setMedicine(medicine);
@@ -119,18 +119,18 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getLong(OrderTable.ORDER_ID));
-                long buyerID=resultSet.getLong(OrderTable.BUYER);
+                long buyerId=resultSet.getLong(OrderTable.BUYER);
                 User user=new User();
-                user.setId(buyerID);
+                user.setId(buyerId);
                 order.setBuyer(user);
-                long medicineID=resultSet.getLong(OrderTable.MEDICINE);
+                long medicineId=resultSet.getLong(OrderTable.MEDICINE);
                 Medicine medicine=new Medicine();
-                medicine.setId(medicineID);
+                medicine.setId(medicineId);
                 medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
                 medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
                 order.setMedicine(medicine);
                 order.setQuantity(resultSet.getInt(OrderTable.QUANTITY));
-                order.setTotalAmount(resultSet.getDouble(OrderTable.QUANTITY));
+                order.setTotalAmount(resultSet.getDouble(OrderTable.TOTAL_AMOUNT));
                 order.setDelivery(resultSet.getBoolean(OrderTable.DELIVERY));
                 orders.add(order);
             }

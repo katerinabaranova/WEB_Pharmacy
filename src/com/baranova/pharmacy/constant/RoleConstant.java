@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.constant;
 
 /**
- * Created by Ekaterina on 8/7/16.
+ * Role constants
  */
 public class RoleConstant {
     public final static String BUYER="buyer";

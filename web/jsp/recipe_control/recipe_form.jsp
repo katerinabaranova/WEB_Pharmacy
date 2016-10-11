@@ -11,7 +11,7 @@
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE.toString(), PageName.NEW_RECIPE_FORM);%>
 
-<form class="form-horizontal" action="/new_recipe">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/new_recipe">
     <fieldset>
         <legend><fmt:message key="new.recipe.legend" /></legend>
         <div class="form-group">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <input type="hidden" name="command" value="new_recipe">
-        <input type="hidden" name="doctorID" value="${loggedID}">
+        <input type="hidden" name="doctorId" value="${loggedID}">
     </fieldset>
 </form>
 

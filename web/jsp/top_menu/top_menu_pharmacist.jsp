@@ -44,12 +44,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-              <li>
-                <form action="/show_medicines" method="post">
-                  <input type="hidden" name="command" value="show_medicines" />
-                  <button type="submit" class="btn-link"><fmt:message key="pharmacist.menu.medicine"/> </button>
-                </form>
-               </li>
+              <li><a href="${pageContext.request.contextPath}/controller?command=show_medicines"><fmt:message key="pharmacist.menu.new.medicine"/> </a> </li>
               <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/new_medicine_form.jsp"><fmt:message key="pharmacist.menu.new.medicine"/></a></li>
               <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
             </ul>

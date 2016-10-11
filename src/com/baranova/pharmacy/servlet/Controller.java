@@ -4,7 +4,6 @@ import com.baranova.pharmacy.command.CommandHelper;
 import com.baranova.pharmacy.command.ICommand;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.pool.ConnectionPool;
-import com.baranova.pharmacy.pool.ProxyConnection;
 import com.baranova.pharmacy.type.PageName;
 
 import javax.servlet.ServletException;

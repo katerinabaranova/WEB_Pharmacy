@@ -310,7 +310,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     /**
      * Method establish connection with database to update recipe entity in "recipe" table.
      * @param entity - recipe to be updated.
-     * @return true if operation of updating was executed, false - if wasn't.
+     * @return true if operation of update was executed, false - if wasn't.
      * @throws DAOException
      */
     @Override

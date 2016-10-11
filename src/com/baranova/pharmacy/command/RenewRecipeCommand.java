@@ -8,13 +8,18 @@ import com.baranova.pharmacy.type.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class command for renew recipe.
+ * Class command for renew recipe
  */
 class RenewRecipeCommand implements ICommand {
 
+    /**
+     * Add new recipe to database based on old recipe
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
-        Long recipeId=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE));
+        long recipeId=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE));
         Recipe recipe= RecipeService.renewRecipe(recipeId);
         if (recipe!=null){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RENEW_RECIPE_SUCCESS);

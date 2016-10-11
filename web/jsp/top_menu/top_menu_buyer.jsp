@@ -47,18 +47,8 @@
           <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_control/refill_balance_form.jsp"><fmt:message key="menu.balance.refill"/> </a></li>
-          <li>
-            <form action="/show_orders" method="post">
-              <input type="hidden" name="command" value="show_orders" />
-              <button type="submit" class="btn-link"><fmt:message key="menu.order"/> </button>
-            </form>
-           </li>
-          <li>
-            <form action="/show_buyer_recipe" method="post">
-              <input type="hidden" name="command" value="show_buyer_recipe" />
-              <button type="submit" class="btn-link"><fmt:message key="menu.recipes"/> </button>
-            </form>
-          </li>
+          <li><a href="${pageContext.request.contextPath}/controller?command=show_orders"><fmt:message key="menu.order"/> </a> </li>
+          <li><a href="${pageContext.request.contextPath}/controller?command=show_buyer_recipe"><fmt:message key="menu.recipes"/> </a> </li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
         </ul>
       </div>

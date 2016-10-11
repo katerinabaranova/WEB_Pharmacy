@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class-service for command classes for making operations with Order entity.
+ * Class service for command classes for making operations with Order entity
  */
 public class OrderService {
     private static final Logger LOG= LogManager.getLogger();
 
     /**
-     * Method call DAO method to create new order
+     * Method call DAO method to add new order to database
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
@@ -84,14 +84,14 @@ public class OrderService {
 
     /**
      * Method call DAO method to fill List of user's orders
-     * @param userID id of logged user
+     * @param userId id of logged user
      * @return List<Order>
      */
-    public static List<Order> showOrdersService(Long userID){
+    public static List<Order> showOrdersService(long userId){
         OrderDAO orderDAO=new OrderDAO();
         List<Order> orders=new ArrayList<>();
         try {
-            orders=orderDAO.findOrdersByUser(userID);
+            orders=orderDAO.findOrdersByUser(userId);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }

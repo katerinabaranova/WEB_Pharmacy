@@ -13,10 +13,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 class ProceedUpdateMedicine implements ICommand {
 
+    /**
+     * Prepare new medicine for convenient adding to database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute (HttpServletRequest request){
-        Long medicineId=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
-        Medicine medicine= MedicineService.getMedicine(medicineId);
+        long medicineId=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
+        Medicine medicine= MedicineService.findMedicine(medicineId);
         request.getSession().setAttribute(ParameterMedicine.MEDICINE,medicine);
         request.getSession().setAttribute(ParameterName.LAST_PAGE,PageName.PROCEED_UPDATE);
         return PageName.PROCEED_UPDATE;

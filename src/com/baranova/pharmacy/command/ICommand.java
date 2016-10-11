@@ -11,7 +11,7 @@ public interface ICommand {
 
     /**
      * Prepare answer for application's client
-     * @param request object that contains the request the client has made of the servlet
+     * @param request defines an object to provide client request information to a servlet
      * @return target PageName
      */
     PageName execute(HttpServletRequest request);

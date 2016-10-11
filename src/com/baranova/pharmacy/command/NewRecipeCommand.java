@@ -8,8 +8,6 @@ import com.baranova.pharmacy.service.RecipeService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
 import com.baranova.pharmacy.util.PatternCheck;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,8 +19,11 @@ import java.util.Map;
 
 class NewRecipeCommand implements ICommand {
 
-    private static final Logger LOG= LogManager.getLogger();
-
+    /**
+     * Execute adding new recipe to database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
         SessionRequestContent requestContent=new SessionRequestContent();

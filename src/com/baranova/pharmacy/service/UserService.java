@@ -13,14 +13,14 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 /**
- * Class-service for making operations with User entity.
+ * Class service for making operations with User entity
  */
 public class UserService {
 
     private static final Logger LOG= LogManager.getLogger();
 
     /**
-     * Method check if fields "password" and "confirm password" in the registration form appropriate each other
+     * Check if fields "password" and "confirm password" in the registration form appropriate each other
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if "password" and "confirm password" appropriate each other
      */
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     /**
-     * Method call DAO method to create new User
+     *  Call DAO method to add new User to database
      * @param parameters Map<String,String> that contain name of parameters and theirs value
      * @return boolean value if operation of creating was executed
      */
@@ -103,7 +103,7 @@ public class UserService {
    }
 
     /**
-     * Сheck the correctness of the login and password receiving from authorization form
+     * Check the correctness of the login and password receiving from authorization form
      * @param parameterValues  Map<String,String> that contain name of parameters and theirs value
      * @return User entity  for valid login and password  and null if invalid
      */
@@ -148,11 +148,11 @@ public class UserService {
         User user;
         double amount=0;
         UserDAO userDAO=new UserDAO();
-        long userID=0;
+        long userId=0;
         for (Map.Entry<String,String> parameter:parameterValues.entrySet()) {
             switch (parameter.getKey()) {
                 case ParameterUser.USER_ID:
-                    userID=Integer.parseInt(parameter.getValue());
+                    userId=Long.parseLong(parameter.getValue());
                     break;
                 case ParameterUser.AMOUNT:
                     amount=Double.parseDouble(parameter.getValue());
@@ -161,7 +161,7 @@ public class UserService {
         }
         boolean isUpdated=false;
         try {
-            user=userDAO.findEntityById(userID);
+            user=userDAO.findEntityById(userId);
             user.setAmount(user.getAmount()+amount);
             isUpdated=userDAO.update(user);
         } catch (DAOException e){
@@ -175,15 +175,32 @@ public class UserService {
      * @param userId Id to be checked
      * @return User if user with this id exists, and null if not
      */
-    public static User findUserByID(String userId){
+    public static User findUserById(String userId){
         User user = null;
         UserDAO userDAO=new UserDAO();
-        Long id=Long.parseLong(userId);
+        long id=Long.parseLong(userId);
         try {
             user=userDAO.findEntityById(id);
         } catch (DAOException e){
             LOG.error(e.getMessage());
         }
         return user;
+    }
+
+    /**
+     * Call DAO-method to check if there is the same login is being  used in database
+     * @param login string value from registration form
+     * @return true if login has been already taken, false if hasn't.
+     */
+
+    public static boolean checkLoginUse(String login){
+        User user=new User();
+        UserDAO userDAO=new UserDAO();
+        try {
+            user = userDAO.findEntityByLogin(login);
+        } catch (DAOException e) {
+            LOG.error(e.getMessage());
+        }
+        return user.getLogin() != null;
     }
 }

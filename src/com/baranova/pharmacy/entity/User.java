@@ -35,7 +35,7 @@ public class User extends Entity {
     }
 
 
-    public long getUserId(){return super.getId();}
+    public long getId(){return super.getId();}
     public String getLogin() {return login;}
     public String getPassword() {return password;}
     public String getName() {return name;}
@@ -49,7 +49,7 @@ public class User extends Entity {
     public Role getRole() {return role;}
     public double getAmount(){return amount;}
 
-    public void setUserId(long id){super.setId(id);}
+    public void setId(long id){super.setId(id);}
     public void setLogin(String login) {this.login = login;}
     public void setPassword(String password) {this.password = password;}
     public void setName(String name) {this.name = name;}

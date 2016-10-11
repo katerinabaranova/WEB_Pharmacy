@@ -7,14 +7,18 @@ import com.baranova.pharmacy.type.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class command to send request to renew recipe.
+ * Class command to send request to renew recipe
  */
 class RenewRequestCommand implements ICommand {
 
+    /**
+     * Provide sending request from user to doctor to renew request
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request) {
-
-        Long recipeId=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE_ID));
+        long recipeId=Long.parseLong(request.getParameter(ParameterRecipe.RECIPE_ID));
         boolean isExpired= RecipeService.checkIsExpired(recipeId);
         if (!isExpired) {
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.RECIPE_NOT_EXPIRED);

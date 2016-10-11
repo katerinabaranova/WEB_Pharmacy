@@ -8,22 +8,23 @@ import com.baranova.pharmacy.constant.ParameterUser;
 import com.baranova.pharmacy.service.UserService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
-import com.baranova.pharmacy.util.LoginCheck;
 import com.baranova.pharmacy.util.PatternCheck;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Class-command for adding new User to database.
+ * Class command for adding new User to database
  */
 class RegistrationCommand implements ICommand{
 
-    private static final Logger LOG= LogManager.getLogger();
-
+    /**
+     * Execute adding new user to database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
         SessionRequestContent requestContent=new SessionRequestContent();
@@ -35,7 +36,7 @@ class RegistrationCommand implements ICommand{
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
         }
-        boolean loginTaken= LoginCheck.checkLoginUse(parameters.get(ParameterUser.LOGIN));
+        boolean loginTaken= UserService.checkLoginUse(parameters.get(ParameterUser.LOGIN));
         if (loginTaken){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.LOGIN_IN_USE_ERROR);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);

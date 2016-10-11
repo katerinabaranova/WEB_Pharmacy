@@ -10,13 +10,18 @@ import com.baranova.pharmacy.type.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class command for removing  medicine from database.
+ * Class command for removing  medicine from database
  */
 class DeleteMedicineCommand implements ICommand {
 
+    /**
+     * Execute removal specified medicine from database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
-        Long medicineId=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
+        long medicineId=Long.parseLong(request.getParameter(ParameterMedicine.MEDICINE));
         boolean isDeleted= MedicineService.deleteMedicine(medicineId);
         if (!isDeleted){
             request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.DELETE_MEDICINE_ERROR);

@@ -15,6 +15,11 @@ import java.util.Map;
  */
 class UpdateMedicineCommand implements ICommand {
 
+    /**
+     * Provide medicine update in database
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
         SessionRequestContent requestContent=new SessionRequestContent();

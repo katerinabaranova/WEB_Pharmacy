@@ -11,13 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Class command that fill list of User recipes.
+ * Class command that fill list of User recipes
  */
 class BuyerRecipesCommand implements ICommand {
 
+    /**
+     * Fill the list of user (buyer) recipes
+     * @param request defines an object to provide client request information to a servlet
+     * @return PageName return page of application to be shown to client
+     */
     @Override
     public PageName execute(HttpServletRequest request){
-        Long doctorId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
+        long doctorId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         List<Recipe> recipes= RecipeService.findBuyerRecipe(doctorId);
         if (!recipes.isEmpty()){
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.RECIPE_BUYER_PAGE);

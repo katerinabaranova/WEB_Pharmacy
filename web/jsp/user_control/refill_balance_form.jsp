@@ -12,7 +12,7 @@
 <% request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.REFILL_BALANCE_FORM);%>
 <h3><fmt:message key="user.balance.now"/>  ${user.amount}</h3>
 <hr>
-<form class="form-horizontal" action="/refill_balance">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/refill_balance">
     <fieldset>
         <legend><fmt:message key="balance.refill.header"/> </legend>
         <div class="form-group">

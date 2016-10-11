@@ -1,7 +1,7 @@
 package com.baranova.pharmacy.constant;
 
 /**
- * Cost of different pharmacy services .
+ * Cost of pharmacy services .
  */
 public class ServiceCost {
 

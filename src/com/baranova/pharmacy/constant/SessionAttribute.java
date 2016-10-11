@@ -1,5 +1,9 @@
 package com.baranova.pharmacy.constant;
 
+/**
+ * Names of attributes that are used in application
+ */
+
 public class SessionAttribute {
     public static final String INCLUDE_TOP_MENU="include_top_menu";
     public static final String MEDICINE_FOR_ORDER="medicine_for_order";
