@@ -23,8 +23,6 @@ public class Controller extends HttpServlet {
         processRequest(request,response);
     }
 
-
-
     @Override
     protected void doGet(HttpServletRequest request,HttpServletResponse response)
             throws ServletException,IOException {
@@ -38,11 +36,4 @@ public class Controller extends HttpServlet {
         PageName pageName = command.execute(request);
         request.getRequestDispatcher(pageName.getPageName()).forward(request, response);
     }
-
-    @Override
-    public void destroy() {
-        ConnectionPool connectionPool=ConnectionPool.getInstance();
-        connectionPool.closingPool();
-    }
-
 }

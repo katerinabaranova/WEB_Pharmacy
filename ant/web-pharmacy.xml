@@ -44,7 +44,7 @@
     </target>
 
 
-    <target name="deploy" depends="copy">
+    <target name="deploy" depends="war">
         <echo>Deploy ${tomcat.webapps}/${project.name}.war</echo>
         <copy todir="${tomcat.webapps}">
             <fileset file="${dist.dir}/${project.name}.war"/>
