@@ -20,7 +20,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
     private static final String SQL_SELECT_ALL_MEDICINE = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine";
     private static final String SQL_SELECT_MEDICINE_BY_ID = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.idmedicine=?";
     private static final String SQL_SELECT_MEDICINE_BY_NAME = "SELECT idmedicine,medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe FROM pharmacy.medicine WHERE medicine.medicineName=?";
-    private static final String SQL_SELECT_MEDICINE_BY_NAME_DOSAGE = "SELECT idmedicine FROM medicine WHERE medicine.medicineName=? AND medicine.dosage=?";
+    private static final String SQL_SELECT_MEDICINE_BY_NAME_DOSAGE = "SELECT idmedicine,medicineName, dosage,recipe FROM medicine WHERE medicine.medicineName=? AND medicine.dosage=?";
     private static final String SQL_DELETE_MEDICINE_BY_ID = "DELETE FROM pharmacy.medicine WHERE medicine.idmedicine = ?;";
     private static final String SQL_CREATE_MEDICINE = "INSERT INTO medicine(medicineName,dosage,medicinePackage,packQuantity,price,storeQuantity,recipe) values(?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_MEDICINE_BY_ENTITY="UPDATE pharmacy.medicine SET idmedicine=?,medicineName=?,dosage=?,medicinePackage=?,packQuantity=?,price=?,storeQuantity=?,recipe=? WHERE medicine.idmedicine=?;";
@@ -98,6 +98,9 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             ResultSet resultSet=st.executeQuery();
             while (resultSet.next()){
                 medicine.setId(resultSet.getLong(MedicineTable.MEDICINE_ID));
+                medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
+                medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
+                medicine.setRecipe(resultSet.getBoolean(MedicineTable.RECIPE));
             }
         } catch (SQLException e){
             throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);

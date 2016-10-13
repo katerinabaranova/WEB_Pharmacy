@@ -1,6 +1,7 @@
 package com.baranova.pharmacy.service;
 
 import com.baranova.pharmacy.constant.ParameterRecipe;
+import com.baranova.pharmacy.constant.RenewRecipeConstant;
 import com.baranova.pharmacy.dao.MedicineDAO;
 import com.baranova.pharmacy.dao.RecipeDAO;
 import com.baranova.pharmacy.dao.UserDAO;
@@ -76,6 +77,7 @@ public class RecipeService {
         }
         return isCreated?recipe:null;
     }
+
 
     /**
      * Method call DAO method to find all doctor recipes
@@ -183,7 +185,7 @@ public class RecipeService {
             newRecipe.setDoctor(recipe.getDoctor());
             newRecipe.setPatient(recipe.getPatient());
             newRecipe.setRenewRequest(false);
-            newRecipe.setMedicineQuantity(recipe.getMedicineQuantity());
+            newRecipe.setMedicineQuantity(RenewRecipeConstant.RENEW_RECIPE_QUANTITY);
             newRecipe.setExpired(false);
             isCreated=recipeDAO.create(newRecipe);
         } catch (DAOException e){

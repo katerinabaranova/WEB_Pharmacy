@@ -22,7 +22,7 @@ public class UserDAO extends AbstractDAO<User>{
 
     private static final String SQL_SELECT_ALL_USERS = "SELECT U.iduser,U.login,U.name,U.surname,U.email,U.phonenumber,U.city,U.street,U.housenumber,U.apartment,R.idrole,R.roleName, U.amount FROM user U INNER JOIN role R ON U.fkrole=R.idrole";
     private static final String SQL_SELECT_USER_BY_ID = "SELECT U.iduser,U.login,U.name,U.surname,U.email,U.phonenumber,U.city,U.street,U.housenumber,U.apartment,R.idrole,R.roleName, U.amount FROM user U INNER JOIN role R ON U.fkrole=R.idrole WHERE U.iduser=?";
-    private static final String SQL_SELECT_USER_BY_SURNAME_NAME="SELECT iduser FROM user WHERE user.surname=? AND user.name=?";
+    private static final String SQL_SELECT_USER_BY_SURNAME_NAME="SELECT iduser,name,surname FROM user WHERE user.surname=? AND user.name=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE user.iduser = ?;";
     private static final String SQL_CREATE_USER = "INSERT INTO user(login,password,name,surname,email,phonenumber,city,street,housenumber,apartment,fkrole) values(?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SQL_UPDATE_USER_BY_ENTITY="UPDATE user SET login=?,name=?,surname=?,email=?,phonenumber=?,city=?,street=?,housenumber=?,apartment=?,fkrole=?,amount=? WHERE iduser=?;";
@@ -143,6 +143,8 @@ public class UserDAO extends AbstractDAO<User>{
             ResultSet resultSet=st.executeQuery();
             while (resultSet.next()){
                 user.setId(resultSet.getLong(UserTable.USER_ID));
+                user.setName(resultSet.getString(UserTable.NAME));
+                user.setSurname(resultSet.getString(UserTable.SURNAME));
             }
         } catch (SQLException e){
             throw new DAOException("Impossible to execute request(request or table 'User' failed):", e);

@@ -31,7 +31,7 @@
                 <div class="col-md-2">
                     <input type="hidden" name="command" value="renew_recipe_request" />
                     <input type="hidden" name="recipeId" value="${recipe.id}">
-                    <button type="submit" class="btn btn-warning"><fmt:message key="renew.request.button"/> </button>
+                    <button type="submit" class="btn btn-success"><fmt:message key="renew.request.button"/> </button>
                 </div>
             </div>
         </form>

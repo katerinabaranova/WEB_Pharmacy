@@ -18,7 +18,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="increaseAmount"><fmt:message key="balance.refill.amount"/> </label>
             <div class="col-md-2">
-                <input id="increaseAmount" pattern="[1-9][0-9]?" name="increaseAmount" placeholder="" class="form-control input-md" required="" type="text">
+                <input id="increaseAmount" pattern="([0-9]+)([.]{1})([0-9]{0,2})"  name="increaseAmount" placeholder="" class="form-control input-md" required="" type="text">
                 <span class="help-block"><fmt:message key="balance.refill.hint"/> </span>
             </div>
         </div>

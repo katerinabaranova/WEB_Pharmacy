@@ -33,6 +33,7 @@ public enum PageName {
     SIGN_OUT("jsp/sign_out.jsp"),
     SEARCH_PAGE("jsp/medicine_control/search_page.jsp"),
     SEARCH_RESULTS("jsp/medicine_control/search_results.jsp"),
+    SEARCH_RESULTS_DOCTOR("jsp/medicine_control/search_results_doctor.jsp"),
     UPDATE_MEDICINE_SUCCESS("jsp/medicine_control/update_medicine_success.jsp"),
     USER_ORDERS("jsp/order_control/user_orders.jsp"),
     USER_PAGE ("jsp/user_control/login_success.jsp"),

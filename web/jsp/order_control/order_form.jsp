@@ -28,7 +28,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="price"><fmt:message key="search.results.price"/> </label>
             <div class="col-md-4">
-                <input id="price" name="price" value="${medicine_for_order.price}" pattern="[0-9]+(\.[0-9]{2})?" class="form-control input-md" required="true" type="text">
+                <input id="price" name="price" value="${medicine_for_order.price}" pattern="([0-9]+)([.]{1})([0-9]{0,2})"class="form-control input-md" required="true" type="text">
             </div>
         </div>
 

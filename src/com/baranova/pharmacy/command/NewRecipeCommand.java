@@ -4,6 +4,7 @@ import com.baranova.pharmacy.constant.ErrorPageMessage;
 import com.baranova.pharmacy.constant.ParameterName;
 import com.baranova.pharmacy.constant.SessionAttribute;
 import com.baranova.pharmacy.entity.Recipe;
+import com.baranova.pharmacy.service.MedicineService;
 import com.baranova.pharmacy.service.RecipeService;
 import com.baranova.pharmacy.service.SessionRequestContent;
 import com.baranova.pharmacy.type.PageName;
@@ -34,6 +35,11 @@ class NewRecipeCommand implements ICommand {
             request.getSession().setAttribute(SessionAttribute.WRONG_INPUTS,wrongInputs);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.WRONG_INPUT_PAGE);
             return  PageName.WRONG_INPUT_PAGE;
+        }
+        if (!MedicineService.necessaryRecipeMedicine(parameterValues)){
+            request.getSession().setAttribute(SessionAttribute.ERROR_MESSAGE, ErrorPageMessage.NOT_NECESSARY_RECIPE);
+            request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.ERROR_PAGE);
+            return PageName.ERROR_PAGE;
         }
         Recipe recipe= RecipeService.createNewRecipe(parameterValues);
         if (recipe!=null){

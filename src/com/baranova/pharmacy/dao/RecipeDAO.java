@@ -24,7 +24,7 @@ import java.util.List;
 public class RecipeDAO extends AbstractDAO<Recipe> {
 
     private static final String SQL_SELECT_ALL_RECIPES = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe";
-    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE idrecipe=?";
+    private static final String SQL_SELECT_RECIPE_BY_ID = "SELECT R.idrecipe,R.date,R.fkDoctor,R.fkPatient,U.surname,U.name,R.fkMedicine,M.medicineName, M.dosage, R.medicineQuantity,R.expired,R.renewRequest FROM pharmacy.recipe R JOIN pharmacy.user U ON R.fkPatient=U.iduser JOIN pharmacy.medicine M ON R.fkMedicine=M.idmedicine WHERE idrecipe=?";
     private static final String SQL_SELECT_RECIPE_BY_PATIENT_MEDICINE = "SELECT idrecipe,date,fkDoctor,fkPatient,fkMedicine,medicineQuantity,expired,renewRequest FROM pharmacy.recipe WHERE fkPatient=? AND fkMedicine=? AND expired=?";
     private static final String SQL_SELECT_RECIPE_BY_PATIENT = "SELECT R.idrecipe,R.date,R.fkDoctor,U.surname,R.fkPatient,R.fkMedicine,M.medicineName,M.dosage,R.medicineQuantity,R.expired,R.renewRequest FROM pharmacy.recipe R INNER JOIN pharmacy.user U ON U.iduser=R.fkDoctor INNER JOIN pharmacy.medicine M ON M.idmedicine=R.fkMedicine WHERE fkPatient=?";
     private static final String SQL_SELECT_RECIPE_BY_DOCTOR = "SELECT R.idrecipe,R.date,R.fkDoctor,R.fkPatient,U.surname, U.name,R.fkMedicine,M.medicineName,M.dosage,R.medicineQuantity,R.expired,R.renewRequest FROM pharmacy.recipe R INNER JOIN pharmacy.user U ON U.iduser=R.fkPatient INNER JOIN pharmacy.medicine M ON M.idmedicine=R.fkMedicine WHERE fkDoctor=?";
@@ -88,11 +88,15 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             User patient=new User();
             User doctor=new User();
             patient.setId(resultSet.getLong(RecipeTable.FK_PATIENT));
+            patient.setSurname(resultSet.getString(UserTable.SURNAME));
+            patient.setName(resultSet.getString(UserTable.NAME));
             doctor.setId(resultSet.getLong(RecipeTable.FK_DOCTOR));
             recipe.setPatient(patient);
             recipe.setDoctor(doctor);
             Medicine medicine=new Medicine();
             medicine.setId(resultSet.getLong(RecipeTable.FK_MEDICINE));
+            medicine.setMedicineName(resultSet.getString(MedicineTable.MEDICINE_NAME));
+            medicine.setDosage(resultSet.getInt(MedicineTable.DOSAGE));
             recipe.setMedicine(medicine);
             recipe.setMedicineQuantity(resultSet.getInt(RecipeTable.MEDICINE_QUANTITY));
             recipe.setExpired(resultSet.getBoolean(RecipeTable.EXPIRED));

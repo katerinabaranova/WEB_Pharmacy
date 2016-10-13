@@ -29,9 +29,9 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="medicine"><fmt:message key="recipe.medicine.name"/></label>
+            <label class="col-md-4 control-label" for="medicineName"><fmt:message key="recipe.medicine.name"/></label>
             <div class="col-md-4">
-                <input id="medicine" name="medicine" placeholder="" pattern="[A-Za-z0-9 \\-]{4-20}" class="form-control input-md" required="" type="text">
+                <input id="medicineName" name="medicineName" placeholder="" pattern="[A-Za-z0-9 -]{4-20}" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
@@ -56,7 +56,7 @@
             </div>
         </div>
         <input type="hidden" name="command" value="new_recipe">
-        <input type="hidden" name="doctorId" value="${loggedID}">
+        <input type="hidden" name="doctorId" value="${loggedId}">
     </fieldset>
 </form>
 

@@ -7,7 +7,7 @@
 <fmt:setBundle basename="resource.text" />
 <ctg:navigation_menu role="${loggedRole}"/>
 <jsp:include page="${pageContext.request.contextPath}/${include_top_menu}"/>
-<h1><fmt:message key="login.success.header"/> </h1>
+<h3><fmt:message key="login.success.header"/> </h3>
     <br>
     <br>
     <br>

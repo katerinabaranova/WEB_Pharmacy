@@ -44,7 +44,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="price"><fmt:message key="search.results.price"/> </label>
             <div class="col-md-2">
-                <input id="price" name="price" placeholder="" class="form-control input-md" pattern="[0-9]+(\.[0-9]{2})?" required="" type="text">
+                <input id="price" name="price" placeholder="" class="form-control input-md" pattern="([0-9]+)([.]{1})([0-9]{0,2})" required="" type="text">
             </div>
         </div>
 

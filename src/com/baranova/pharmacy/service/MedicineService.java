@@ -1,13 +1,19 @@
 package com.baranova.pharmacy.service;
 
 import com.baranova.pharmacy.constant.ParameterMedicine;
+import com.baranova.pharmacy.constant.ParameterRecipe;
 import com.baranova.pharmacy.dao.MedicineDAO;
+import com.baranova.pharmacy.dao.RecipeDAO;
+import com.baranova.pharmacy.dao.UserDAO;
 import com.baranova.pharmacy.entity.Medicine;
+import com.baranova.pharmacy.entity.Recipe;
+import com.baranova.pharmacy.entity.User;
 import com.baranova.pharmacy.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +100,35 @@ public class MedicineService {
         }
         return medicine;
     }
+
+    /**
+     * Method call DAO method to check if specified medicine need recipe
+     * @param parameters Map<String,String> that contain name of parameters and theirs value
+     * @return boolean value if specified Medicine need recipe
+     */
+    public static boolean necessaryRecipeMedicine(Map<String,String> parameters){
+        MedicineDAO medicineDAO=new MedicineDAO();
+        Medicine medicine=new Medicine();
+        String medicineName="";
+        int dosage=0;
+        for (Map.Entry<String,String> parameter:parameters.entrySet()) {
+            switch (parameter.getKey()) {
+                case ParameterRecipe.MEDICINE_NAME:
+                    medicineName = parameter.getValue();
+                    break;
+                case ParameterRecipe.MEDICINE_DOSAGE:
+                    dosage = Integer.parseInt(parameter.getValue());
+                    break;
+            }
+        }
+        try {
+            medicine=medicineDAO.findIDByNameDosage(medicineName,dosage);
+        } catch (DAOException e){
+            LOG.error(e.getMessage());
+        }
+        return medicine.isRecipe();
+    }
+
 
     /**
      * Method call DAO method to update medicine defined by Medicine entity

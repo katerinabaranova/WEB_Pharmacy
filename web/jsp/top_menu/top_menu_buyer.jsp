@@ -44,7 +44,6 @@
       </ul>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/search_page.jsp"><fmt:message key="menu.search"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/jsp/user_control/refill_balance_form.jsp"><fmt:message key="menu.balance.refill"/> </a></li>
           <li><a href="${pageContext.request.contextPath}/controller?command=show_orders"><fmt:message key="menu.order"/> </a> </li>

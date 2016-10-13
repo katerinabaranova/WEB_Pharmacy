@@ -25,7 +25,7 @@ class ShowOrdersCommand implements ICommand{
         long  userId=Long.parseLong(request.getSession().getAttribute(SessionAttribute.LOGGED_ID).toString());
         List<Order> userOrders= OrderService.showOrdersService(userId);
         if (!userOrders.isEmpty()) {
-            request.setAttribute(SessionAttribute.ORDER_LIST, userOrders);
+            request.getSession().setAttribute(SessionAttribute.ORDER_LIST, userOrders);
             request.getSession().setAttribute(ParameterName.LAST_PAGE, PageName.USER_ORDERS);
             return PageName.USER_ORDERS;
         } else {
