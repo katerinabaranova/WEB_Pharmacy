@@ -30,6 +30,8 @@
         <div class=col-md-1>${medicine.recipe}</div>
 
 
+        <div class=col-md-2>
+
         <form action="/proceed_update_medicine" method="post">
             <div class="form-group">
                 <div class="col-md-2">
@@ -39,7 +41,9 @@
                 </div>
             </div>
         </form>
+        </div>
 
+        <div class="col-md-2">
         <form action="/delete_medicine" method="post">
             <div class="form-group">
                 <div class="col-md-2">
@@ -49,6 +53,7 @@
                 </div>
             </div>
         </form>
+    </div>
     </div>
     <br>
 </c:forEach>

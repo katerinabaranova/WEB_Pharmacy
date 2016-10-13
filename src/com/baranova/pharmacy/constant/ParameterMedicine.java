@@ -11,6 +11,6 @@ public class ParameterMedicine {
     public static final String MEDICINE_PACKAGE="medicinePackage";
     public static final String PACK_QUANTITY="packQuantity";
     public static final String PRICE="price";
-    public static final String IN_STORE_QUANTITY ="storeQuantity";
+    public static final String IN_STORE_QUANTITY="storeQuantity";
     public static final String RECIPE="recipe";
 }

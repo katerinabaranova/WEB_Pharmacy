@@ -3309,12 +3309,18 @@ fieldset[disabled] .btn-info.focus {
   color: #fff;
   background-color: #f0ad4e;
   border-color: #eea236;
+  width:103px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 .btn-warning:focus,
 .btn-warning.focus {
   color: #fff;
   background-color: #ec971f;
   border-color: #985f0d;
+  width: 103px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 .btn-warning:hover {
   color: #fff;
@@ -3366,17 +3372,24 @@ fieldset[disabled] .btn-warning.focus {
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
+  width:103px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 .btn-danger:focus,
 .btn-danger.focus {
   color: #fff;
   background-color: #c9302c;
   border-color: #761c19;
+  width:103px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 .btn-danger:hover {
   color: #fff;
   background-color: #c9302c;
   border-color: #ac2925;
+
 }
 .btn-danger:active,
 .btn-danger.active,

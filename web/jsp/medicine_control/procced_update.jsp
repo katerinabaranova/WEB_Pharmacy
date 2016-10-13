@@ -48,9 +48,9 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="instoreQuantity"><fmt:message key="search.results.instore"/> </label>
+            <label class="col-md-4 control-label" for="storeQuantity"><fmt:message key="search.results.instore"/> </label>
             <div class="col-md-2">
-                <input id="instoreQuantity" value="${medicine.storeQuantity}" name="instoreQuantity" placeholder="" class="form-control input-md" pattern="[0-9]{1-4}" required="" type="text">
+                <input id="storeQuantity" value="${medicine.storeQuantity}" name="storeQuantity" placeholder="" class="form-control input-md" pattern="[0-9]{1-4}" required="" type="text">
             </div>
         </div>
 

@@ -200,6 +200,7 @@ public class MedicineDAO extends AbstractDAO <Medicine> {
             st.setInt(7,entity.getStoreQuantity());
             st.setBoolean(8,entity.isRecipe());
             st.setLong(9,entity.getId());
+
             isUpdate=0<st.executeUpdate();
         } catch (Exception e) {
             throw new DAOException("Impossible to execute request(request to table 'Medicine' failed):", e);

@@ -27,7 +27,7 @@
         </form>
       </li>
       <li><form action="/controller" method="post">
-        <input type="hidden" name="language" value="ru" />
+        <input type="hidden" name="language" value="ru"/>
         <input type="hidden" name="command" value="change_language" />
         <button type="submit" class="btn-link"><fmt:message key="language.ru"/> </button>
       </form>
@@ -43,8 +43,7 @@
           </ul>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="${pageContext.request.contextPath}/jsp/index.jsp"><fmt:message key="menu.main"/> </a></li>
-              <li><a href="${pageContext.request.contextPath}/controller?command=show_medicines"><fmt:message key="pharmacist.menu.new.medicine"/> </a> </li>
+              <li><a href="${pageContext.request.contextPath}/controller?command=show_medicines"><fmt:message key="pharmacist.menu.medicine"/> </a> </li>
               <li><a href="${pageContext.request.contextPath}/jsp/medicine_control/new_medicine_form.jsp"><fmt:message key="pharmacist.menu.new.medicine"/></a></li>
               <li><a href="${pageContext.request.contextPath}/jsp/user_control/sign_out.jsp"><fmt:message key="menu.sign.out"/></a></li>
             </ul>
